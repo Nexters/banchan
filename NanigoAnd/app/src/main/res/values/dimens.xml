@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="large">35dp</dimen>
+    <dimen name="medium">25dp</dimen>
+    <dimen name="small">15dp</dimen>
+</resources>
