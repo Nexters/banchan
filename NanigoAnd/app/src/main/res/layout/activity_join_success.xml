@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/join_success_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/join_success_title"
+            style="@style/tv.medium"
+            android:layout_gravity="center"
+            android:padding="@dimen/small"
+            android:text="@string/nanigo" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/large" />
+
+        <TextView
+            style="@style/tv.large"
+            android:layout_gravity="center"
+            android:text="환영합니다" />
+
+        <TextView
+            style="@style/tv.medium"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/small"
+            android:text="청순한 호랑이님" />
+
+    </LinearLayout>
+
+    <VideoView
+        android:id="@+id/vv_joinsuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_joinsuccess_ok"
+        android:layout_below="@+id/join_success_text"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/large" />
+
+
+    <TextView
+        android:id="@+id/btn_joinsuccess_ok"
+        style="@style/btn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/large"
+        android:background="@drawable/btn_color"
+        android:text="@string/ok" />
+</RelativeLayout>

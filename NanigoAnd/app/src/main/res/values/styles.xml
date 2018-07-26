@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,7 +14,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    
+
     <style name="tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -23,11 +23,42 @@
     <style name="tv.small">
         <item name="android:textSize">@dimen/small</item>
     </style>
+
     <style name="tv.medium">
         <item name="android:textSize">@dimen/medium</item>
     </style>
+
     <style name="tv.large">
         <item name="android:textSize">@dimen/large</item>
+    </style>
+
+
+    <style name="tv.title">
+        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginLeft">@dimen/small</item>
+        <item name="android:layout_marginBottom">@dimen/small</item>
+    </style>
+
+    <style name="tv.join">
+        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginLeft">@dimen/small</item>
+        <item name="android:paddingLeft">@dimen/medium</item>
+        <item name="android:paddingRight">@dimen/medium</item>
+        <item name="android:paddingTop">@dimen/small</item>
+        <item name="android:paddingBottom">@dimen/small</item>
+        <item name="android:background">@drawable/btn_color</item>
+    </style>
+    <style name="btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/small</item>
+        <item name="android:paddingBottom">@dimen/small</item>
+        <item name="android:layout_marginLeft">@dimen/small</item>
+        <item name="android:layout_marginRight">@dimen/small</item>
     </style>
 
 </resources>
