@@ -2,7 +2,6 @@ package banchan.nexters.com.nanigoandroid
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -11,8 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        main_viewpager.adapter = MainPagerAdapter(supportFragmentManager)
+        main_tabs.setupWithViewPager(main_viewpager)
 
-        btn_hello.text = "Hi! banchan"
-        btn_hello.setOnClickListener { Toast.makeText(this@MainActivity, "btn_hello Click", Toast.LENGTH_SHORT).show() }
     }
 }
