@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import banchan.nexters.com.nanigoandroid.R
 
 class MyPageFragment: Fragment() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
