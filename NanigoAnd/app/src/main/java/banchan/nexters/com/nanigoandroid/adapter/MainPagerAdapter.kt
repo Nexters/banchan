@@ -1,8 +1,11 @@
-package banchan.nexters.com.nanigoandroid
+package banchan.nexters.com.nanigoandroid.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import banchan.nexters.com.nanigoandroid.fragment.MyPageFragment
+import banchan.nexters.com.nanigoandroid.fragment.SpeakerPageFragment
+import banchan.nexters.com.nanigoandroid.fragment.CardPageFragment
 
 class MainPagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
 

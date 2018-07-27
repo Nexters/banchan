@@ -1,4 +1,4 @@
-package banchan.nexters.com.nanigoandroid
+package banchan.nexters.com.nanigoandroid.fragment
 
 
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import banchan.nexters.com.nanigoandroid.R
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,7 +26,7 @@ class CardPageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_card_page, container, false)
     }
 
-    fun newInstance() :CardPageFragment {
+    fun newInstance() : CardPageFragment {
         val args: Bundle = Bundle()
         val frag = CardPageFragment()
         frag.arguments = args
