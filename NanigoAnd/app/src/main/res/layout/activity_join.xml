@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/tv.medium"
+            android:layout_gravity="center"
+            android:padding="@dimen/small"
+            android:text="@string/nanigo" />
+
+        <!--nickname START-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/large" />
+
+        <TextView
+            style="@style/tv.title"
+            android:text="익명 닉네임" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv.join"
+                android:hint="청순한" />
+
+            <TextView
+                style="@style/tv.join"
+                android:hint="호랑이" />
+        </LinearLayout>
+        <!--nickname END-->
+
+        <!--GENDER START-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/large" />
+
+        <TextView
+            style="@style/tv.title"
+            android:text="성별" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv.join"
+                android:text="남" />
+
+            <TextView
+                style="@style/tv.join"
+                android:text="여" />
+
+            <TextView
+                style="@style/tv.join"
+                android:text="무응답 " />
+        </LinearLayout>
+        <!--GENDER END-->
+        <!--AGE START-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/large" />
+
+        <TextView
+            style="@style/tv.title"
+            android:text="나이" />
+
+        <!--AGE END-->
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/btn_join_ok"
+        style="@style/btn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/large"
+        android:background="@drawable/btn_color"
+        android:text="@string/ok" />
+
+</RelativeLayout>
