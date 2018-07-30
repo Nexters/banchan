@@ -38,7 +38,7 @@ class CardPageFragment : Fragment() {
 
         val swipeableTouchHelperCallback = object : SwipeableTouchHelperCallback(object : OnItemSwiped {
             override fun onItemSwiped() {
-                mAdapter.removeTopItem()
+                //mAdapter.removeTopItem()
             }
 
             override fun onItemSwipedLeft() {
