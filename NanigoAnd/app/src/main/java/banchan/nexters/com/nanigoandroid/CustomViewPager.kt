@@ -6,18 +6,13 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 
+class CustomViewPager : ViewPager{
+    private var enable = true
 
-
-
-
-class CustomViewPager(mContext: Context): ViewPager(mContext) {
-
-    private var enable: Boolean = true
-    init {
+    constructor(mContext: Context) : super(mContext) {
         enableTouches()
     }
-
-    constructor(mContext: Context, attrs: AttributeSet) : this(mContext) {
+    constructor(mContext: Context, attrs: AttributeSet) : super(mContext, attrs) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.MyViewPager)
         try {
             enable = a.getBoolean(R.styleable.MyViewPager_swipeable, true)
@@ -27,29 +22,27 @@ class CustomViewPager(mContext: Context): ViewPager(mContext) {
     }
 
 
-    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+    override fun onTouchEvent(ev: MotionEvent): Boolean {
         return if (enable) {
             super.onTouchEvent(ev)
         } else {
             MotionEventCompat.getActionMasked(ev) != MotionEvent.ACTION_MOVE && super.onTouchEvent(ev)
         }
-
     }
 
-    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        return if (enable) {
-            super.onInterceptTouchEvent(ev)
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        if (enable) {
+            return super.onInterceptTouchEvent(ev)
         } else {
             if (MotionEventCompat.getActionMasked(ev) == MotionEvent.ACTION_MOVE) {
                 // ignore move action
             } else {
                 if (super.onInterceptTouchEvent(ev)) {
-                    super.onTouchEvent(ev)
+                    return super.onTouchEvent(ev)
                 }
             }
-            false
+            return false
         }
-
     }
 
     fun enableTouches() {
@@ -59,5 +52,4 @@ class CustomViewPager(mContext: Context): ViewPager(mContext) {
     fun disableTouches() {
         enable = false
     }
-
 }

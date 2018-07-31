@@ -100,13 +100,6 @@ class CardStackItem(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         }*/
 
 
-        /** set Down Motion  */
-        /*val down = ObjectAnimator.ofFloat(flip_lyt, View.ROTATION_X, 180F, -180F)
-        down.duration = 500
-        propose.motionDown.play(down)*/
-        propose.motionDown.motionDistance = 500 * Propose.getDensity(context)
-        propose.motionDown.enableFling(false).enableTabUp(false)
-        propose.motionDown.move(propose.motionDown.motionDistance / 2)// vertical center
 
     }
 

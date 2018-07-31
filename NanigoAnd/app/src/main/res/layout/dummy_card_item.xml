@@ -3,18 +3,13 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:id="@+id/dummy_item_cardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
     <FrameLayout
         android:id="@+id/flip_lyt"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
         android:background="@drawable/shape_alpha1"
         android:paddingBottom="20dp"
         android:paddingLeft="10dp"
@@ -61,6 +56,5 @@
         android:layout_centerInParent="true"
         />-->
 
-    </LinearLayout>
   </RelativeLayout>
 
