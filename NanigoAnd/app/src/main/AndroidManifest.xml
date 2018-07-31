@@ -41,7 +41,6 @@
                     android:scheme="nanigo" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".JoinSuccessActivity"
             android:screenOrientation="portrait">
@@ -56,8 +55,7 @@
                     android:scheme="nanigo" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".AnswerActivity"></activity>
     </application>
 
 </manifest>
