@@ -26,8 +26,12 @@ class CardPageFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_card_page, container, false)
         mRecyclerView = view.findViewById(R.id.nanigo_recycler_view)
-
-        newInstance()
+        mRecyclerView.layoutManager = SwipeableLayoutManager().setAngle(10)
+                .setAnimationDuratuion(450)
+                .setMaxShowCount(2)
+                .setScaleGap(0.1f)
+                .setTransYGap(0)
+        mRecyclerView.adapter = mAdapter
         return view
     }
 
@@ -51,17 +55,8 @@ class CardPageFragment : Fragment() {
         }) {
         }
 
-
-
         val itemTouchHelper = ItemTouchHelper(swipeableTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
-        mRecyclerView.layoutManager = SwipeableLayoutManager().setAngle(10)
-                .setAnimationDuratuion(450)
-                .setMaxShowCount(3)
-                .setScaleGap(0.1f)
-                .setTransYGap(0)
-        mRecyclerView.adapter = mAdapter
-
 
 
         return frag
