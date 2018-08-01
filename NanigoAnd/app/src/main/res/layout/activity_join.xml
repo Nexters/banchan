@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
 
@@ -36,6 +37,9 @@
             <TextView
                 style="@style/tv.join"
                 android:hint="호랑이" />
+            <ImageView
+                style="@style/iv"
+                android:src="@mipmap/ic_launcher"/>
         </LinearLayout>
         <!--nickname END-->
 
@@ -55,14 +59,17 @@
 
             <TextView
                 style="@style/tv.join"
+                android:id="@+id/tv_join_male"
                 android:text="남" />
 
             <TextView
                 style="@style/tv.join"
+                android:id="@+id/tv_join_female"
                 android:text="여" />
 
             <TextView
                 style="@style/tv.join"
+                android:id="@+id/tv_join_none"
                 android:text="무응답 " />
         </LinearLayout>
         <!--GENDER END-->
@@ -74,7 +81,18 @@
         <TextView
             style="@style/tv.title"
             android:text="나이" />
-
+        <banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePicker
+            android:id="@+id/picker_age"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/colorAccent"
+            app:indicator_color="@android:color/white"
+            app:indicator_interval="40dp"
+            app:indicator_width="2dp"
+            app:max_value="100"
+            app:min_value="0"
+            app:notch_color="@android:color/white"
+            app:ruler_text_size="6sp"/>
         <!--AGE END-->
     </LinearLayout>
 

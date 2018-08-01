@@ -48,7 +48,7 @@
         <item name="android:paddingRight">@dimen/medium</item>
         <item name="android:paddingTop">@dimen/small</item>
         <item name="android:paddingBottom">@dimen/small</item>
-        <item name="android:background">@drawable/btn_color</item>
+        <item name="android:background">@drawable/selector_join_gender</item>
     </style>
     <style name="btn">
         <item name="android:layout_width">match_parent</item>
