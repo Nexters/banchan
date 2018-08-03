@@ -3,8 +3,8 @@ package banchan.nexters.com.nanigoandroid.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import banchan.nexters.com.nanigoandroid.fragment.CardPageFragment
 import banchan.nexters.com.nanigoandroid.fragment.MyPageFragment
+import banchan.nexters.com.nanigoandroid.fragment.QuestionCardFragment
 import banchan.nexters.com.nanigoandroid.fragment.SpeakerPageFragment
 
 class MainPagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
@@ -25,7 +25,7 @@ class MainPagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {
         return when(position) {
             0 -> SpeakerPageFragment().newInstance()
-            1 -> CardPageFragment()
+            1 -> QuestionCardFragment()
             2 -> MyPageFragment().newInstance()
             else -> null
         }
