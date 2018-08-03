@@ -7,13 +7,11 @@
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/activity_main_card_stack_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="32dp"
-        android:paddingBottom="32dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:clipToPadding="false"
-        app:visibleCount="3"
+        app:visibleCount="2"
         app:swipeThreshold="0.8"
         app:translationDiff="12"
         app:scaleDiff="0.02"
@@ -27,4 +25,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/activity_main_card_stack_view"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btn_answer_o"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_button_o"
+            android:text="O"
+            />
+        <Button
+            android:id="@+id/btn_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_ask_question"
+            android:layout_toRightOf="@id/btn_answer_o"
+            android:text="+"
+            />
+        <Button
+            android:id="@+id/btn_answer_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_button_x"
+            android:layout_toRightOf="@id/btn_ask"
+            android:text="X"
+            />
+
+    </RelativeLayout>
 </RelativeLayout>

@@ -35,6 +35,7 @@ dependencies {
 
     /*카드스택 라이브러리*/
     implementation 'com.github.nihad92:SwipeableCards:1.0.3'
+    implementation 'com.yuyakaido.android:card-stack-view:1.0.0-beta9'
     /*카드플립 라이브러리*/
     implementation 'com.markjmind.propose:propose:1.1.+'
 

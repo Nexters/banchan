@@ -3,6 +3,7 @@ package banchan.nexters.com.nanigoandroid.adapter
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ class TouristSpotCardAdapter(mContext: Context): ArrayAdapter<TouristSpot>(mCont
 
         if (contentView == null) {
             val inflater = LayoutInflater.from(context)
-            contentView = inflater.inflate(R.layout.dummy_card_item, parent, false)
+            contentView = inflater.inflate(R.layout.item_question_card, parent, false)
             holder = ViewHolder(contentView!!)
             contentView.tag = holder
         } else {
@@ -61,13 +62,13 @@ class TouristSpotCardAdapter(mContext: Context): ArrayAdapter<TouristSpot>(mCont
         frontRight.addListener(object : JwAnimatorListener() {
             override fun onStart(arg0: Animator) {}
             override fun onEnd(arg0: Animator) {
-                holder.front_img!!.visibility = View.INVISIBLE
+                holder.cl_front!!.visibility = View.INVISIBLE
                 holder.X_img!!.visibility = View.VISIBLE
                 holder.flip_lyt!!.setBackgroundResource(R.drawable.shape_alpha1)
             }
 
             override fun onReverseStart(arg0: Animator) {
-                holder.front_img!!.visibility = View.VISIBLE
+                holder.cl_front!!.visibility = View.VISIBLE
                 holder.X_img!!.visibility = View.INVISIBLE
                 holder.flip_lyt!!.setBackgroundResource(R.drawable.shape_alpha1)
             }
@@ -78,13 +79,13 @@ class TouristSpotCardAdapter(mContext: Context): ArrayAdapter<TouristSpot>(mCont
         frontLeft.addListener(object : JwAnimatorListener() {
             override fun onStart(arg0: Animator) {}
             override fun onEnd(arg0: Animator) {
-                holder.front_img!!.visibility = View.INVISIBLE
+                holder.cl_front!!.visibility = View.INVISIBLE
                 holder.O_img!!.visibility = View.VISIBLE
                 holder.flip_lyt!!.setBackgroundResource(R.drawable.shape_alpha1)
             }
 
             override fun onReverseStart(arg0: Animator) {
-                holder.front_img!!.visibility = View.VISIBLE
+                holder.cl_front!!.visibility = View.VISIBLE
                 holder.O_img!!.visibility = View.INVISIBLE
                 holder.flip_lyt!!.setBackgroundResource(R.drawable.shape_alpha1)
             }
@@ -99,13 +100,13 @@ class TouristSpotCardAdapter(mContext: Context): ArrayAdapter<TouristSpot>(mCont
 
     private class ViewHolder(view: View) {
         var flip_lyt: FrameLayout
-        var front_img: ImageView
+        var cl_front: ConstraintLayout
         var O_img: ImageView
         var X_img: ImageView
 
         init {
             flip_lyt = view.findViewById(R.id.flip_lyt)
-            front_img = view.findViewById(R.id.front_img)
+            cl_front = view.findViewById(R.id.cl_front)
             O_img = view.findViewById(R.id.O_img)
             X_img = view.findViewById(R.id.X_img)
         }

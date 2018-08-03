@@ -8,8 +8,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout
         android:id="@+id/flip_lyt"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_width="320dp"
+        android:layout_height="380dp"
         android:background="@drawable/shape_alpha1"
         android:paddingBottom="20dp"
         android:paddingLeft="10dp"

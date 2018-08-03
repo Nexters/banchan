@@ -107,4 +107,8 @@ class QuestionCardFragment: Fragment() {
             mProgressBar.setVisibility(View.GONE)
         }, 1000)
     }
+
+    private fun reverse() {
+        mCardStackView.reverse()
+    }
 }
