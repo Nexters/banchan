@@ -11,7 +11,7 @@ import banchan.nexters.com.nanigoandroid.R;
  * Created by YounDitt on 2015-10-17.
  */
 public class IsOnline {
-    public void onlineCheck(Context context, onlineCallback callback) {
+    public  static void onlineCheck(Context context, onlineCallback callback) {
         ConnectivityManager manager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -24,7 +24,7 @@ public class IsOnline {
         }
     }
 
-    public interface onlineCallback {
+    public  interface onlineCallback {
         void onSuccess();
     }
 }
