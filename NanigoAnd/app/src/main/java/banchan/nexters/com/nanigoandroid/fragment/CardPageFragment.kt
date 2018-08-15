@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.CardStackAdapter
 import swipeable.com.layoutmanager.OnItemSwiped
-import swipeable.com.layoutmanager.SwipeableLayoutManager
 import swipeable.com.layoutmanager.SwipeableTouchHelperCallback
 import swipeable.com.layoutmanager.touchelper.ItemTouchHelper
 
@@ -25,13 +24,13 @@ class CardPageFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_card_page, container, false)
-        mRecyclerView = view.findViewById(R.id.nanigo_recycler_view)
+        /*mRecyclerView = view.findViewById(R.id.nanigo_recycler_view)
         mRecyclerView.layoutManager = SwipeableLayoutManager().setAngle(10)
                 .setAnimationDuratuion(450)
                 .setMaxShowCount(2)
                 .setScaleGap(0.1f)
                 .setTransYGap(0)
-        mRecyclerView.adapter = mAdapter
+        mRecyclerView.adapter = mAdapter*/
         return view
     }
 

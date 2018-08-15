@@ -5,11 +5,10 @@
              android:layout_height="match_parent"
              tools:context=".fragment.CardPageFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/nanigo_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
+    <Button
+        android:id="@+id/btn_question_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="질문하기"/>
 
 </FrameLayout>
