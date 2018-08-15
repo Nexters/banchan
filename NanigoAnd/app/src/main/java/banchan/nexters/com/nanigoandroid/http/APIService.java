@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
+import banchan.nexters.com.nanigoandroid.data.ReviewsData;
 import banchan.nexters.com.nanigoandroid.data.TestData;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
 import retrofit2.Call;
@@ -81,5 +82,9 @@ public interface APIService {
      */
     @GET(APIUrl.GETURL)
     Call<TestData> testUrl2(@QueryMap HashMap<String, String> params);
+
+
+    @GET(APIUrl.REVIEWSLIST)
+    Call<ReviewsData> reviewList(@Path(value="questionId", encoded=true) String questionId, @Path(value="lastReviewId", encoded=true) String lastReviewId);
 
 }

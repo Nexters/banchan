@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:padding="@dimen/medium">
+
+    <TextView
+        android:id="@+id/item_reviews_list_date"
+        style="@style/tv.small"
+        android:layout_above="@+id/item_reviews_list_content"
+        android:text="2018-08-07" />
+
+    <TextView
+        android:id="@+id/item_reviews_list_content"
+        style="@style/tv.medium"
+        android:layout_centerVertical="true"
+        android:text="okok" />
+
+    <TextView
+        android:id="@+id/item_reviews_list_user"
+        style="@style/tv.small"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="사용자 누구?" />
+</RelativeLayout>

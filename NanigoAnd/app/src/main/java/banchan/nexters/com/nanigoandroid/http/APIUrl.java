@@ -12,4 +12,10 @@ public class APIUrl {
      */
     public static final String GETURL = "nanigo/get";
 
+
+    /**
+     * GET
+     * Reviews List
+     */
+    public static final String REVIEWSLIST = " /api/reviews/question/{questionId}/last-review/{lastReviewId}";
 }
