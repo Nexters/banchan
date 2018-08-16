@@ -39,4 +39,8 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:26.1.0", {
         exclude group: 'com.android.support'
     }
+
+//    viewpagerindecator
+    compile 'com.romandanylyk:pageindicatorview:1.0.1@aar'
+
 }

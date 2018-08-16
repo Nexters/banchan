@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/onBoard">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager_onboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/indicator_onboard"
+        android:layout_marginBottom="@dimen/large" />
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/indicator_onboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_button"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/medium"
+        app:piv_animationType="drop"
+        app:piv_dynamicCount="true"
+        app:piv_interactiveAnimation="true"
+        app:piv_padding="12dp"
+        app:piv_radius="8dp"
+        app:piv_selectedColor="#fff"
+        app:piv_unselectedColor="#000"
+        app:piv_viewPager="@id/pager_onboard" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_onboard_start"
+            style="@style/btn"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/btn_color"
+            android:text="시작하기"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/btn_onboard_around"
+            style="@style/btn"
+            android:text="둘러보기"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

@@ -6,8 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/black_han_sans</item>
     </style>
 
+    <!--<style name="customFontTextview" parent="android:Widget.TextView">-->
+        <!--<item name="android:fontFamily">n</item>-->
+    <!--</style>-->
     <style name="iv">
         <item name="android:adjustViewBounds">true</item>
         <item name="android:scaleType">fitXY</item>
