@@ -4,22 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="transparent">#ffffffff</color>
-    <color name="white">#fff</color>
-
-    <color name="onBoard">#4744a9</color>
-    <color name="nanigoBlack">#2d4053</color>
-    <color name="nanigoPink">#fe726a</color>
-    <color name="nanigoGrey">#cdd7e0</color>
-    <color name="bg_join_grey">#f5f7f9</color>
-
-    <color name="ruler_age_grey">#98a2ab</color>
-    <integer-array name="mainBackGround">
-        <item>#6cd0ed</item>
-        <item>#51a6e6</item>
-        <item>#7c76f1</item>
-        <item>#a469dd</item>
-        <item>#fe726a</item>
-    </integer-array>
 </resources>
 

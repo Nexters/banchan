@@ -6,32 +6,6 @@
     android:layout_height="match_parent"
     tools:context="banchan.nexters.com.nanigoandroid.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/rl_main_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-        <Button
-            android:id="@+id/btn_tabs_speaker"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="확성기"/>
-
-        <Button
-            android:id="@+id/btn_tabs_main"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:text="NANIGO"/>
-
-        <Button
-            android:id="@+id/btn_tabs_mypage"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:text="마이페이지"/>
-    </RelativeLayout>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
