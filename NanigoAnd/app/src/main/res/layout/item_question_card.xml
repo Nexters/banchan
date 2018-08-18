@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="32dp"
@@ -10,7 +11,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
-        android:id="@+id/flip_lyt"
+        android:id="@+id/cv_question_card"
         android:layout_width="320dp"
         android:layout_height="380dp"
         android:background="@drawable/shape_alpha1"
@@ -116,6 +117,7 @@
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
+
         <ImageView
             android:id="@+id/O_img"
             android:layout_width="wrap_content"

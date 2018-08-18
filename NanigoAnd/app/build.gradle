@@ -34,10 +34,15 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
 
     /*카드스택 라이브러리*/
-    implementation 'com.github.nihad92:SwipeableCards:1.0.3'
-    implementation 'com.yuyakaido.android:card-stack-view:1.0.0-beta9'
+    //implementation 'com.github.nihad92:SwipeableCards:1.0.3'
+    //implementation 'com.yuyakaido.android:card-stack-view:1.0.0-beta9'
+
     /*카드플립 라이브러리*/
-    implementation 'com.markjmind.propose:propose:1.1.+'
+    //implementation 'com.markjmind.propose:propose:1.1.+'
+
+    /*카드snappy*/
+    implementation 'com.github.dan-td:snappy-recyclerview:1.0.2'
+
     //Paparazzo
     implementation 'com.github.miguelbcr:RxPaparazzo:0.6.0-2.x'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
