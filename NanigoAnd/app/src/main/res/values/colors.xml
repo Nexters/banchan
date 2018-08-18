@@ -4,11 +4,4 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <integer-array name="mainBackGround">
-        <item>#6cd0ed</item>
-        <item>#51a6e6</item>
-        <item>#7c76f1</item>
-        <item>#a469dd</item>
-        <item>#fe726a</item>
-    </integer-array>
 </resources>

@@ -6,15 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.dant.centersnapreyclerview.SnappingRecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_question_card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/"
-        app:orientation="vertical"
-        app:anchor="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/rl_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/rl_bottom"
         />
 
     <ProgressBar

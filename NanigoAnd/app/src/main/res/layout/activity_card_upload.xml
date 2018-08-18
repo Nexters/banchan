@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:labelFor="@id/et_question"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintBottom_toTopOf="@id/iv_upload"
+        app:layout_constraintBottom_toTopOf="@+id/iv_upload"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         />

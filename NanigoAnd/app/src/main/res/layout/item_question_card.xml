@@ -37,7 +37,7 @@
                     android:layout_gravity="center_vertical"
                     layout="@layout/item_content_ver_1"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/rl_sub_info"
+                    app:layout_constraintBottom_toTopOf="@+id/rl_sub_info"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 
@@ -78,7 +78,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toRightOf="@id/tv_username"
-                            app:layout_constraintRight_toLeftOf="@id/tv_view_count"/>
+                            app:layout_constraintRight_toLeftOf="@+id/tv_view_count"/>
                         <TextView
                             android:id="@+id/tv_view_count"
                             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toRightOf="@id/iv_view_count"
-                            app:layout_constraintRight_toLeftOf="@id/v_border"
+                            app:layout_constraintRight_toLeftOf="@+id/v_border"
                             />
                         <View
                             android:id="@+id/v_border"
@@ -100,7 +100,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toRightOf="@id/tv_view_count"
-                            app:layout_constraintRight_toLeftOf="@id/iv_comment_count"/>
+                            app:layout_constraintRight_toLeftOf="@+id/iv_comment_count"/>
                         <ImageView
                             android:id="@+id/iv_comment_count"
                             android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
                             android:layout_marginRight="10dp"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toLeftOf="@id/tv_comment_count"/>
+                            app:layout_constraintRight_toLeftOf="@+id/tv_comment_count"/>
                         <TextView
                             android:id="@+id/tv_comment_count"
                             android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/icon_new"
-                app:layout_constraintRight_toLeftOf="@id/iv_badge2"
+                app:layout_constraintRight_toLeftOf="@+id/iv_badge2"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
             <ImageView
@@ -167,7 +167,7 @@
                 android:layout_height="50dp"
                 android:src="@drawable/loud"
                 app:layout_constraintRight_toLeftOf="@id/iv_badge1"
-                app:layout_constraintLeft_toRightOf="@id/iv_badge3"/>
+                app:layout_constraintLeft_toRightOf="@+id/iv_badge3"/>
 
 
             <ImageView

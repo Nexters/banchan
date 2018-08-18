@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.PagerSnapHelper
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,11 @@ import android.widget.ProgressBar
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
-import banchan.nexters.com.nanigoandroid.viewholder.SnappyItemDecoration
-import com.dant.centersnapreyclerview.SnappingRecyclerView
 
 
 class QuestionCardFragment: Fragment(){
     lateinit var mProgressBar: ProgressBar
-    lateinit var mSnappyView: SnappingRecyclerView
+    lateinit var mSnappyView: RecyclerView
     lateinit var mBtnX: Button
     lateinit var mBtnO: Button
     private var mAdapter: SnappyAdapter? = null
@@ -53,7 +52,7 @@ class QuestionCardFragment: Fragment(){
     }
 
     private fun setup() {
-        mSnappyView.addItemDecoration(SnappyItemDecoration(mSnappyView.orientation))
+        //mSnappyView.addItemDecoration(SnappyItemDecoration(mSnappyView.orientation))
         mAdapter = SnappyAdapter()
         mSnappyView.adapter = mAdapter
         val snapHelper = PagerSnapHelper()

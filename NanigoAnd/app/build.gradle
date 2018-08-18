@@ -41,7 +41,7 @@ dependencies {
     //implementation 'com.markjmind.propose:propose:1.1.+'
 
     /*카드snappy*/
-    implementation 'com.github.dan-td:snappy-recyclerview:1.0.2'
+    //implementation 'com.github.dan-td:snappy-recyclerview:1.0.2'
 
     //Paparazzo
     implementation 'com.github.miguelbcr:RxPaparazzo:0.6.0-2.x'
