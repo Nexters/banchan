@@ -14,5 +14,12 @@
     <color name="bg_join_grey">#f5f7f9</color>
 
     <color name="ruler_age_grey">#98a2ab</color>
+    <integer-array name="mainBackGround">
+        <item>#6cd0ed</item>
+        <item>#51a6e6</item>
+        <item>#7c76f1</item>
+        <item>#a469dd</item>
+        <item>#fe726a</item>
+    </integer-array>
 </resources>
 
