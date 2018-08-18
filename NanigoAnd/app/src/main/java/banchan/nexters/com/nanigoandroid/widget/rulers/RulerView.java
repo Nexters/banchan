@@ -9,7 +9,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.CheckResult;
@@ -126,7 +125,7 @@ final class RulerView extends View {
      * @see #getTextColor()
      */
     @ColorInt
-    private int mTextColor = Color.WHITE;
+    private int mTextColor = getContext().getResources().getColor(R.color.nanigoGrey);
 
     /**
      * Integer color of the indicators.
@@ -135,7 +134,7 @@ final class RulerView extends View {
      * @see #getIndicatorColor()
      */
     @ColorInt
-    private int mIndicatorColor = Color.WHITE;
+    private int mIndicatorColor = getContext().getResources().getColor(R.color.nanigoBlack);
 
     /**
      * Height of the text, that is displayed on ruler in pixels.
@@ -144,7 +143,7 @@ final class RulerView extends View {
      * @see #getTextSize()
      */
     @Dimension
-    private int mTextSize = 36;
+    private int mTextSize = (int)getContext().getResources().getDimension(R.dimen.ruler_text);
 
     /**
      * Width of the indicator in pixels.
@@ -192,15 +191,15 @@ final class RulerView extends View {
 
             try { //Parse params
                 if (a.hasValue(R.styleable.RulerView_ruler_text_color)) {
-                    mTextColor = a.getColor(R.styleable.RulerView_ruler_text_color, Color.WHITE);
+                    mTextColor = a.getColor(R.styleable.RulerView_ruler_text_color, getContext().getResources().getColor(R.color.ruler_age_grey));
                 }
 
                 if (a.hasValue(R.styleable.RulerView_ruler_text_size)) {
-                    mTextSize = a.getDimensionPixelSize(R.styleable.RulerView_ruler_text_size, 14);
+                    mTextSize = a.getDimensionPixelSize(R.styleable.RulerView_ruler_text_size, (int)getContext().getResources().getDimension(R.dimen.ruler_text));
                 }
 
                 if (a.hasValue(R.styleable.RulerView_indicator_color)) {
-                    mIndicatorColor = a.getColor(R.styleable.RulerView_indicator_color, Color.WHITE);
+                    mIndicatorColor = a.getColor(R.styleable.RulerView_indicator_color, getContext().getResources().getColor(R.color.nanigoGrey));
                 }
 
                 if (a.hasValue(R.styleable.RulerView_indicator_width)) {
@@ -250,6 +249,9 @@ final class RulerView extends View {
         mTextPaint.setColor(mTextColor);
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
+//        Typeface fontFace=Typeface.createFromAsset(getContext().getAssets(),"font/black_han_sans.ttf");
+//        mTextPaint.setTypeface(fontFace);
+//        mTextPaint.setTypeface(Typeface.DEFAULT);
 
         invalidate();
         requestLayout();
@@ -284,7 +286,7 @@ final class RulerView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //Measure dimensions
         mViewHeight = MeasureSpec.getSize(heightMeasureSpec);
-        int viewWidth = (mMaxValue - mMinValue - 1) * mIndicatorInterval;
+        int viewWidth = (mMaxValue - mMinValue ) * mIndicatorInterval;
 
         updateIndicatorHeight(mLongIndicatorHeightRatio, mShortIndicatorHeightRatio);
 
@@ -386,7 +388,8 @@ final class RulerView extends View {
      * @param textSizeSp Text size dimension in dp.
      */
     void setTextSize(final int textSizeSp) {
-        mTextSize = RulerViewUtils.sp2px(getContext(), textSizeSp);
+        mTextSize = textSizeSp;
+//        mTextSize = RulerViewUtils.sp2px(getContext(), textSizeSp);
         refreshPaint();
     }
 

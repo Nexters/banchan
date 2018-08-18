@@ -1,108 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
 
-    <LinearLayout
+    <include
+        android:id="@+id/toolbar_join"
+        layout="@layout/layout_toolbar" />
+
+    <!--nickname START-->
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/tv.medium"
-            android:layout_gravity="center"
-            android:padding="@dimen/small"
-            android:text="@string/nanigo" />
-
-        <!--nickname START-->
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/large" />
-
-        <TextView
-            style="@style/tv.title"
-            android:text="익명 닉네임" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_join_ok"
+        android:layout_below="@+id/toolbar_join">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/basic"
+            android:orientation="vertical">
 
             <TextView
-                style="@style/tv.join"
-                android:hint="청순한" />
+                style="@style/tv_noto.title"
+                android:text="익명 닉네임" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/basic"
+                android:paddingRight="@dimen/basic">
+
+                <TextView
+                    android:id="@+id/tv_join_name_pre"
+                    style="@style/tv.join"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_underline_black"
+                    android:gravity="center"
+                    android:text="?" />
+
+                <TextView
+                    android:id="@+id/tv_join_name_post"
+                    style="@style/tv.join"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="@dimen/join_gap"
+                    android:layout_marginRight="@dimen/join_gap"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_underline_black"
+                    android:gravity="center"
+                    android:text="?" />
+
+                <ImageView
+                    android:id="@+id/iv_join_name_refresh"
+                    style="@style/iv"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:src="@drawable/icon_change" />
+            </LinearLayout>
+            <!--nickname END-->
+
+            <!--GENDER START-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/large" />
 
             <TextView
-                style="@style/tv.join"
-                android:hint="호랑이" />
-            <ImageView
-                style="@style/iv"
-                android:src="@mipmap/ic_launcher"/>
+                style="@style/tv_noto.title"
+                android:text="성별" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/basic"
+                android:paddingRight="@dimen/basic">
+
+                <TextView
+                    android:id="@+id/tv_join_male"
+                    style="@style/tv.join"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="남" />
+
+                <TextView
+                    android:id="@+id/tv_join_female"
+                    style="@style/tv.join"
+                    android:layout_marginLeft="@dimen/join_gap"
+                    android:layout_marginRight="@dimen/join_gap"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="여" />
+
+                <TextView
+                    android:id="@+id/tv_join_none"
+                    style="@style/tv.join"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="무응답 " />
+            </LinearLayout>
+            <!--GENDER END-->
+            <!--AGE START-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/large" />
+
+            <TextView
+                style="@style/tv_noto.title"
+                android:text="나이" />
+
+            <TextView
+                android:id="@+id/tv_join_age"
+                style="@style/tv.large"
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp"
+                android:text="?"
+                android:textColor="@color/nanigoBlack" />
+
+            <banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePicker
+                android:id="@+id/picker_join_age"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:background="@color/bg_join_grey"
+                app:indicator_color="#802d4053"
+                app:indicator_interval="40dp"
+                app:indicator_width="2dp"
+                app:max_value="100"
+                app:min_value="0"
+                app:notch_color="@color/nanigoBlack"
+                app:ruler_text_size="@dimen/ruler_text" />
+            <!--AGE END-->
+
+
         </LinearLayout>
-        <!--nickname END-->
-
-        <!--GENDER START-->
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/large" />
-
-        <TextView
-            style="@style/tv.title"
-            android:text="성별" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/tv.join"
-                android:id="@+id/tv_join_male"
-                android:text="남" />
-
-            <TextView
-                style="@style/tv.join"
-                android:id="@+id/tv_join_female"
-                android:text="여" />
-
-            <TextView
-                style="@style/tv.join"
-                android:id="@+id/tv_join_none"
-                android:text="무응답 " />
-        </LinearLayout>
-        <!--GENDER END-->
-        <!--AGE START-->
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/large" />
-
-        <TextView
-            style="@style/tv.title"
-            android:text="나이" />
-        <banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePicker
-            android:id="@+id/picker_age"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colorAccent"
-            app:indicator_color="@android:color/white"
-            app:indicator_interval="40dp"
-            app:indicator_width="2dp"
-            app:max_value="100"
-            app:min_value="0"
-            app:notch_color="@android:color/white"
-            app:ruler_text_size="6sp"/>
-        <!--AGE END-->
-    </LinearLayout>
-
+    </ScrollView>
 
     <TextView
         android:id="@+id/btn_join_ok"
         style="@style/btn"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/large"
-        android:background="@drawable/btn_color"
-        android:text="@string/ok" />
+        android:layout_marginBottom="@dimen/basic"
+        android:layout_marginTop="@dimen/join_gap"
+        android:background="@drawable/selector_btn"
+        android:enabled="true"
+        android:text="@string/ok"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

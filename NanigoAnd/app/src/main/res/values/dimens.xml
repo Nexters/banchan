@@ -1,5 +1,13 @@
 <resources>
-    <dimen name="large">25dp</dimen>
-    <dimen name="medium">15dp</dimen>
-    <dimen name="small">12dp</dimen>
+    <dimen name="large">32sp</dimen>
+    <dimen name="medium">26sp</dimen>
+    <dimen name="small">20sp</dimen>
+
+    <dimen name="basic">20dp</dimen>
+    <!--join activity-->
+    <dimen name="join_bg_side">18dp</dimen>
+    <dimen name="join_bg_top">8dp</dimen>
+    <dimen name="join_gap">12dp</dimen>
+
+    <dimen name="ruler_text">16sp</dimen>
 </resources>

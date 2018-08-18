@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.google.gson.JsonObject;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
+import banchan.nexters.com.nanigoandroid.data.NameData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
 import banchan.nexters.com.nanigoandroid.data.TestData;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
@@ -86,5 +89,8 @@ public interface APIService {
 
     @GET(APIUrl.REVIEWSLIST)
     Call<ReviewsData> reviewList(@Path(value="questionId", encoded=true) String questionId, @Path(value="lastReviewId", encoded=true) String lastReviewId);
+
+    @GET(APIUrl.USERNAME)
+    Call<NameData> userName();
 
 }

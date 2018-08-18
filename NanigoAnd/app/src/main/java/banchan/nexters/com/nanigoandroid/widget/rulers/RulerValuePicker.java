@@ -81,7 +81,7 @@ public final class RulerValuePicker extends FrameLayout implements ObservableHor
     @SuppressWarnings("NullableProblems")
     @NonNull
     private Path mNotchPath;
-    private int mNotchColor = Color.WHITE;
+    private int mNotchColor = getContext().getResources().getColor(R.color.nanigoBlack);
     /**
      * Public constructor.
      */
@@ -132,16 +132,16 @@ public final class RulerValuePicker extends FrameLayout implements ObservableHor
                     0);
             try { //Parse params
                 if (a.hasValue(R.styleable.RulerValuePicker_notch_color)) {
-                    mNotchColor = a.getColor(R.styleable.RulerValuePicker_notch_color, Color.WHITE);
+                    mNotchColor = a.getColor(R.styleable.RulerValuePicker_notch_color,getContext().getResources().getColor(R.color.nanigoBlack));
                 }
                 if (a.hasValue(R.styleable.RulerValuePicker_ruler_text_color)) {
-                    setTextColor(a.getColor(R.styleable.RulerValuePicker_ruler_text_color, Color.WHITE));
+                    setTextColor(a.getColor(R.styleable.RulerValuePicker_ruler_text_color, getContext().getResources().getColor(R.color.ruler_age_grey)));
                 }
                 if (a.hasValue(R.styleable.RulerValuePicker_ruler_text_size)) {
-                    setTextSize((int) a.getDimension(R.styleable.RulerValuePicker_ruler_text_size, 14));
+                    setTextSize((int) a.getDimension(R.styleable.RulerValuePicker_ruler_text_size, getContext().getResources().getDimension(R.dimen.ruler_text)));
                 }
                 if (a.hasValue(R.styleable.RulerValuePicker_indicator_color)) {
-                    setIndicatorColor(a.getColor(R.styleable.RulerValuePicker_indicator_color, Color.WHITE));
+                    setIndicatorColor(a.getColor(R.styleable.RulerValuePicker_indicator_color, getContext().getResources().getColor(R.color.nanigoGrey)));
                 }
                 if (a.hasValue(R.styleable.RulerValuePicker_indicator_width)) {
                     setIndicatorWidth(a.getDimensionPixelSize(R.styleable.RulerValuePicker_indicator_width,
