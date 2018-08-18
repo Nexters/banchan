@@ -1,5 +1,6 @@
 package banchan.nexters.com.nanigoandroid.viewholder
 
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,11 +13,11 @@ import java.util.*
 class SnappyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_question_card, parent, false)) {
     lateinit var mCard: FrameLayout
     lateinit var mImageView: ImageView
-    lateinit var mRootLayout: RelativeLayout
+    lateinit var mRootLayout: ConstraintLayout
     init {
         mCard = itemView.findViewById(R.id.cv_question_card)
         mImageView = itemView.findViewById(R.id.O_img)
-        mRootLayout = itemView.findViewById(R.id.rl_root)
+        mRootLayout = itemView.findViewById(R.id.cl_card)
     }
 
     fun setDate(date: Date) {
@@ -32,8 +33,8 @@ class SnappyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflat
         return itemView.findViewById(R.id.O_img)
     }
 
-    fun getRootLayout() : RelativeLayout {
-        return itemView.findViewById(R.id.rl_root)
+    fun getRootLayout() : ConstraintLayout {
+        return itemView.findViewById(R.id.cl_card)
     }
 
 

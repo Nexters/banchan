@@ -63,6 +63,14 @@ class CardUploadActivity : AppCompatActivity() {
                     }
                 }*/
 
+        /*val path = file.toString() // Test1_4::class.java!!.getResource("che2.jpg").getPath()
+
+        val image = Picasso.get().load(path).get() //ImageIO.read(File(path))
+        val lnth = image.byteCount
+        val dst = ByteBuffer.allocate(lnth)
+        image.copyPixelsToBuffer(dst)
+        val barray = dst.array()
+        Log.i(TAG, "uploadFile : "+ Base64.encode(barray, 0).toString())*/
     }
 
     fun setThumb(url: String) {

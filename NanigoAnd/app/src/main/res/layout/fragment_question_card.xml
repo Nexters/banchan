@@ -10,6 +10,7 @@
         android:id="@+id/rv_question_card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/"
         app:orientation="vertical"
         app:anchor="center"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,12 +28,14 @@
 
     <RelativeLayout
         android:id="@+id/rl_bottom"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <Button
             android:id="@+id/btn_answer_o"

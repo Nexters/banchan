@@ -7,7 +7,8 @@ import android.support.v7.widget.PagerSnapHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ProgressBar
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
@@ -20,12 +21,7 @@ class QuestionCardFragment: Fragment(){
     lateinit var mSnappyView: SnappingRecyclerView
     lateinit var mBtnX: Button
     lateinit var mBtnO: Button
-    lateinit var mRootLayout: RelativeLayout
     private var mAdapter: SnappyAdapter? = null
-
-    lateinit var mCard: FrameLayout
-    lateinit var mImageView: ImageView
-
     lateinit var mFlipListener: FlipListener
 
 

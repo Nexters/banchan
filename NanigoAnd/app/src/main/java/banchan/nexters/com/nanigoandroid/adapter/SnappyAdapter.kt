@@ -1,11 +1,11 @@
 package banchan.nexters.com.nanigoandroid.adapter
 
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import banchan.nexters.com.nanigoandroid.animation.FlipAnimation
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
 import banchan.nexters.com.nanigoandroid.viewholder.SnappyViewHolder
@@ -18,7 +18,7 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
 
     lateinit var mCard: FrameLayout
     lateinit var mImageView: ImageView
-    lateinit var mRootLayout: RelativeLayout
+    lateinit var mRootLayout: ConstraintLayout
 
 
 
@@ -31,7 +31,6 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
         mCard = (holder as SnappyViewHolder).getCardView()
         mImageView = (holder as SnappyViewHolder).getImageView()
         mRootLayout = (holder as SnappyViewHolder).getRootLayout()
-        mCard.setOnClickListener { onButtonClick() }
 
     }
 
@@ -80,7 +79,7 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
         return mImageView
     }
 
-    fun getRootLayout() : RelativeLayout {
+    fun getRootLayout() : ConstraintLayout {
         return mRootLayout
     }
 
