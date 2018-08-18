@@ -6,8 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/black_han_sans</item>
     </style>
 
+    <!--<style name="customFontTextview" parent="android:Widget.TextView">-->
+    <!--<item name="android:fontFamily">n</item>-->
+    <!--</style>-->
     <style name="iv">
         <item name="android:adjustViewBounds">true</item>
         <item name="android:scaleType">fitXY</item>
@@ -18,6 +22,19 @@
     <style name="tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="tv_noto">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+    </style>
+
+    <style name="tv_noto.title">
+        <item name="android:layout_marginBottom">@dimen/join_bg_side</item>
+        <item name="android:layout_marginLeft">@dimen/basic</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/nanigoBlack</item>
     </style>
 
     <style name="tv.small">
@@ -41,24 +58,28 @@
     </style>
 
     <style name="tv.join">
-        <item name="android:textSize">@dimen/medium</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginLeft">@dimen/small</item>
-        <item name="android:paddingLeft">@dimen/medium</item>
-        <item name="android:paddingRight">@dimen/medium</item>
-        <item name="android:paddingTop">@dimen/small</item>
-        <item name="android:paddingBottom">@dimen/small</item>
-        <item name="android:background">@drawable/btn_color</item>
+        <item name="android:textSize">@dimen/large</item>
+        <item name="android:paddingLeft">@dimen/join_bg_side</item>
+        <item name="android:paddingRight">@dimen/join_bg_side</item>
+        <item name="android:paddingTop">@dimen/join_bg_top</item>
+        <item name="android:paddingBottom">@dimen/join_bg_top</item>
+        <item name="android:background">@drawable/bg_round_grey</item>
+        <item name="android:textColor">@color/selector_txt_color_black</item>
     </style>
+
     <style name="btn">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/medium</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingTop">@dimen/small</item>
-        <item name="android:paddingBottom">@dimen/small</item>
-        <item name="android:layout_marginLeft">@dimen/small</item>
-        <item name="android:layout_marginRight">@dimen/small</item>
+        <item name="android:paddingTop">@dimen/join_gap</item>
+        <item name="android:paddingBottom">@dimen/join_gap</item>
+        <item name="android:layout_marginLeft">27dp</item>
+        <item name="android:layout_marginRight">27dp</item>
     </style>
+
+    <declare-styleable name="MyViewPager">
+        <attr name="swipeable" format="boolean" />
+    </declare-styleable>
 
 </resources>

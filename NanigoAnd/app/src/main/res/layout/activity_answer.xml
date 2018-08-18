@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/tv.medium"
+            android:layout_centerInParent="true"
+            android:text="결과보기" />
+
+        <ImageView
+            style="@style/iv"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher_round" />
+    </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/medium">
+
+            <TextView
+                style="@style/tv.medium"
+                android:text="Q. 전 남친한테 새벽에 연락왔는데 답장해볼까?" />
+
+            <TextView
+                style="@style/tv.small"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="더보기" />
+
+            <!--question view START-->
+
+            <!--question view END-->
+
+            <TextView
+                style="@style/tv.small"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="접기" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv.medium"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:text="A" />
+
+                <TextView
+                    style="@style/tv.medium"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:gravity="right"
+                    android:text="A" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/tv.small"
+                    android:text="청순한 호랑이" />
+
+                <TextView
+                    style="@style/tv.small"
+                    android:layout_toLeftOf="@+id/tv_answer_comment"
+                    android:text="25개" />
+
+                <TextView
+                    android:id="@+id/tv_answer_comment"
+                    style="@style/tv.small"
+                    android:layout_alignParentRight="true"
+                    android:text="302" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+</LinearLayout>

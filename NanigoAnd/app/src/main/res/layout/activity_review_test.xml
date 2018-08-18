@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/anim_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="누르면 가운데로 사라짐!"
+        android:textColor="#fff"
+        android:textSize="@dimen/large" />
+
+    <TextView
+        android:id="@+id/btn_review_refresh"
+        style="@style/btn"
+        android:layout_margin="0dp"
+        android:background="@color/colorAccent"
+        android:text="리뷰 새로고침" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_reviews_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/tv_reviews_empty"
+                style="@style/tv.medium"
+                android:layout_centerInParent="true"
+                android:text="@string/empty"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

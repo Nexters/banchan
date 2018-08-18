@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">NanigoAnd</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nanigo">NANIGO</string>
     <string name="ok">확인</string>
+
+    <string name="err_internet">인터넷 연결을 확인해주세요.</string>
+
+    <string name="empty">없음없음없음</string>
 </resources>

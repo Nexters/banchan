@@ -1,8 +1,9 @@
 package banchan.nexters.com.nanigoandroid
 
+import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_join_success.*
 
 class JoinSuccessActivity : AppCompatActivity() {
@@ -19,7 +20,8 @@ class JoinSuccessActivity : AppCompatActivity() {
         vv_joinsuccess.start()
 
         btn_joinsuccess_ok?.setOnClickListener {
-            finish()
+            //finish()
+            startActivity(Intent(this@JoinSuccessActivity, MainActivity::class.java))
         }
     }
 }
