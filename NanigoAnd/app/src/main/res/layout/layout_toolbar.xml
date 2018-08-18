@@ -7,18 +7,19 @@
 
 
     <TextView
-        style="@style/tv.small"
         android:id="@+id/toolbar_txt"
+        style="@style/tv.small"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:text="@string/nanigo" />
+        android:text="@string/nanigo"
+        android:textColor="@color/nanigoBlack" />
 
     <ImageView
+        android:id="@+id/toolbar_exit"
         style="@style/iv"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/ripple_effect"
-        android:id="@+id/toolbar_exit"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:padding="14dp"
         android:src="@drawable/delete_icon" />

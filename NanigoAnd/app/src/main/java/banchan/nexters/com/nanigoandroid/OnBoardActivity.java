@@ -42,9 +42,9 @@ public class OnBoardActivity extends AppCompatActivity {
 
     private void onBoardPager(){
         int[] mImages = {
-                R.mipmap.img_onboard_01,
-                R.mipmap.img_onboard_02,
-                R.mipmap.img_onboard_03
+                R.raw.data,
+                R.raw.data1,
+                R.raw.data
         };
 
         adapter = new OnBoardAdapter(getApplicationContext(), mImages);

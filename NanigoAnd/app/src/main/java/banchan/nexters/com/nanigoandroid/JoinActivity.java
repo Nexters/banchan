@@ -1,5 +1,6 @@
 package banchan.nexters.com.nanigoandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -87,6 +88,16 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        btn_join_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(btn_join_ok.isEnabled()){
+//                    startActivity(new Intent(JoinActivity.this,));
+                }else{
+                    Toast.makeText(getApplicationContext(),"선택해주세요!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         picker_join_age.setIndicatorHeight(0.3f, 0.3f);
         picker_join_age.setValuePickerListener(new RulerValuePickerListener() {
             @Override

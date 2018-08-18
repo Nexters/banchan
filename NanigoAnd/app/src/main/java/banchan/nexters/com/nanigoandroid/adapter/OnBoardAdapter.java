@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +38,14 @@ public class OnBoardAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        final ImageView imageView = new ImageView(mContext);
-//        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(this.mImages[position]);
+
+        LottieAnimationView imageView = new LottieAnimationView(mContext);
+        imageView.setImageAssetsFolder("images/");
+        imageView.setAnimation(this.mImages[position]);
+        imageView.setMaxWidth(5);
+        imageView.playAnimation();
+//        imageView.loop(true);
+
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
     }
