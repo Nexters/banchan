@@ -29,25 +29,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <Button
+        <ImageView
             android:id="@+id/btn_answer_o"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_button_o"
-            android:text="O"
+            android:src="@drawable/o_btn"
+            android:clickable="true"
             />
-        <Button
+        <ImageView
             android:id="@+id/btn_answer_x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_button_x"
+            android:src="@drawable/x_btn"
             android:layout_toRightOf="@id/btn_answer_o"
-            android:text="X"
+            android:layout_marginLeft="89dp"
+            android:clickable="true"
             />
 
     </RelativeLayout>

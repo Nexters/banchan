@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
@@ -21,8 +21,8 @@ import banchan.nexters.com.nanigoandroid.listener.FlipListener
 class QuestionCardFragment: Fragment(){
     lateinit var mProgressBar: ProgressBar
     lateinit var mSnappyView: RecyclerView
-    lateinit var mBtnX: Button
-    lateinit var mBtnO: Button
+    lateinit var mBtnX: ImageView
+    lateinit var mBtnO: ImageView
     private var mAdapter: SnappyAdapter? = null
     lateinit var mFlipListener: FlipListener
 
@@ -38,8 +38,8 @@ class QuestionCardFragment: Fragment(){
         mSnappyView = view.findViewById(R.id.rv_question_card)
         mBtnX = view.findViewById(R.id.btn_answer_x)
         mBtnO = view.findViewById(R.id.btn_answer_o)
-        mBtnX.setOnClickListener {
-            flipCard()
+        mBtnO.setOnClickListener {
+            mFlipListener.onButtonClick(mSnappyView)
         }
 
         setup()
@@ -92,10 +92,6 @@ class QuestionCardFragment: Fragment(){
         }, 1000)
     }
 
-    private fun flipCard() {
-        mFlipListener.onButtonClick()
-        mAdapter!!.notifyDataSetChanged()
-    }
 
 
 }

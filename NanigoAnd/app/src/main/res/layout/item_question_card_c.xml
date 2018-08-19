@@ -12,6 +12,7 @@
         android:id="@+id/cl_card"
         android:layout_width="wrap_content"
         android:layout_height="405dp"
+        android:layout_marginBottom="20dp"
         >
 
         <FrameLayout
@@ -51,16 +52,16 @@
                     >
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:paddingLeft="1dp"
-                        android:paddingRight="1dp"
+                        android:layout_height="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
                         android:background="@color/divide_bottom"
                         />
                         <TextView
                             android:id="@+id/tv_username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="20dp"
                             android:textSize="16sp"
                             android:textColor="@color/dottom_info_nickname"
                             android:text="청순한 호랑이"
@@ -117,7 +118,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/dottom_info_count"
                             android:text="24"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="20dp"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
@@ -126,21 +127,6 @@
 
             </android.support.constraint.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/O_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/backoimg"
-                android:visibility="invisible" />
-
-            <ImageView
-                android:id="@+id/X_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/backximg"
-                android:visibility="invisible" />
         </FrameLayout>
 
 
@@ -181,6 +167,22 @@
         </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/O_img"
+        android:layout_width="320dp"
+        android:layout_height="405dp"
+        android:background="@drawable/shape_alpha1"
+        android:src="@drawable/backoimg"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/X_img"
+        android:layout_width="320dp"
+        android:layout_height="405dp"
+        android:background="@drawable/shape_alpha1"
+        android:src="@drawable/backximg"
+        android:visibility="invisible" />
 
 </RelativeLayout>
 
