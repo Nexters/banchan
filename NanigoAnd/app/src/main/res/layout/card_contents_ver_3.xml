@@ -65,15 +65,15 @@
             <RelativeLayout
                 android:id='@+id/rl_answer_a'
                 android:layout_width="136dp"
-                android:layout_height="138dp">
+                android:layout_height="138dp"
+                android:background="@drawable/shape_answer_img">
 
                 <ImageView
                     android:id="@+id/iv_answer_a_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/front"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/shape_alpha1"/>
+                    android:scaleType="centerCrop"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -112,15 +112,15 @@
                 android:layout_width="136dp"
                 android:layout_height="138dp"
                 android:layout_toRightOf="@id/rl_answer_a"
-                android:layout_marginLeft="8dp">
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/shape_answer_img">
 
                 <ImageView
                     android:id="@+id/iv_answer_b_img"
                     android:layout_width="136dp"
                     android:layout_height="138dp"
                     android:src="@drawable/backoimg"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/shape_alpha1"/>
+                    android:scaleType="centerCrop"/>
 
                 <TextView
                     android:layout_width="wrap_content"

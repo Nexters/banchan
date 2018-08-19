@@ -53,22 +53,26 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
         if (holder is AHolder) {
             (holder as AHolder).mQuestion.text = test.question
             (holder as AHolder).mCard.tag = "mCard"
-            (holder as AHolder).mImageView.tag = "mImageView"
+            (holder as AHolder).mResult_O.tag = "mResult_O"
+            (holder as AHolder).mResult_X.tag = "mResult_X"
             (holder as AHolder).mRootLayout.tag = "mRootLayout"
         } else if (holder is BHolder){
             (holder as BHolder).mQuestion.text = test.question
             (holder as BHolder).mCard.tag = "mCard"
-            (holder as BHolder).mImageView.tag = "mImageView"
+            (holder as BHolder).mResult_O.tag = "mResult_O"
+            (holder as BHolder).mResult_X.tag = "mResult_X"
             (holder as BHolder).mRootLayout.tag = "mRootLayout"
         } else if (holder is CHolder){
             (holder as CHolder).mQuestion.text = test.question
             (holder as CHolder).mCard.tag = "mCard"
-            (holder as CHolder).mImageView.tag = "mImageView"
+            (holder as CHolder).mResult_O.tag = "mResult_O"
+            (holder as CHolder).mResult_X.tag = "mResult_X"
             (holder as CHolder).mRootLayout.tag = "mRootLayout"
         } else {
             (holder as DHolder).mQuestion.text = test.question
             (holder as DHolder).mCard.tag = "mCard"
-            (holder as DHolder).mImageView.tag = "mImageView"
+            (holder as DHolder).mResult_O.tag = "mResult_O"
+            (holder as DHolder).mResult_X.tag = "mResult_X"
             (holder as DHolder).mRootLayout.tag = "mRootLayout"
         }
 
@@ -91,17 +95,21 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
     }
 
 
-    override fun onButtonClick(v: View) {
+    override fun onButtonClick(v: View, isO: Boolean) {
         val rootLayout = v.findViewWithTag<RelativeLayout>("mRootLayout")
-        val result = v.findViewWithTag<ImageView>("mImageView")
+        val result_o = v.findViewWithTag<ImageView>("mResult_O")
+        val result_x = v.findViewWithTag<ImageView>("mResult_X")
         val card = v.findViewWithTag<ConstraintLayout>("mCard")
 
-        val flipAnimation = FlipAnimation(card, result)
+        if(isO) {
+            val flipAnimation = FlipAnimation(card, result_o)
+            rootLayout.startAnimation(flipAnimation)
+        } else {
+            val flipAnimation = FlipAnimation(card, result_x)
+            rootLayout.startAnimation(flipAnimation)
+        }
 
-        /*if (card.visibility == View.GONE) {
-            flipAnimation.reverse()
-        }*/
-        rootLayout.startAnimation(flipAnimation)
+
     }
 
     fun getListener(): FlipListener {
@@ -111,13 +119,15 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
     inner class AHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         var mCard: ConstraintLayout
-        var mImageView: ImageView
+        var mResult_O: ImageView
+        var mResult_X: ImageView
         var mRootLayout: RelativeLayout
         var mQuestion: TextView
 
         init {
             mCard = itemView.findViewById(R.id.cl_card)
-            mImageView = itemView.findViewById(R.id.O_img)
+            mResult_O = itemView.findViewById(R.id.O_img)
+            mResult_X = itemView.findViewById(R.id.X_img)
             mRootLayout = itemView.findViewById(R.id.rl_root)
             mQuestion = itemView.findViewById(R.id.tv_question)
         }
@@ -126,13 +136,15 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
     inner class BHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         var mCard: ConstraintLayout
-        var mImageView: ImageView
+        var mResult_O: ImageView
+        var mResult_X: ImageView
         var mRootLayout: RelativeLayout
         var mQuestion: TextView
 
         init {
             mCard = itemView.findViewById(R.id.cl_card)
-            mImageView = itemView.findViewById(R.id.O_img)
+            mResult_O = itemView.findViewById(R.id.O_img)
+            mResult_X = itemView.findViewById(R.id.X_img)
             mRootLayout = itemView.findViewById(R.id.rl_root)
             mQuestion = itemView.findViewById(R.id.tv_question)
         }
@@ -141,13 +153,15 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
     inner class CHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         var mCard: ConstraintLayout
-        var mImageView: ImageView
+        var mResult_O: ImageView
+        var mResult_X: ImageView
         var mRootLayout: RelativeLayout
         var mQuestion: TextView
 
         init {
             mCard = itemView.findViewById(R.id.cl_card)
-            mImageView = itemView.findViewById(R.id.O_img)
+            mResult_O = itemView.findViewById(R.id.O_img)
+            mResult_X = itemView.findViewById(R.id.X_img)
             mRootLayout = itemView.findViewById(R.id.rl_root)
             mQuestion = itemView.findViewById(R.id.tv_question)
         }
@@ -156,13 +170,15 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
     inner class DHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         var mCard: ConstraintLayout
-        var mImageView: ImageView
+        var mResult_O: ImageView
+        var mResult_X: ImageView
         var mRootLayout: RelativeLayout
         var mQuestion: TextView
 
         init {
             mCard = itemView.findViewById(R.id.cl_card)
-            mImageView = itemView.findViewById(R.id.O_img)
+            mResult_O = itemView.findViewById(R.id.O_img)
+            mResult_X = itemView.findViewById(R.id.X_img)
             mRootLayout = itemView.findViewById(R.id.rl_root)
             mQuestion = itemView.findViewById(R.id.tv_question)
         }

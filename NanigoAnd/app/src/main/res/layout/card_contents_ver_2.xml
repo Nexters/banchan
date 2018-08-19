@@ -60,7 +60,7 @@
             android:layout_marginTop="18dp"
             android:src="@drawable/front"
             android:scaleType="centerCrop"
-            android:background="@drawable/shape_alpha1"
+            android:background="@drawable/shape_answer_img"
             app:layout_constraintTop_toBottomOf="@id/v_border_line"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

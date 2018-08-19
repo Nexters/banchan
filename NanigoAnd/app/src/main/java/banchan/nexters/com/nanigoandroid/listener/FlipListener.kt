@@ -6,5 +6,5 @@ import android.view.View
  * Created by XNOTE on 2018-08-18.
  */
 interface FlipListener {
-    fun onButtonClick(v: View)
+    fun onButtonClick(v: View, isO: Boolean)
 }

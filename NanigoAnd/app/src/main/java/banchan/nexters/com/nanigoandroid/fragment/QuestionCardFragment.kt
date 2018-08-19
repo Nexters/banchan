@@ -37,9 +37,12 @@ class QuestionCardFragment: Fragment(){
         mProgressBar = view.findViewById(R.id.activity_main_progress_bar)
         mSnappyView = view.findViewById(R.id.rv_question_card)
         mBtnX = view.findViewById(R.id.btn_answer_x)
+        mBtnX.setOnClickListener {
+            mFlipListener.onButtonClick(mSnappyView, false)
+        }
         mBtnO = view.findViewById(R.id.btn_answer_o)
         mBtnO.setOnClickListener {
-            mFlipListener.onButtonClick(mSnappyView)
+            mFlipListener.onButtonClick(mSnappyView, true)
         }
 
         setup()
