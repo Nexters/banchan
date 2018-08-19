@@ -29,13 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
                 <include
                     android:id="@+id/in_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    layout="@layout/card_contents_ver_1"
+                    layout="@layout/card_contents_ver_3"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/rl_sub_info"
                     app:layout_constraintLeft_toLeftOf="parent"

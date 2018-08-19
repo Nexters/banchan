@@ -11,13 +11,13 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_card"
         android:layout_width="wrap_content"
-        android:layout_height="405dp"
+        android:layout_height="481dp"
         >
 
         <FrameLayout
             android:id="@+id/cv_question_card"
             android:layout_width="320dp"
-            android:layout_height="380dp"
+            android:layout_height="456dp"
             android:background="@drawable/shape_alpha1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -29,13 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
                 <include
                     android:id="@+id/in_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    layout="@layout/card_contents_ver_1"
+                    layout="@layout/card_contents_ver_4"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/rl_sub_info"
                     app:layout_constraintLeft_toLeftOf="parent"
