@@ -1,199 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <RelativeLayout
         android:id="@+id/rl_toolbar_q_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <include
             android:id="@+id/toolbar_join"
             layout="@layout/layout_toolbar_question_upload" />
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_question_upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/rl_toolbar_q_upload">
 
-        <TextView
-            android:id="@+id/tv_Q"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/question_q"
-            android:textColor="@color/nanigoPink"
-            android:textSize="28sp"/>
-
-        <EditText
-            android:id="@+id/et_question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_toRightOf="@id/tv_Q"
-            android:hint="@string/question_text_hint"
-            android:inputType="textMultiLine"
-            android:gravity="top"
-            android:minLines="3"
-            android:maxLines="4"
-            android:maxLength="53"
-            android:textColor="@color/question_text"
-            android:textSize="20sp"
-            />
-
-        <TextView
-            android:id="@+id/tv_q_text_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/et_question"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="12dp"
-            android:layout_toRightOf="@id/tv_Q"
-            android:text="@string/question_text_count"
-            android:textColor="@color/nanigoGrey"
-            />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_qi_upload"
-        android:layout_width="280dp"
-        android:layout_height="140dp"
-        android:background="@drawable/shape_question_upload_img"
-        android:layout_marginTop="31dp"
-        android:layout_below="@id/rl_question_upload"
-        android:layout_centerHorizontal="true"
-        android:clickable="true">
-
-        <ImageView
-            android:id="@+id/iv_q_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_question_upload_img"
-            android:visibility="invisible"
-            />
-
-        <RelativeLayout
-            android:id="@+id/rl_qi_wrap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-
-            <ImageView
-                android:id="@+id/iv_qi_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/camera_icon"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_qi_camera"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp"
-                android:text="@string/question_image_upload"
-                android:textColor="@color/upload_image_text"
-                android:textSize="15sp"
-                />
-        </RelativeLayout>
-    </RelativeLayout>
-
-
-
-    <View
-        android:id="@+id/v_border_line"
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_height="2dp"
-        android:background="@color/nanigoGrey"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/rl_qi_upload"
-        android:layout_centerHorizontal="true"
-        />
-
-    <RelativeLayout
-        android:id="@+id/rl_q_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:layout_marginTop="24dp"
-        android:layout_below="@id/v_border_line">
-
-        <TextView
-            android:id="@+id/tv_q_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/upload_type_text"
-            android:text="@string/question_type"
-            />
-        
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/tv_q_type"
-            android:layout_marginTop="15dp">
-            
-            <TextView
-                android:id="@+id/btn_q_type_ox"
-                android:layout_width="140dp"
-                android:layout_height="43dp"
-                android:text="@string/type_ox"
-                android:textColor="@color/selector_qtype_text"
-                android:textSize="26sp"
-                android:gravity="center"
-                android:clickable="true"
-                android:enabled="true"
-                android:background="@drawable/selector_qtype_ox"/>
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/btn_q_type_ab"
-                android:layout_width="140dp"
-                android:layout_height="43dp"
-                android:text="@string/type_ab"
-                android:textColor="@color/selector_qtype_text"
-                android:textSize="26sp"
-                android:gravity="center"
-                android:clickable="true"
-                android:enabled="true"
-                android:background="@drawable/selector_qtype_ab"
-                android:layout_toRightOf="@id/btn_q_type_ox"/>
+            <RelativeLayout
+                android:id="@+id/rl_question_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <TextView
+                    android:id="@+id/tv_Q"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_q"
+                    android:textColor="@color/nanigoPink"
+                    android:textSize="28sp" />
+
+                <EditText
+                    android:id="@+id/et_question"
+                    android:layout_width="243dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/tv_Q"
+                    android:gravity="top"
+                    android:hint="@string/question_text_hint"
+                    android:inputType="textMultiLine"
+                    android:maxLength="53"
+                    android:maxLines="4"
+                    android:minLines="3"
+                    android:textColor="@color/question_text"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_q_text_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_question"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_toRightOf="@id/tv_Q"
+                    android:text="@string/question_text_count"
+                    android:textColor="@color/nanigoGrey" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_qi_upload"
+                android:layout_width="280dp"
+                android:layout_height="140dp"
+                android:layout_below="@id/rl_question_upload"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="31dp"
+                android:background="@drawable/shape_question_upload_img"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/iv_q_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_question_upload_img"
+                    android:visibility="invisible" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_qi_wrap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <ImageView
+                        android:id="@+id/iv_qi_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/camera_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/iv_qi_camera"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="13dp"
+                        android:text="@string/question_image_upload"
+                        android:textColor="@color/upload_image_text"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
 
             <View
-                android:layout_width="2dp"
-                android:layout_height="43dp"
-                android:background="@color/nanigoGrey"
+                android:id="@+id/v_border_line"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_below="@id/rl_qi_upload"
                 android:layout_centerHorizontal="true"
-                />
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/nanigoGrey" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v_border_line"
+                android:layout_marginTop="24dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <TextView
+                    android:id="@+id/tv_q_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_type"
+                    android:textColor="@color/upload_type_text"
+                    android:textSize="12sp" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_q_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_q_type"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:id="@+id/btn_q_type_ox"
+                        android:layout_width="140dp"
+                        android:layout_height="43dp"
+                        android:background="@drawable/selector_qtype_ox"
+                        android:clickable="true"
+                        android:enabled="true"
+                        android:gravity="center"
+                        android:text="@string/type_ox"
+                        android:textColor="@color/selector_qtype_text"
+                        android:textSize="26sp" />
+
+                    <TextView
+                        android:id="@+id/btn_q_type_ab"
+                        android:layout_width="140dp"
+                        android:layout_height="43dp"
+                        android:layout_toRightOf="@id/btn_q_type_ox"
+                        android:background="@drawable/selector_qtype_ab"
+                        android:clickable="true"
+                        android:enabled="true"
+                        android:gravity="center"
+                        android:text="@string/type_ab"
+                        android:textColor="@color/selector_qtype_text"
+                        android:textSize="26sp" />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="43dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/nanigoGrey" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_q_type_ab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_q_type"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="19dp"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_qa_type"
+                        android:layout_width="135dp"
+                        android:layout_height="139dp"
+                        android:background="@drawable/shape_question_upload_img"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:id="@+id/iv_type_a_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/front"
+                            android:visibility="invisible" />
+
+                        <ImageView
+                            android:id="@+id/iv_qa_camera"
+                            android:layout_width="49dp"
+                            android:layout_height="29dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="37dp"
+                            android:src="@drawable/camera_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="11dp"
+                            android:text="A"
+                            android:textColor="@color/upload_image_text"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tv_qa_type_txt"
+                            android:layout_width="115dp"
+                            android:layout_height="37dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shape_question_type_txt"
+                            android:gravity="center"
+                            android:text="@string/question_ab_txt"
+                            android:textColor="@color/nanigoGrey"
+                            android:textSize="16sp" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_qb_type"
+                        android:layout_width="135dp"
+                        android:layout_height="139dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/rl_qa_type"
+                        android:background="@drawable/shape_question_upload_img">
+
+                        <ImageView
+                            android:id="@+id/iv_answer_b_img"
+                            android:layout_width="136dp"
+                            android:layout_height="138dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/backoimg"
+                            android:visibility="invisible" />
+
+                        <ImageView
+                            android:id="@+id/iv_qb_camera"
+                            android:layout_width="49dp"
+                            android:layout_height="29dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="37dp"
+                            android:src="@drawable/camera_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="11dp"
+                            android:text="B"
+                            android:textColor="@color/upload_image_text"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tv_qb_type_txt"
+                            android:layout_width="115dp"
+                            android:layout_height="37dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shape_question_type_txt"
+                            android:gravity="center"
+                            android:text="@string/question_ab_txt"
+                            android:textColor="@color/nanigoGrey"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/btn_question_upload"
+                    style="@style/btn"
+                    android:layout_below="@id/rl_q_type_ab"
+                    android:layout_marginBottom="@dimen/basic"
+                    android:layout_marginTop="@dimen/join_gap"
+                    android:background="@drawable/selector_btn"
+                    android:enabled="true"
+                    android:text="@string/question_upload_button"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
         </RelativeLayout>
 
-        
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/btn_question_upload"
-        style="@style/btn"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/basic"
-        android:layout_marginTop="@dimen/join_gap"
-        android:background="@drawable/selector_btn"
-        android:enabled="true"
-        android:text="@string/question_upload_button"
-        android:textColor="@color/white" />
-
-
+    </ScrollView>
 
 </RelativeLayout>

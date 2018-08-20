@@ -50,10 +50,12 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_q_type_ox -> {
                 btn_q_type_ox.isSelected = !btn_q_type_ox.isSelected
                 btn_q_type_ab.isSelected = false
+                if(btn_q_type_ab.isSelected) { rl_q_type_ab.visibility = View.VISIBLE } else { rl_q_type_ab.visibility = View.GONE }
             }
             R.id.btn_q_type_ab -> {
                 btn_q_type_ab.isSelected = !btn_q_type_ab.isSelected
                 btn_q_type_ox.isSelected = false
+                if(btn_q_type_ab.isSelected) { rl_q_type_ab.visibility = View.VISIBLE } else { rl_q_type_ab.visibility = View.GONE }
             }
             R.id.toolbar_exit -> finish()
         }
