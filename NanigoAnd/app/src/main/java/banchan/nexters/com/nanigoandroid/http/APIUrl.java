@@ -18,8 +18,10 @@ public class APIUrl {
      * GET
      * Reviews List
      */
-    public static final String REVIEWSLIST = " /api/reviews/question/{questionId}/last-review/{lastReviewId}";
+    public static final String REVIEWSLIST = "/api/reviews/question/{questionId}/last-review/{lastReviewId}";
 
-    public static final String USERNAME = " /api/users/names";
+    public static final String USERNAME = "/api/users/names";
+
+    public static final String JOINUSER = "/api/users";
 
 }

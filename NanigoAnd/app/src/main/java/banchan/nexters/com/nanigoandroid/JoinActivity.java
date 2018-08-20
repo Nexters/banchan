@@ -6,16 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import banchan.nexters.com.nanigoandroid.adapter.ReviewsAdapter;
 import banchan.nexters.com.nanigoandroid.data.NameData;
@@ -93,6 +97,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 if(btn_join_ok.isEnabled()){
 //                    startActivity(new Intent(JoinActivity.this,));
+                    joinUser();
                 }else{
                     Toast.makeText(getApplicationContext(),"선택해주세요!",Toast.LENGTH_SHORT).show();
                 }
@@ -173,6 +178,81 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onFailure(Call<NameData> call, Throwable t) {
+                        //request fail(not found, time out, etc...)
+                        Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+    }
+
+
+    private void joinUser() {
+
+        IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
+            @Override
+            public void onSuccess() {
+
+                /**
+                 *
+                 * {
+                 "age": 25,
+                 "deviceKey": "device key",
+                 "sex": "F",
+                 "username": {
+                 "prefix": "슬픈",
+                 "postfix": "친칠라"
+                 }
+                 }
+                 */
+                HashMap<String, String> param = new HashMap<>();
+                param.put("age",age);
+                param.put("sex","M");
+
+                JSONObject name = new JSONObject();
+                try {
+                    name.put("prefix",prefix);
+                    name.put("postfix",postfix);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                String str_name = name.toString();
+                param.put("username",str_name);
+//                param.put("username","{'prefix':'행복한','postfix':'알파카'}");
+
+
+                service.joinUser(param).enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                        try {
+
+                            if(response.isSuccessful()){
+                                String result = response.body().toString();
+                                JSONObject data = new JSONObject(result);
+
+
+                                if (data.getString("type").equals("SUCCESS")) {
+                                    Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }else{
+//end respone error
+                                JSONObject data = new JSONObject(response.errorBody().string());
+                                Log.e("oooo", data.toString());
+
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
                         //request fail(not found, time out, etc...)
                         Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
                     }
