@@ -39,10 +39,12 @@ class QuestionCardFragment: Fragment(){
         mBtnX = view.findViewById(R.id.btn_answer_x)
         mBtnX.setOnClickListener {
             mFlipListener.onButtonClick(mSnappyView, false)
+            mSnappyView.setBackgroundColor(colors[0])
         }
         mBtnO = view.findViewById(R.id.btn_answer_o)
         mBtnO.setOnClickListener {
             mFlipListener.onButtonClick(mSnappyView, true)
+            mSnappyView.setBackgroundColor(colors[0])
         }
 
         setup()
