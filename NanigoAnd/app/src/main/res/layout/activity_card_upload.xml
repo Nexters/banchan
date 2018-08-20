@@ -70,7 +70,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_qi_upload"
+                android:id="@+id/btn_qi_upload"
                 android:layout_width="280dp"
                 android:layout_height="140dp"
                 android:layout_below="@id/rl_question_upload"
@@ -116,7 +116,7 @@
                 android:id="@+id/v_border_line"
                 android:layout_width="wrap_content"
                 android:layout_height="2dp"
-                android:layout_below="@id/rl_qi_upload"
+                android:layout_below="@id/btn_qi_upload"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
@@ -189,7 +189,7 @@
                     android:visibility="gone">
 
                     <RelativeLayout
-                        android:id="@+id/rl_qa_type"
+                        android:id="@+id/btn_qa_type"
                         android:layout_width="135dp"
                         android:layout_height="139dp"
                         android:background="@drawable/shape_question_upload_img"
@@ -212,6 +212,7 @@
                             android:src="@drawable/camera_icon" />
 
                         <TextView
+                            android:id="@+id/tv_a_mark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="14dp"
@@ -237,15 +238,16 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/rl_qb_type"
+                        android:id="@+id/btn_qb_type"
                         android:layout_width="135dp"
                         android:layout_height="139dp"
                         android:layout_marginLeft="8dp"
-                        android:layout_toRightOf="@id/rl_qa_type"
-                        android:background="@drawable/shape_question_upload_img">
+                        android:layout_toRightOf="@id/btn_qa_type"
+                        android:background="@drawable/shape_question_upload_img"
+                        android:clickable="true">
 
                         <ImageView
-                            android:id="@+id/iv_answer_b_img"
+                            android:id="@+id/iv_type_b_img"
                             android:layout_width="136dp"
                             android:layout_height="138dp"
                             android:scaleType="centerCrop"
@@ -261,6 +263,7 @@
                             android:src="@drawable/camera_icon" />
 
                         <TextView
+                            android:id="@+id/tv_b_mark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="14dp"

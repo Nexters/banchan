@@ -19,6 +19,11 @@ import java.io.File
 class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG = "CardUploadActivity"
 
+    private val IMG_TYPE_Q = "IMG_TYPE_Q"
+    private val IMG_TYPE_A = "IMG_TYPE_A"
+    private val IMG_TYPE_B = "IMG_TYPE_B"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_upload)
@@ -38,7 +43,11 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
-        rl_qi_upload.setOnClickListener(this)
+        //사진 업로드
+        btn_qi_upload.setOnClickListener(this)
+        btn_qa_type.setOnClickListener(this)
+        btn_qb_type.setOnClickListener(this)
+
         btn_q_type_ox.setOnClickListener(this)
         btn_q_type_ab.setOnClickListener(this)
         toolbar_exit.setOnClickListener(this)
@@ -46,7 +55,9 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when( v?.id ?: -1) {
-            R.id.rl_qi_upload -> getPicture()
+            R.id.btn_qi_upload -> getPicture(IMG_TYPE_Q)
+            R.id.btn_qa_type -> getPicture(IMG_TYPE_A)
+            R.id.btn_qb_type -> getPicture(IMG_TYPE_B)
             R.id.btn_q_type_ox -> {
                 btn_q_type_ox.isSelected = !btn_q_type_ox.isSelected
                 btn_q_type_ab.isSelected = false
@@ -68,7 +79,7 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     // 카메라 띄우기(갤러리, 파일 경로) - 크롭 - 파일로 다운 - 업로드 - 다운로드 URL 획득
-    private fun getPicture() {
+    private fun getPicture(flag : String) {
         RxPaparazzo.single(this)
                 .crop() //편집기능
                 .size(SmallSize()) //해상도 조절
@@ -78,14 +89,14 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
                 .subscribe {
                     // 파일 경로
                     response -> Log.i(TAG, "파일 경로 : "+ response.data().file.toString())
-                    uploadFile(response.data().file)
+                    uploadFile(flag, response.data().file)
                 }
     }
 
     // 입력원이 파일 -> 업로드
-    fun uploadFile(file: File) {
+    fun uploadFile(flag: String, file: File) {
         Log.i(TAG, "uploadFile : "+ file.toString())
-        setThumb("https://s3.ap-northeast-2.amazonaws.com/nanigo-deploy/img/47IMG_A.jpeg")
+        setThumb(flag, "https://s3.ap-northeast-2.amazonaws.com/nanigo-deploy/img/47IMG_A.jpeg")
         /*val storage = FirebaseStorage.getInstance()
         val storageRef = storage.reference // (root)/
         // 파일 uri 객체
@@ -117,10 +128,26 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
         Log.i(TAG, "uploadFile : "+ Base64.encode(barray, 0).toString())*/
     }
 
-    fun setThumb(url: String) {
-        rl_qi_wrap.visibility = View.GONE
-        iv_q_image.visibility = View.VISIBLE
-        Picasso.get().load(url).into(iv_q_image)
+    fun setThumb(flag: String, url: String) {
+        when(flag) {
+            IMG_TYPE_Q -> {
+                rl_qi_wrap.visibility = View.GONE
+                iv_q_image.visibility = View.VISIBLE
+                Picasso.get().load(url).into(iv_q_image)
+            }
+            IMG_TYPE_A -> {
+                iv_qa_camera.visibility = View.GONE
+                iv_type_a_img.visibility = View.VISIBLE
+                Picasso.get().load(url).into(iv_type_a_img)
+                tv_a_mark.setTextColor(resources.getColor(R.color.image_A_mark))
+            }
+            IMG_TYPE_B -> {
+                iv_qb_camera.visibility = View.GONE
+                iv_type_b_img.visibility = View.VISIBLE
+                Picasso.get().load(url).into(iv_type_b_img)
+                tv_b_mark.setTextColor(resources.getColor(R.color.image_B_mark))
+            }
+        }
     }
 
 
