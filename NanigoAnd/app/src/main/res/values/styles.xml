@@ -49,6 +49,10 @@
         <item name="android:textSize">@dimen/large</item>
     </style>
 
+    <style name="tv.question">
+        <item name="android:textSize">26sp</item>
+
+    </style>
 
     <style name="tv.title">
         <item name="android:textSize">@dimen/medium</item>

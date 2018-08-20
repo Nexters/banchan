@@ -1,8 +1,6 @@
 package banchan.nexters.com.nanigoandroid.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -12,23 +10,20 @@ import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class OnBoardAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
-    int[] mImages;
+    String[] lotties;
 
-    public OnBoardAdapter(Context context, int[] mImages) {
+    public OnBoardAdapter(Context context, String[] lotties) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.mImages = mImages;
+        this.lotties = lotties;
     }
 
     @Override
     public int getCount() {
-        return mImages.length;
+        return lotties.length;
     }
 
     @Override
@@ -41,7 +36,7 @@ public class OnBoardAdapter extends PagerAdapter {
 
         LottieAnimationView imageView = new LottieAnimationView(mContext);
         imageView.setImageAssetsFolder("images/");
-        imageView.setAnimation(this.mImages[position]);
+        imageView.setAnimation(this.lotties[position]);
         imageView.setMaxWidth(5);
         imageView.playAnimation();
 //        imageView.loop(true);

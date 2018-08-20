@@ -6,47 +6,254 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+
+    <include layout="@layout/layout_toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/tv.medium"
-            android:layout_centerInParent="true"
-            android:text="결과보기" />
-
-        <ImageView
-            style="@style/iv"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher_round" />
-    </RelativeLayout>
-
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/medium">
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/tv.medium"
-                android:text="Q. 전 남친한테 새벽에 연락왔는데 답장해볼까?" />
-
-            <TextView
-                style="@style/tv.small"
+            <!--question title-->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:gravity="center"
-                android:text="더보기" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    style="@style/tv.question"
+                    android:layout_marginRight="6dp"
+                    android:text="Q." />
+
+                <TextView
+                    android:id="@+id/tv_answer_title"
+                    style="@style/tv.medium"
+                    android:text="전 남친한테 새벽에 연락왔는데 답장해볼까?" />
+            </LinearLayout>
+
+
+            <!--open start-->
+            <LinearLayout
+                android:id="@+id/ll_answer_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="더보기"
+                    android:textColor="@color/nanigoGrey"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/iv"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_open" />
+            </LinearLayout>
+            <!--ic open end-->
             <!--question view START-->
 
             <!--question view END-->
-
-            <TextView
-                style="@style/tv.small"
+            <!--fold start-->
+            <LinearLayout
+                android:id="@+id/ll_answer_fold"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="접기" />
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/tv"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="접기"
+                    android:textColor="@color/nanigoGrey"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    style="@style/iv"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_fold" />
+            </LinearLayout>
+            <!--ic fold end-->
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="14dp"
+                android:background="@color/nanigoGrey" />
+
+            <!--투표결과 START-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv"
+                    android:layout_marginRight="5dp"
+                    android:text="투표결과"
+                    android:textColor="@color/nanigoBlack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_answer_count"
+                    style="@style/tv_noto"
+                    android:text="(총 00명이 참여)"
+                    android:textColor="@color/nanigoBlack"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <!--투표결과 END-->
+            <!--당첨 START-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_answer_selected"
+                    style="@style/iv"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_a_big" />
+
+                <TextView
+                    android:id="@+id/tv_answer_selected"
+                    style="@style/tv_noto"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="85%"
+                    android:textColor="@color/nanigoBlack"
+                    android:textSize="38sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--당첨 END-->
+
+            <!--chart view 1 START-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_answer_small_1"
+                    style="@style/iv"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_a_small" />
+
+                <TextView
+                    android:id="@+id/tv_answer_small_1"
+                    style="@style/tv_noto"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="화이트백"
+                    android:textColor="@color/nanigoBlack"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="12.2dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="5.8dp"
+                android:background="@drawable/bg_chart_round_grey"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    style="@style/tv_noto"
+                    android:layout_height="30dp"
+                    android:id="@+id/iv_answer_gauge_1"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/bg_chart_round_case1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="17.6dp"
+                    android:text="85%"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--chart view 1 END-->
+
+
+            <!--chart view 2 START-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_answer_small_2"
+                    style="@style/iv"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_a_small" />
+
+                <TextView
+                    android:id="@+id/tv_answer_small_2"
+                    style="@style/tv_noto"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="화이트백"
+                    android:textColor="@color/nanigoBlack"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="12.2dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="5.8dp"
+                android:background="@drawable/bg_chart_round_grey"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    style="@style/tv_noto"
+                    android:layout_height="30dp"
+                    android:id="@+id/iv_answer_gauge_2"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/bg_chart_round_case1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="17.6dp"
+                    android:text="85%"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--chart view 2 END-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,4 +298,5 @@
 
             </RelativeLayout>
         </LinearLayout>
+    </ScrollView>
 </LinearLayout>

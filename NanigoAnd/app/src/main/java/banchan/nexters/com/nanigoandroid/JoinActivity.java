@@ -6,27 +6,36 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import banchan.nexters.com.nanigoandroid.adapter.ReviewsAdapter;
 import banchan.nexters.com.nanigoandroid.data.NameData;
 import banchan.nexters.com.nanigoandroid.data.NameList;
+import banchan.nexters.com.nanigoandroid.data.JoinUserData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
 import banchan.nexters.com.nanigoandroid.http.APIService;
 import banchan.nexters.com.nanigoandroid.http.APIUtil;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
+import banchan.nexters.com.nanigoandroid.utils.PreferenceManager;
+import banchan.nexters.com.nanigoandroid.utils.Utils;
 import banchan.nexters.com.nanigoandroid.utils.SimpleDividerItemDecoration;
+import banchan.nexters.com.nanigoandroid.widget.Loading;
 import banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePicker;
 import banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePickerListener;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -53,10 +62,10 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     private APIService service;
 
 
-    private String prefix="";
-    private String postfix="";
-    private String gender="";
-    private String age="";
+    private String prefix = "";
+    private String postfix = "";
+    private String gender = "";
+    private String age = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +80,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 /**
  * ToolBar END
  */
+
 
         service = APIUtil.getService();
 
@@ -91,10 +101,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         btn_join_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(btn_join_ok.isEnabled()){
+                if (btn_join_ok.isEnabled()) {
 //                    startActivity(new Intent(JoinActivity.this,));
-                }else{
-                    Toast.makeText(getApplicationContext(),"선택해주세요!",Toast.LENGTH_SHORT).show();
+                    joinUser();
+                } else {
+                    Toast.makeText(getApplicationContext(), "선택해주세요!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -139,6 +150,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
             @Override
             public void onSuccess() {
+                new Loading().progressON(JoinActivity.this);
                 service.userName().enqueue(new Callback<NameData>() {
                     @Override
                     public void onResponse(Call<NameData> call, retrofit2.Response<NameData> response) {
@@ -149,13 +161,13 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                     case "O":
                                         //명사
                                         tv_join_name_post.setText(name.getWord());
-                                        postfix = name.getId() + "";
+                                        postfix = name.getWord();
                                         btnEnable();
                                         break;
                                     case "R":
                                         //형용사
                                         tv_join_name_pre.setText(name.getWord());
-                                        prefix = name.getId() + "";
+                                        prefix = name.getWord();
                                         btnEnable();
                                         break;
                                     default:
@@ -167,14 +179,90 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                         } else {
                             Toast.makeText(getApplicationContext(), "ERROR : " + response.body().getReason(), Toast.LENGTH_SHORT).show();
-
                         }
+                        new Loading().progressOFF();
                     }
 
                     @Override
                     public void onFailure(Call<NameData> call, Throwable t) {
                         //request fail(not found, time out, etc...)
                         Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                        new Loading().progressOFF();
+                    }
+                });
+            }
+        });
+
+    }
+
+
+    private void joinUser() {
+
+        IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
+            @Override
+            public void onSuccess() {
+                new Loading().progressON(JoinActivity.this);
+
+                /**
+                 *
+                 * {
+                 "age": 25,
+                 "deviceKey": "device key",
+                 "sex": "F",
+                 "username": {
+                 "prefix": "슬픈",
+                 "postfix": "친칠라"
+                 }
+                 }
+                 */
+                JoinUserData joinUser = new JoinUserData();
+                joinUser.setAge(age);
+                joinUser.setSex(gender);
+                joinUser.setDevicekey(new Utils().getUuid(getApplicationContext()));
+                joinUser.setUserName(prefix, postfix);
+
+
+                service.joinUser(joinUser).enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+
+                        try {
+
+                            if (response.isSuccessful()) {
+                                String result = response.body().toString();
+                                JSONObject data = new JSONObject(result);
+
+
+                                if (data.getString("type").equals("SUCCESS")) {
+
+                                    String userId = data.getJSONObject("data").getString("id");
+                                    PreferenceManager.getInstance(getApplicationContext()).setUserId(userId);
+
+                                    Toast.makeText(getApplicationContext(), "성공  " + userId, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
+
+                                }
+                            } else {
+//end respone error
+                                JSONObject data = new JSONObject(response.errorBody().string());
+                                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+
+                                Log.e("oooo", data.toString());
+
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        new Loading().progressOFF();
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        //request fail(not found, time out, etc...)
+                        Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                        new Loading().progressOFF();
                     }
                 });
             }
@@ -213,10 +301,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void btnEnable() {
-        if (!age.equals("") && !age.equals("0") && !age.equals("100")
-//                && !prefix.equals("")&& !prefix.equals("?")
-//                && !postfix.equals("")&& !postfix.equals("?")
-                && !gender.equals("") && !gender.equals("?")) {
+        if (!age.equals("") && !age.equals("0") && !age.equals("100") && !prefix.equals("") && !prefix.equals("?") && !postfix.equals("") && !postfix.equals("?") && !gender.equals("") && !gender.equals("?")) {
             btn_join_ok.setSelected(true);
         } else {
             btn_join_ok.setSelected(false);

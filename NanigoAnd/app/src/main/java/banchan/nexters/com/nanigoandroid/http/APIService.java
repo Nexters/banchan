@@ -10,12 +10,15 @@ import java.util.HashMap;
 
 import banchan.nexters.com.nanigoandroid.data.NameData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
+import banchan.nexters.com.nanigoandroid.data.JoinUserData;
 import banchan.nexters.com.nanigoandroid.data.TestData;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
@@ -93,4 +96,7 @@ public interface APIService {
     @GET(APIUrl.USERNAME)
     Call<NameData> userName();
 
+    @Headers("Content-Type: application/json")
+    @POST(APIUrl.JOINUSER)
+    Call<JsonObject> joinUser( @Body JoinUserData params);
 }

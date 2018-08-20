@@ -40,12 +40,8 @@ public class OnBoardActivity extends AppCompatActivity {
 
     }
 
-    private void onBoardPager(){
-        int[] mImages = {
-                R.raw.data,
-                R.raw.data1,
-                R.raw.data
-        };
+    private void onBoardPager() {
+        String[] mImages = {"data.json", "data1.json", "data.json"};
 
         adapter = new OnBoardAdapter(getApplicationContext(), mImages);
         pager.setAdapter(adapter);
