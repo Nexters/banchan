@@ -36,12 +36,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    layout="@layout/card_contents_ver_1"
+                    layout="@layout/card_contents_ver_2"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/rl_sub_info"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
-
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/rl_sub_info"
@@ -167,9 +166,7 @@
 
         </android.support.constraint.ConstraintLayout>
 
-
     </android.support.constraint.ConstraintLayout>
-
     <ImageView
         android:id="@+id/O_img"
         android:layout_width="320dp"

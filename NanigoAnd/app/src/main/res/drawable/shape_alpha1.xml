@@ -10,9 +10,4 @@
                  android:gradientRadius="300"/>
 
 
-    <padding android:left="10dip"
-             android:top="10dip"
-             android:right="10dip"
-             android:bottom="10dip"/>
-
 </shape>

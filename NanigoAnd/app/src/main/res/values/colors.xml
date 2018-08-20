@@ -21,5 +21,17 @@
 
     <color name="ruler_age_grey">#98a2ab</color>
 
+    <!--카드 내에서 사용-->
+    <color name="divide_bottom">#0c3b464b</color>
+    <color name="divide_center">#f2f2f2</color>
+    <color name="divide_vertical">#8799a3</color>
+
+    <color name="question_text">#2d4053</color>
+
+    <color name="dottom_info_nickname">#8799a3</color>
+    <color name="dottom_info_count">#b38799a3</color>
+
+
+
 </resources>
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="main_background_colors">
+        <item>#6cd0ed</item>
+        <item>#51a6e6</item>
+        <item>#7c76f1</item>
+        <item>#a469dd</item>
+        <item>#fe726a</item>
+    </array>
+
+</resources>
