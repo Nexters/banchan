@@ -2,30 +2,71 @@ package banchan.nexters.com.nanigoandroid
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo
 import com.miguelbcr.ui.rx_paparazzo2.entities.size.SmallSize
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_card_upload.*
+import kotlinx.android.synthetic.main.layout_toolbar_question_upload.*
 import java.io.File
 
 
-class CardUploadActivity : AppCompatActivity() {
+class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG = "CardUploadActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_upload)
 
-        iv_upload.setOnClickListener{getPicture()}
+        tv_q_text_count.text = changeTextCount(0)
+        et_question.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                tv_q_text_count.text = changeTextCount(count)
+            }
+
+            override fun afterTextChanged(s: Editable) {
+
+            }
+        })
+
+        rl_qi_upload.setOnClickListener(this)
+        btn_q_type_ox.setOnClickListener(this)
+        btn_q_type_ab.setOnClickListener(this)
+        toolbar_exit.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when( v?.id ?: -1) {
+            R.id.rl_qi_upload -> getPicture()
+            R.id.btn_q_type_ox -> {
+                btn_q_type_ox.isSelected = !btn_q_type_ox.isSelected
+                btn_q_type_ab.isSelected = false
+            }
+            R.id.btn_q_type_ab -> {
+                btn_q_type_ab.isSelected = !btn_q_type_ab.isSelected
+                btn_q_type_ox.isSelected = false
+            }
+            R.id.toolbar_exit -> finish()
+        }
+    }
+
+    private fun changeTextCount(count: Int) : String {
+        val pattern = getString(R.string.question_text_count)
+        val to = String.format(pattern, count)
+        return to
     }
 
     // 카메라 띄우기(갤러리, 파일 경로) - 크롭 - 파일로 다운 - 업로드 - 다운로드 URL 획득
     private fun getPicture() {
-
         RxPaparazzo.single(this)
                 .crop() //편집기능
                 .size(SmallSize()) //해상도 조절
@@ -42,6 +83,7 @@ class CardUploadActivity : AppCompatActivity() {
     // 입력원이 파일 -> 업로드
     fun uploadFile(file: File) {
         Log.i(TAG, "uploadFile : "+ file.toString())
+        setThumb("https://s3.ap-northeast-2.amazonaws.com/nanigo-deploy/img/47IMG_A.jpeg")
         /*val storage = FirebaseStorage.getInstance()
         val storageRef = storage.reference // (root)/
         // 파일 uri 객체
@@ -74,7 +116,9 @@ class CardUploadActivity : AppCompatActivity() {
     }
 
     fun setThumb(url: String) {
-        Picasso.get().load(url).into(iv_upload)
+        rl_qi_wrap.visibility = View.GONE
+        iv_q_image.visibility = View.VISIBLE
+        Picasso.get().load(url).into(iv_q_image)
     }
 
 

@@ -9,4 +9,16 @@
     <string name="err_internet">인터넷 연결을 확인해주세요.</string>
 
     <string name="empty">없음없음없음</string>
+
+
+    <!--질문올리기-->
+    <string name="question_upload_head">질문올리기</string>
+    <string name="question_text_count">글자수 %1$d/53</string>
+    <string name="question_q">Q.</string>
+    <string name="question_text_hint">질문을 입력하세요.</string>
+    <string name="question_image_upload">질문 이미지 (선택)</string>
+    <string name="question_type">질문형식 선택</string>
+    <string name="type_ox">O/X</string>
+    <string name="type_ab">A/B</string>
+    <string name="question_upload_button">질문 등록</string>
 </resources>

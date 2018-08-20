@@ -31,7 +31,10 @@
     <color name="dottom_info_nickname">#8799a3</color>
     <color name="dottom_info_count">#b38799a3</color>
 
-
+    <!--질문올리기 내에서 사용-->
+    <color name="upload_image">#33cdd7e0</color>
+    <color name="upload_image_text">#cdd7e0</color>
+    <color name="upload_type_text">#5f7f90</color>
 
 </resources>
 

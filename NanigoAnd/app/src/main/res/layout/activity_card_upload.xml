@@ -1,58 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="banchan.nexters.com.nanigoandroid.CardUploadActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="질문 올리기"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
 
-    <EditText
-        android:id="@+id/et_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:labelFor="@id/et_question"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintBottom_toTopOf="@+id/iv_upload"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/iv_upload"
-        android:layout_width="280dp"
-        android:layout_height="140dp"
-        android:background="#f2f2f2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/rl_toolbar_q_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <include
+            android:id="@+id/toolbar_join"
+            layout="@layout/layout_toolbar_question_upload" />
 
-    </FrameLayout>
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_question_upload"
+    <RelativeLayout
+        android:id="@+id/rl_question_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="질문 등록"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:layout_marginTop="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:layout_below="@id/rl_toolbar_q_upload">
+
+        <TextView
+            android:id="@+id/tv_Q"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/question_q"
+            android:textColor="@color/nanigoPink"
+            android:textSize="28sp"/>
+
+        <EditText
+            android:id="@+id/et_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/tv_Q"
+            android:hint="@string/question_text_hint"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:minLines="3"
+            android:maxLines="4"
+            android:maxLength="53"
+            android:textColor="@color/question_text"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_q_text_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_question"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/tv_Q"
+            android:text="@string/question_text_count"
+            android:textColor="@color/nanigoGrey"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_qi_upload"
+        android:layout_width="280dp"
+        android:layout_height="140dp"
+        android:background="@drawable/shape_question_upload_img"
+        android:layout_marginTop="31dp"
+        android:layout_below="@id/rl_question_upload"
+        android:layout_centerHorizontal="true"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_q_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_question_upload_img"
+            android:visibility="invisible"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_qi_wrap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/iv_qi_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/camera_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_qi_camera"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:text="@string/question_image_upload"
+                android:textColor="@color/upload_image_text"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
 
 
 
-</android.support.constraint.ConstraintLayout>
+    <View
+        android:id="@+id/v_border_line"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_height="2dp"
+        android:background="@color/nanigoGrey"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/rl_qi_upload"
+        android:layout_centerHorizontal="true"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_q_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/v_border_line">
+
+        <TextView
+            android:id="@+id/tv_q_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/upload_type_text"
+            android:text="@string/question_type"
+            />
+        
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_q_type"
+            android:layout_marginTop="15dp">
+            
+            <TextView
+                android:id="@+id/btn_q_type_ox"
+                android:layout_width="140dp"
+                android:layout_height="43dp"
+                android:text="@string/type_ox"
+                android:textColor="@color/selector_qtype_text"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:clickable="true"
+                android:enabled="true"
+                android:background="@drawable/selector_qtype_ox"/>
+
+            <TextView
+                android:id="@+id/btn_q_type_ab"
+                android:layout_width="140dp"
+                android:layout_height="43dp"
+                android:text="@string/type_ab"
+                android:textColor="@color/selector_qtype_text"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:clickable="true"
+                android:enabled="true"
+                android:background="@drawable/selector_qtype_ab"
+                android:layout_toRightOf="@id/btn_q_type_ox"/>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="43dp"
+                android:background="@color/nanigoGrey"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+
+        
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btn_question_upload"
+        style="@style/btn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/basic"
+        android:layout_marginTop="@dimen/join_gap"
+        android:background="@drawable/selector_btn"
+        android:enabled="true"
+        android:text="@string/question_upload_button"
+        android:textColor="@color/white" />
+
+
+
+</RelativeLayout>
