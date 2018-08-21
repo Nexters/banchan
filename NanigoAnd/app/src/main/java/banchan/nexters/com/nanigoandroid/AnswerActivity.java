@@ -9,13 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import banchan.nexters.com.nanigoandroid.adapter.ReviewsAdapter;
+import banchan.nexters.com.nanigoandroid.data.QuestionData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsList;
 import banchan.nexters.com.nanigoandroid.http.APIService;
@@ -44,8 +48,26 @@ public class AnswerActivity extends AppCompatActivity {
     private List<ReviewsList> reviewsLists;
     private LinearLayout ll_answer_reviews_empty;
 
+    private TextView tv_answer_title;
+
     private EditText et_answer_review_input;
     private TextView btn_answer_reviews_submit;
+    private TextView tv_answer_count;
+    private ImageView iv_answer_selected;
+    private TextView tv_answer_selected;
+
+    private ImageView iv_answer_small_1;
+    private TextView tv_answer_small_1;
+    private TextView tv_answer_gauge_1;
+    private TextView tv_answer_gauge_percentage_1;
+
+    private ImageView iv_answer_small_2;
+    private TextView tv_answer_small_2;
+    private TextView tv_answer_gauge_2;
+    private TextView tv_answer_gauge_percentage_2;
+
+    private TextView tv_answer_view_count;
+    private TextView tv_answer_comment_count;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,12 +87,13 @@ public class AnswerActivity extends AppCompatActivity {
 
         initView();
         initialize();
+        questionInfo();
         reviewsList(currentPage);
 
         btn_answer_reviews_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!et_answer_review_input.getText().toString().equals("")){
+                if (!et_answer_review_input.getText().toString().equals("")) {
                     //submit reviews
                 }
             }
@@ -78,21 +101,124 @@ public class AnswerActivity extends AppCompatActivity {
 
     }
 
-    private void initView(){
-        et_answer_review_input = (EditText)findViewById(R.id.et_answer_review_input);
+    private void initView() {
+        tv_answer_title = (TextView) findViewById(R.id.tv_answer_title);
+        tv_answer_count = (TextView) findViewById(R.id.tv_answer_count);
+        iv_answer_selected = (ImageView) findViewById(R.id.iv_answer_selected);
+        tv_answer_selected = (TextView) findViewById(R.id.tv_answer_selected);
+
+        iv_answer_small_1 = (ImageView) findViewById(R.id.iv_answer_small_1);
+        tv_answer_small_1 = (TextView) findViewById(R.id.tv_answer_small_1);
+        tv_answer_gauge_1 = (TextView) findViewById(R.id.tv_answer_gauge_1);
+        tv_answer_gauge_percentage_1 = (TextView) findViewById(R.id.tv_answer_gauge_percentage_1);
+
+        iv_answer_small_2 = (ImageView) findViewById(R.id.iv_answer_small_2);
+        tv_answer_small_2 = (TextView) findViewById(R.id.tv_answer_small_2);
+        tv_answer_gauge_2 = (TextView) findViewById(R.id.tv_answer_gauge_2);
+        tv_answer_gauge_percentage_2 = (TextView) findViewById(R.id.tv_answer_gauge_percentage_2);
+
+        tv_answer_view_count = (TextView) findViewById(R.id.tv_answer_view_count);
+        tv_answer_comment_count = (TextView) findViewById(R.id.tv_answer_comment_count);
+
+        et_answer_review_input = (EditText) findViewById(R.id.et_answer_review_input);
         ll_answer_reviews_empty = (LinearLayout) findViewById(R.id.ll_answer_reviews_empty);
         rv_answer_reviews_list = (RecyclerView) findViewById(R.id.rv_answer_reviews_list);
 
         btn_answer_reviews_submit = (TextView) findViewById(R.id.btn_answer_reviews_submit);
 
     }
-    private void initialize(){
-        et_answer_review_input.setFocusable(false);
+
+    private void initialize() {
 
         rv_answer_reviews_list.setHasFixedSize(true);
         rv_answer_reviews_list.setNestedScrollingEnabled(false);
 
 
+    }
+
+    private void questionInfo() {
+
+        IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
+            @Override
+            public void onSuccess() {
+//                int lastReviewId = 10000;
+//                if (page != 0) {
+//                    lastReviewId = page;
+//                }
+                service.questionInfo(questionId + "").enqueue(new Callback<QuestionData>() {
+                    @Override
+                    public void onResponse(Call<QuestionData> call, retrofit2.Response<QuestionData> response) {
+                        if (response.body().getType().equals("SUCCESS")) {
+                            QuestionData questionData = response.body();
+                            tv_answer_title.setText(questionData.getData().getDetail().getTXTQ());
+                            //"(총 00명이 참여)"
+                            tv_answer_count.setText("(총 " + questionData.getData().getVote().getTotal() + "명이 참여)");
+
+
+                           float percentage_1=Math.round(((float)questionData.getData().getVote().getA() / (float)questionData.getData().getVote().getTotal())*100)/100f ;
+                           float percentage_2=Math.round(((float)questionData.getData().getVote().getB() / (float)questionData.getData().getVote().getTotal())*100)/100f ;
+
+                            if (questionData.getData().getVote().getA() > questionData.getData().getVote().getB()) {
+                                iv_answer_selected.setImageResource(R.drawable.ic_a_big);
+                                tv_answer_selected.setText((int)(percentage_1*100) + "%");
+                            } else {
+                                iv_answer_selected.setImageResource(R.drawable.ic_b_big);
+                                tv_answer_selected.setText((int)(percentage_2*100) + "%");
+
+                            }
+
+
+                            /**
+                             * iv_answer_small_1
+                             tv_answer_small_1
+                             tv_answer_gauge_1
+                             tv_answer_gauge_percentage_1
+                             iv_answer_small_2
+                             tv_answer_small_2
+                             tv_answer_gauge_2
+                             tv_answer_gauge_percentage_2
+                             */
+                            //ox ab 다르게 세팅하기
+                            switch (questionData.getData().getType()){
+                                case "A":
+
+                                    break;
+                                case "B":
+                                    break;
+                                case "C":
+                                    iv_answer_small_1.setImageResource(R.drawable.ic_a_small);
+                                    iv_answer_small_2.setImageResource(R.drawable.ic_b_small);
+
+                                    tv_answer_small_1.setText(questionData.getData().getDetail().getTXTA());
+                                    tv_answer_small_2.setText(questionData.getData().getDetail().getTXTB());
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            tv_answer_gauge_percentage_1.setText((int)(percentage_1*100)+"%");
+                            tv_answer_gauge_percentage_2.setText((int)(percentage_2*100)+"%");
+                            tv_answer_gauge_1.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, percentage_1));
+                            tv_answer_gauge_2.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, percentage_2));
+
+                            tv_answer_view_count.setText(questionData.getData().getVote().getTotal()+"");
+                            tv_answer_comment_count.setText(questionData.getData().getReview()+"");
+                        } else {
+                            Toast.makeText(getApplicationContext(), "TYPE IS FAIL", Toast.LENGTH_SHORT).show();
+
+                        }//end else type is fail
+                    }
+
+                    @Override
+                    public void onFailure(Call<QuestionData> call, Throwable t) {
+                        //request fail(not found, time out, etc...)
+                        isLoading = false;
+                        currentPage = 0;
+                        Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
     }
 

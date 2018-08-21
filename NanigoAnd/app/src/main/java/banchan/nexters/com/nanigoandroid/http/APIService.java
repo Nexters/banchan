@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 import banchan.nexters.com.nanigoandroid.data.NameData;
+import banchan.nexters.com.nanigoandroid.data.QuestionData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
 import banchan.nexters.com.nanigoandroid.data.User;
 import banchan.nexters.com.nanigoandroid.data.TestData;
@@ -99,4 +100,6 @@ public interface APIService {
     @GET(APIUrl.USERINFO)
     Call<UserData> userInfo(@Path(value="userId", encoded=true) String userId);
 
+    @GET(APIUrl.QUESTIONINFO)
+    Call<QuestionData> questionInfo(@Path(value="questionId", encoded=true) String questionId);
 }

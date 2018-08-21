@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragment.CardPageFragment">
 
     <RelativeLayout
@@ -21,8 +22,9 @@
 
             <ImageView
                 style="@style/iv"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_a_big" />
+                android:layout_gravity="right"
+
+                android:src="@drawable/bg_speaker_main" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,6 +53,7 @@
             <TextView
                 style="@style/tv"
                 android:layout_marginLeft="49dp"
+                android:layout_marginTop="20dp"
                 android:text="확성기 게이지"
                 android:textColor="@color/nanigoBlack"
                 android:textSize="18sp" />
@@ -64,6 +67,16 @@
                 android:layout_marginTop="5.8dp"
                 android:background="@drawable/bg_chart_round_grey">
 
+                <TextView
+                    style="@style/tv_noto"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="New 1개"
+                    android:textColor="#a7b3be"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,7 +89,7 @@
                         style="@style/tv_noto"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="0.1"
+                        android:layout_weight="0.9"
                         android:background="@drawable/bg_chart_round_black"
                         android:gravity="center_vertical"
                         />
@@ -93,16 +106,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    style="@style/tv_noto"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_vertical"
-                    android:text="New 1개"
-                    android:textColor="#a7b3be"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+
             </RelativeLayout>
 
 

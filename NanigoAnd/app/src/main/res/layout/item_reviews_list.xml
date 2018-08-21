@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="23dp"
+    android:paddingRight="22dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -14,7 +16,6 @@
             android:id="@+id/item_reviews_icon"
             style="@style/iv"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="23dp"
             android:src="@drawable/ic_a_review" />
 
         <TextView
@@ -52,7 +53,6 @@
             android:id="@+id/item_reviews_more"
             android:layout_centerVertical="true"
             android:layout_gravity="right"
-            android:layout_marginRight="22dp"
             android:src="@drawable/ic_review_more" />
     </RelativeLayout>
 
@@ -62,8 +62,6 @@
         android:id="@+id/item_reviews_comment"
         style="@style/tv_noto"
         android:layout_width="match_parent"
-        android:layout_marginLeft="28dp"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="28dp"
         android:text="사용자 누구?" />
 </LinearLayout>
