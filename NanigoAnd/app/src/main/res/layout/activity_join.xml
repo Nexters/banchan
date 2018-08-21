@@ -61,8 +61,8 @@
                     style="@style/iv"
                     android:layout_gravity="center"
                     android:background="@drawable/ripple_effect"
-                    android:clickable="true"
-                    android:src="@drawable/icon_change" />
+                    android:src="@drawable/ic_join_name_refresh"
+                    android:clickable="true" />
             </LinearLayout>
             <!--nickname END-->
 

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -21,16 +22,21 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        private TextView item_reviews_list_date;
-        private TextView item_reviews_list_content;
-        private TextView item_reviews_list_user;
+        private ImageView item_reviews_icon;
+        private TextView item_reviews_name;
+        private TextView item_reviews_time;
+        private ImageView item_reviews_more;
+        private TextView item_reviews_comment;
 
         public ViewHolder(View convertView) {
             super(convertView);
 
-            item_reviews_list_date = (TextView) convertView.findViewById(R.id.item_reviews_list_date);
-            item_reviews_list_content = (TextView) convertView.findViewById(R.id.item_reviews_list_content);
-            item_reviews_list_user = (TextView) convertView.findViewById(R.id.item_reviews_list_user);
+            item_reviews_icon = (ImageView) convertView.findViewById(R.id.item_reviews_icon);
+            item_reviews_name = (TextView) convertView.findViewById(R.id.item_reviews_name);
+            item_reviews_time = (TextView) convertView.findViewById(R.id.item_reviews_time);
+            item_reviews_more = (ImageView) convertView.findViewById(R.id.item_reviews_more);
+            item_reviews_comment = (TextView) convertView.findViewById(R.id.item_reviews_comment);
+
         }
     }
 
@@ -54,9 +60,25 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ReviewsAdapter.ViewHolder viewHolder, int position) {
         ReviewsList reviewsList = reviewsLists.get(position);
-        viewHolder.item_reviews_list_date.setText(reviewsList.getCreatedAt());
-        viewHolder.item_reviews_list_content.setText(reviewsList.getContent());
-        viewHolder.item_reviews_list_user.setText("유저:"+reviewsList.getUesrId());
+        switch (reviewsList.getAnswer()) {
+            case 0:
+                viewHolder.item_reviews_icon.setImageResource(R.drawable.ic_me_review);
+                break;
+            case 1:
+                viewHolder.item_reviews_icon.setImageResource(R.drawable.ic_a_review);
+                break;
+            case 2:
+                viewHolder.item_reviews_icon.setImageResource(R.drawable.ic_b_review);
+                break;
+            default:
+                viewHolder.item_reviews_icon.setImageResource(R.drawable.ic_me_review);
+
+                break;
+        }
+
+        viewHolder.item_reviews_name.setText(reviewsList.getUserName());
+        viewHolder.item_reviews_time.setText(reviewsList.getCreatedAt());
+        viewHolder.item_reviews_comment.setText(reviewsList.getContent());
     }
 
     @Override

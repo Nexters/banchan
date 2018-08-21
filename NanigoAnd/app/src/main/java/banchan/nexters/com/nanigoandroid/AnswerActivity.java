@@ -8,7 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,12 +29,12 @@ import retrofit2.Callback;
  * Created by Ellen on 2018-08-15.
  */
 
-public class ConvertActivity extends AppCompatActivity {
+public class AnswerActivity extends AppCompatActivity {
     private APIService service = APIUtil.getService();
-    private SwipeRefreshLayout swipe_reviews_refresh;
+    private SwipeRefreshLayout swipe_answer_reviews;
 
-    int questionId = 2;
-    RecyclerView rvReviews;
+    int questionId = 52;
+    RecyclerView rv_answer_reviews_list;
     private ReviewsAdapter adapter;
 
 
@@ -41,43 +42,32 @@ public class ConvertActivity extends AppCompatActivity {
     private int currentPage = 0;
 
     private List<ReviewsList> reviewsLists;
-    private TextView tv_reviews_empty;
-    TextView anim_test;
-    Animation animation;
+    private LinearLayout ll_answer_reviews_empty;
+
+    private EditText et_answer_review_input;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_test);
+        setContentView(R.layout.activity_answer);
+        et_answer_review_input = (EditText)findViewById(R.id.et_answer_review_input);
+        et_answer_review_input.setFocusable(false);
 
-        anim_test = (TextView) findViewById(R.id.anim_test);
+        ll_answer_reviews_empty = (LinearLayout) findViewById(R.id.ll_answer_reviews_empty);
+        rv_answer_reviews_list = (RecyclerView) findViewById(R.id.rv_answer_reviews_list);
+        rv_answer_reviews_list.setHasFixedSize(true);
+        rv_answer_reviews_list.setNestedScrollingEnabled(false);
+//        swipe_answer_reviews = findViewById(R.id.swipe_answer_reviews);
+//        swipe_answer_reviews.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                currentPage = 0;
+//                reviewsList(currentPage);
+//                swipe_answer_reviews.setRefreshing(false);
+//            }
+//        });
 
-        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shrink_up);
-        anim_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                anim_test.startAnimation(animation);
-
-            }
-        });
-        tv_reviews_empty = (TextView) findViewById(R.id.tv_reviews_empty);
-        rvReviews = (RecyclerView) findViewById(R.id.rv_reviews);
-        rvReviews.setHasFixedSize(true);
-        findViewById(R.id.btn_review_refresh).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reviewsList(currentPage);
-            }
-        });
-        swipe_reviews_refresh = findViewById(R.id.swipe_reviews_refresh);
-        swipe_reviews_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                currentPage = 0;
-                reviewsList(currentPage);
-                swipe_reviews_refresh.setRefreshing(false);
-            }
-        });
+        reviewsList(currentPage);
 
     }
 
@@ -86,35 +76,35 @@ public class ConvertActivity extends AppCompatActivity {
         IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
             @Override
             public void onSuccess() {
-                int lastReviewId = 10000;
-                if (page != 0) {
-                    lastReviewId = page;
-                }
-                service.reviewList(questionId + "", lastReviewId + "").enqueue(new Callback<ReviewsData>() {
+//                int lastReviewId = 10000;
+//                if (page != 0) {
+//                    lastReviewId = page;
+//                }
+                service.reviewList(questionId + "", "0" + "").enqueue(new Callback<ReviewsData>() {
                     @Override
                     public void onResponse(Call<ReviewsData> call, retrofit2.Response<ReviewsData> response) {
-                        rvReviews.setVisibility(View.VISIBLE);
-                        tv_reviews_empty.setVisibility(View.GONE);
+                        rv_answer_reviews_list.setVisibility(View.VISIBLE);
+                        ll_answer_reviews_empty.setVisibility(View.GONE);
                         isLoading = false;
                         if (response.body().getType().equals("SUCCESS")) {
                             if (response.body().getData().size() == 0) {
                                 if (currentPage == 0) {
-                                    tv_reviews_empty.setVisibility(View.VISIBLE);
-                                    rvReviews.setVisibility(View.GONE);
+                                    ll_answer_reviews_empty.setVisibility(View.VISIBLE);
+                                    rv_answer_reviews_list.setVisibility(View.GONE);
                                 }
                                 currentPage = 0;
 
                             } else {
-                                tv_reviews_empty.setVisibility(View.GONE);
-                                rvReviews.setVisibility(View.VISIBLE);
+                                ll_answer_reviews_empty.setVisibility(View.GONE);
+                                rv_answer_reviews_list.setVisibility(View.VISIBLE);
                                 if (currentPage != 0) {
                                     reviewsLists.addAll(response.body().getData());
                                     adapter.notifyItemRangeInserted(adapter.getItemCount(), reviewsLists.size() - 1);
                                 } else {
                                     reviewsLists = response.body().getData();
                                     adapter = new ReviewsAdapter(reviewsLists);
-                                    rvReviews.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                    rvReviews.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
+                                    rv_answer_reviews_list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//                                    rv_answer_reviews_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
 
 //                            ItemClickSupport.addTo(rvTransHist).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
 //                                @Override
@@ -122,15 +112,15 @@ public class ConvertActivity extends AppCompatActivity {
 //                                    startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse("tndnpartner://detail?orderNo=" + transHistLists.get(position).getOrderNo())), 0);
 //                                }
 //                            });
-                                    rvReviews.setAdapter(adapter);
+                                    rv_answer_reviews_list.setAdapter(adapter);
                                 }
 
                                 //pagination
-                                rvReviews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                                rv_answer_reviews_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
                                     @Override
                                     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                                         super.onScrollStateChanged(recyclerView, newState);
-                                        if (!rvReviews.canScrollVertically(1)) {
+                                        if (!rv_answer_reviews_list.canScrollVertically(1)) {
                                             // 최하단
                                             // if direction -1 is 최상단
                                             if (!isLoading) {

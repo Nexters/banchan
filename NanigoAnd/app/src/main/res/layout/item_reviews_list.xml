@@ -1,25 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:padding="@dimen/medium">
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_reviews_icon"
+            style="@style/iv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/ic_a_review" />
+
+        <TextView
+            android:id="@+id/item_reviews_name"
+            style="@style/tv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/item_reviews_icon"
+            android:text="어지러운 고래"
+            android:textColor="#2d4053"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/item_reviews_view"
+            android:layout_width="2dp"
+            android:layout_height="12dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/item_reviews_name"
+            android:background="#5f7f90" />
+
+        <TextView
+            android:id="@+id/item_reviews_time"
+            style="@style/tv_noto"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/item_reviews_view"
+            android:text="2min ago"
+            android:textColor="#5f7f90"
+            android:textSize="12sp" />
+
+        <ImageView
+            style="@style/iv"
+            android:layout_alignParentRight="true"
+            android:id="@+id/item_reviews_more"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="22dp"
+            android:src="@drawable/ic_review_more" />
+    </RelativeLayout>
+
+
 
     <TextView
-        android:id="@+id/item_reviews_list_date"
-        style="@style/tv.small"
-        android:layout_above="@+id/item_reviews_list_content"
-        android:text="2018-08-07" />
-
-    <TextView
-        android:id="@+id/item_reviews_list_content"
-        style="@style/tv.medium"
-        android:layout_centerVertical="true"
-        android:text="okok" />
-
-    <TextView
-        android:id="@+id/item_reviews_list_user"
-        style="@style/tv.small"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:id="@+id/item_reviews_comment"
+        style="@style/tv_noto"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="28dp"
         android:text="사용자 누구?" />
-</RelativeLayout>
+</LinearLayout>
