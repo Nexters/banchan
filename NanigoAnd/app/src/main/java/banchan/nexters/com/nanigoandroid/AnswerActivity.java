@@ -45,18 +45,14 @@ public class AnswerActivity extends AppCompatActivity {
     private LinearLayout ll_answer_reviews_empty;
 
     private EditText et_answer_review_input;
+    private TextView btn_answer_reviews_submit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
-        et_answer_review_input = (EditText)findViewById(R.id.et_answer_review_input);
-        et_answer_review_input.setFocusable(false);
 
-        ll_answer_reviews_empty = (LinearLayout) findViewById(R.id.ll_answer_reviews_empty);
-        rv_answer_reviews_list = (RecyclerView) findViewById(R.id.rv_answer_reviews_list);
-        rv_answer_reviews_list.setHasFixedSize(true);
-        rv_answer_reviews_list.setNestedScrollingEnabled(false);
+
 //        swipe_answer_reviews = findViewById(R.id.swipe_answer_reviews);
 //        swipe_answer_reviews.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -67,7 +63,36 @@ public class AnswerActivity extends AppCompatActivity {
 //            }
 //        });
 
+        initView();
+        initialize();
         reviewsList(currentPage);
+
+        btn_answer_reviews_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!et_answer_review_input.getText().toString().equals("")){
+                    //submit reviews
+                }
+            }
+        });
+
+    }
+
+    private void initView(){
+        et_answer_review_input = (EditText)findViewById(R.id.et_answer_review_input);
+        ll_answer_reviews_empty = (LinearLayout) findViewById(R.id.ll_answer_reviews_empty);
+        rv_answer_reviews_list = (RecyclerView) findViewById(R.id.rv_answer_reviews_list);
+
+        btn_answer_reviews_submit = (TextView) findViewById(R.id.btn_answer_reviews_submit);
+
+    }
+    private void initialize(){
+        et_answer_review_input.setFocusable(false);
+
+        rv_answer_reviews_list.setHasFixedSize(true);
+        rv_answer_reviews_list.setNestedScrollingEnabled(false);
+
+
 
     }
 
