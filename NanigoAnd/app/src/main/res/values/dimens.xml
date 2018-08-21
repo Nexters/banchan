@@ -10,4 +10,6 @@
     <dimen name="join_gap">12dp</dimen>
 
     <dimen name="ruler_text">16sp</dimen>
+
+    <dimen name="height">48dp</dimen>
 </resources>
