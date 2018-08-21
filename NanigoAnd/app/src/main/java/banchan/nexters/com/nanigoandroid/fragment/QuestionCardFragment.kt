@@ -35,7 +35,7 @@ class QuestionCardFragment: Fragment(){
         val view = inflater.inflate(R.layout.fragment_question_card, container, false)
 
         mProgressBar = view.findViewById(R.id.activity_main_progress_bar)
-        mSnappyView = view.findViewById(R.id.rv_question_card)
+        mSnappyView = view.findViewById<RecyclerView>(R.id.rv_question_card)
         mBtnX = view.findViewById(R.id.btn_answer_x)
         mBtnX.setOnClickListener {
             mFlipListener.onButtonClick(mSnappyView, false)
