@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
 
@@ -190,10 +192,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:weightSum="1">
 
                     <TextView
-                        android:id="@+id/iv_answer_gauge_1"
+                        android:id="@+id/tv_answer_gauge_1"
                         style="@style/tv_noto"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -205,7 +208,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/iv_answer_gauge_percentage_1"
+                    android:id="@+id/tv_answer_gauge_percentage_1"
                     style="@style/tv_noto"
                     android:layout_gravity="center"
                     android:layout_height="match_parent"
@@ -257,23 +260,22 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
                     android:weightSum="1">
 
                     <TextView
-                        android:id="@+id/iv_answer_gauge_2"
+                        android:id="@+id/tv_answer_gauge_2"
                         style="@style/tv_noto"
-                        android:layout_height="30dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="0.1"
+                        android:layout_weight="0.6"
                         android:background="@drawable/bg_chart_round_case2"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
+                        android:gravity="center_vertical" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/iv_answer_gauge_percentage_2"
+                    android:id="@+id/tv_answer_gauge_percentage_2"
                     style="@style/tv_noto"
                     android:layout_gravity="center"
                     android:layout_height="match_parent"
@@ -304,6 +306,7 @@
                     style="@style/tv_noto"
                     android:layout_centerVertical="true"
                     android:text="30"
+                        android:id="@+id/tv_answer_view_count"
                     android:textColor="#b38799a3"
                     android:textSize="15sp" />
 
@@ -322,7 +325,7 @@
                     android:src="@drawable/icon_answer_comment_count" />
 
                 <TextView
-                    android:id="@+id/tv_answqer_commnet_count"
+                    android:id="@+id/tv_answer_comment_count"
                     style="@style/tv_noto"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="32dp"
@@ -354,6 +357,7 @@
                         android:layout_width="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/btn_answer_reviews_submit"
+                        android:background="@null"
                         android:hint="댓글 입력..."
                         android:inputType="textCapSentences|textMultiLine"
                         android:maxLength="300"

@@ -43,7 +43,7 @@ class SpeakerPageFragment : Fragment() {
         btn_question_go.setOnClickListener { startActivity(Intent(context, CardUploadActivity::class.java)) }
 
         tv_speaker_count = view.findViewById<TextView>(R.id.tv_speaker_count)
-        tv_speaker_guage = view.findViewById<TextView>(R.id.tv_speaker_guage)
+        tv_speaker_guage = view.findViewById<TextView>(R.id.tv_speaker_gauge)
         tv_speaker_gauge_percentage = view.findViewById<TextView>(R.id.tv_speaker_gauge_percentage)
 
         service = APIUtil.getService()

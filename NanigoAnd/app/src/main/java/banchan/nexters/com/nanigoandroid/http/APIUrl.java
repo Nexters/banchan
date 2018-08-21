@@ -25,4 +25,6 @@ public class APIUrl {
     public static final String JOINUSER = "/api/users";
 
     public static final String USERINFO = "/api/users/{userId}";
+
+    public static final String QUESTIONINFO = "/api/questionCard/{questionId}";
 }
