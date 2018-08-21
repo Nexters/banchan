@@ -253,7 +253,7 @@ public class AnswerActivity extends AppCompatActivity {
                                     adapter.notifyItemRangeInserted(adapter.getItemCount(), reviewsLists.size() - 1);
                                 } else {
                                     reviewsLists = response.body().getData();
-                                    adapter = new ReviewsAdapter(reviewsLists);
+                                    adapter = new ReviewsAdapter(reviewsLists, AnswerActivity.this, getApplicationContext());
                                     rv_answer_reviews_list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 //                                    rv_answer_reviews_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
 
