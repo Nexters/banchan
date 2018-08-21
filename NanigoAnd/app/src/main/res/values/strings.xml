@@ -22,4 +22,5 @@
     <string name="type_ab">A/B</string>
     <string name="question_upload_button">질문 등록</string>
     <string name="question_ab_txt">텍스트 영역</string>
+    <string name="dialog_text">사진 업로드</string>
 </resources>

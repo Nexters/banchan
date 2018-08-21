@@ -221,7 +221,7 @@
                             android:textColor="@color/upload_image_text"
                             android:textSize="25sp" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/tv_qa_type_txt"
                             android:layout_width="115dp"
                             android:layout_height="37dp"
@@ -230,9 +230,13 @@
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/shape_question_type_txt"
                             android:gravity="center"
-                            android:text="@string/question_ab_txt"
-                            android:textColor="@color/nanigoGrey"
-                            android:textSize="16sp" />
+                            android:hint="@string/question_ab_txt"
+                            android:textColorHint="@color/white"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:inputType="textMultiLine"
+                            android:maxLength="13"
+                            android:maxLines="2" />
 
 
                     </RelativeLayout>
@@ -272,7 +276,7 @@
                             android:textColor="@color/upload_image_text"
                             android:textSize="25sp" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/tv_qb_type_txt"
                             android:layout_width="115dp"
                             android:layout_height="37dp"
@@ -281,9 +285,13 @@
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/shape_question_type_txt"
                             android:gravity="center"
-                            android:text="@string/question_ab_txt"
-                            android:textColor="@color/nanigoGrey"
-                            android:textSize="16sp" />
+                            android:hint="@string/question_ab_txt"
+                            android:textColorHint="@color/white"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:inputType="textMultiLine"
+                            android:maxLength="13"
+                            android:maxLines="2"/>
                     </RelativeLayout>
 
 
@@ -292,12 +300,17 @@
 
                 <TextView
                     android:id="@+id/btn_question_upload"
-                    style="@style/btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/rl_q_type_ab"
-                    android:layout_marginBottom="@dimen/basic"
-                    android:layout_marginTop="@dimen/join_gap"
-                    android:background="@drawable/selector_btn"
-                    android:enabled="true"
+                    android:paddingBottom="@dimen/join_gap"
+                    android:paddingTop="@dimen/join_gap"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginTop="41dp"
+                    android:gravity="center"
+                    android:background="@drawable/btn_color"
+                    android:clickable="true"
+                    android:textSize="26sp"
                     android:text="@string/question_upload_button"
                     android:textColor="@color/white" />
             </RelativeLayout>
