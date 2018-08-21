@@ -1,14 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragment.CardPageFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.CardPageFragment">
 
-    <Button
-        android:id="@+id/btn_question_go"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="질문하기"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_card_page"
+            layout="@layout/layout_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_card_page"
+            android:orientation="vertical">
+
+            <ImageView
+                style="@style/iv"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_a_big" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv.large"
+                    android:text="내 확성기 "
+                    android:textColor="@color/nanigoBlack" />
+
+                <TextView
+                    android:id="@+id/tv_speaker_count"
+                    style="@style/tv.large"
+                    android:text="0"
+                    android:textColor="@color/nanigoBlue"
+                    android:textSize="54sp" />
+
+                <TextView
+                    style="@style/tv.large"
+                    android:text="개"
+                    android:textColor="@color/nanigoBlack" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/tv"
+                android:layout_marginLeft="49dp"
+                android:text="확성기 게이지"
+                android:textColor="@color/nanigoBlack"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="12.2dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5.8dp"
+                android:background="@drawable/bg_chart_round_grey">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/tv_speaker_gauge"
+                        style="@style/tv_noto"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"
+                        android:background="@drawable/bg_chart_round_black"
+                        android:gravity="center_vertical"
+                        />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/tv_noto"
+                    android:id="@+id/tv_speaker_gauge_percentage"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="17.6dp"
+                    android:text="0%"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/tv_noto"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="New 1개"
+                    android:textColor="#a7b3be"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <TextView
+                style="@style/tv_noto"
+                android:layout_marginLeft="47dp"
+                android:text="확성기를 얻으려면?"
+                android:textColor="@color/nanigoBlack"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/tv_noto"
+                android:layout_marginLeft="47dp"
+                android:layout_marginRight="45dp"
+                android:text="질문 카드에 답변 하면 확성기 게이지를 채울 수 있어요."
+                android:textColor="@color/nanigoBlack"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_question_go"
+            style="@style/btn"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/btn_color"
+            android:text="질문 하러 고우~?"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
 
 </FrameLayout>

@@ -1,11 +1,9 @@
 package banchan.nexters.com.nanigoandroid;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,24 +12,18 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import banchan.nexters.com.nanigoandroid.adapter.ReviewsAdapter;
 import banchan.nexters.com.nanigoandroid.data.NameData;
 import banchan.nexters.com.nanigoandroid.data.NameList;
-import banchan.nexters.com.nanigoandroid.data.JoinUserData;
-import banchan.nexters.com.nanigoandroid.data.ReviewsData;
+import banchan.nexters.com.nanigoandroid.data.User;
+import banchan.nexters.com.nanigoandroid.data.UserData;
+import banchan.nexters.com.nanigoandroid.data.Username;
 import banchan.nexters.com.nanigoandroid.http.APIService;
 import banchan.nexters.com.nanigoandroid.http.APIUtil;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
 import banchan.nexters.com.nanigoandroid.utils.PreferenceManager;
 import banchan.nexters.com.nanigoandroid.utils.Utils;
-import banchan.nexters.com.nanigoandroid.utils.SimpleDividerItemDecoration;
 import banchan.nexters.com.nanigoandroid.widget.Loading;
 import banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePicker;
 import banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePickerListener;
@@ -65,7 +57,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     private String prefix = "";
     private String postfix = "";
     private String gender = "";
-    private String age = "";
+    private int age = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,7 +106,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onValueChange(int selectedValue) {
                 tv_join_age.setText(selectedValue + "살");
-                age = selectedValue + "";
+                age = selectedValue;
                 btnEnable();
 //                Toast.makeText(getApplicationContext(),selectedValue+"",Toast.LENGTH_SHORT).show();
             }
@@ -196,6 +188,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
+
     private void joinUser() {
 
         IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
@@ -215,12 +209,14 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                  }
                  }
                  */
-                JoinUserData joinUser = new JoinUserData();
+                User joinUser = new User();
                 joinUser.setAge(age);
                 joinUser.setSex(gender);
-                joinUser.setDevicekey(new Utils().getUuid(getApplicationContext()));
-                joinUser.setUserName(prefix, postfix);
-
+                joinUser.setDeviceKey(new Utils().getUuid(getApplicationContext()));
+                Username name = new Username();
+                name.setPrefix(prefix);
+                name.setPostfix(postfix);
+                joinUser.setUsername(name);
 
                 service.joinUser(joinUser).enqueue(new Callback<JsonObject>() {
                     @Override
@@ -301,7 +297,10 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void btnEnable() {
-        if (!age.equals("") && !age.equals("0") && !age.equals("100") && !prefix.equals("") && !prefix.equals("?") && !postfix.equals("") && !postfix.equals("?") && !gender.equals("") && !gender.equals("?")) {
+        if (age > 0 && age < 100
+                && !prefix.equals("") && !prefix.equals("?")
+                && !postfix.equals("") && !postfix.equals("?")
+                && !gender.equals("") && !gender.equals("?")) {
             btn_join_ok.setSelected(true);
         } else {
             btn_join_ok.setSelected(false);

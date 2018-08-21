@@ -1,18 +1,14 @@
 package banchan.nexters.com.nanigoandroid.http;
 
-import android.content.Context;
-
 import com.google.gson.JsonObject;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
 import banchan.nexters.com.nanigoandroid.data.NameData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
-import banchan.nexters.com.nanigoandroid.data.JoinUserData;
+import banchan.nexters.com.nanigoandroid.data.User;
 import banchan.nexters.com.nanigoandroid.data.TestData;
-import banchan.nexters.com.nanigoandroid.utils.IsOnline;
+import banchan.nexters.com.nanigoandroid.data.UserData;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
@@ -98,5 +94,9 @@ public interface APIService {
 
     @Headers("Content-Type: application/json")
     @POST(APIUrl.JOINUSER)
-    Call<JsonObject> joinUser( @Body JoinUserData params);
+    Call<JsonObject> joinUser( @Body User params);
+
+    @GET(APIUrl.USERINFO)
+    Call<UserData> userInfo(@Path(value="userId", encoded=true) String userId);
+
 }

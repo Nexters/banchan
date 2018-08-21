@@ -176,7 +176,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginBottom="12.2dp"
@@ -187,20 +187,35 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/iv_answer_gauge_1"
+                        style="@style/tv_noto"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.8"
+                        android:background="@drawable/bg_chart_round_case1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/iv_answer_gauge_1"
+                    android:id="@+id/iv_answer_gauge_percentage_1"
                     style="@style/tv_noto"
-                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.7"
-                    android:background="@drawable/bg_chart_round_case1"
+                    android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="17.6dp"
                     android:text="85%"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
             <!--chart view 1 END-->
 
 
@@ -229,7 +244,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginBottom="12.2dp"
@@ -240,20 +255,35 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/iv_answer_gauge_2"
+                        style="@style/tv_noto"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"
+                        android:background="@drawable/bg_chart_round_case2"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/iv_answer_gauge_2"
+                    android:id="@+id/iv_answer_gauge_percentage_2"
                     style="@style/tv_noto"
-                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.7"
-                    android:background="@drawable/bg_chart_round_case2"
+                    android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="17.6dp"
                     android:text="85%"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
             <!--chart view 2 END-->
 
             <!--info view START-->
@@ -301,16 +331,15 @@
                     android:textSize="15sp" />
             </LinearLayout>
             <!--info view END-->
-            <View
-                style="@style/divider_answer"/>
+            <View style="@style/divider_answer" />
 
             <!--reviews START-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:paddingTop="20dp"
                 android:layout_height="match_parent"
                 android:background="@color/nanigoGrey20"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="20dp">
                 <!--input-->
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -320,16 +349,16 @@
                     android:background="@drawable/bg_review_input_box">
 
                     <EditText
-                        style="@style/tv_noto"
                         android:id="@+id/et_answer_review_input"
+                        style="@style/tv_noto"
                         android:layout_width="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/btn_answer_reviews_submit"
                         android:hint="댓글 입력..."
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
                         android:inputType="textCapSentences|textMultiLine"
                         android:maxLength="300"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
                         android:textSize="15sp" />
 
                     <TextView
@@ -344,38 +373,38 @@
                 </RelativeLayout>
                 <!--input end-->
                 <!--<android.support.v4.widget.SwipeRefreshLayout-->
-                    <!--android:id="@+id/swipe_answer_reviews"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:orientation="vertical">-->
+                <!--android:id="@+id/swipe_answer_reviews"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
 
-                    <RelativeLayout
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_answer_reviews_list"
                         android:layout_width="match_parent"
-                        android:paddingBottom="32dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_answer_reviews_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:id="@+id/ll_answer_reviews_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/ll_answer_reviews_empty"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                        <ImageView
+                            style="@style/iv"
+                            android:src="@mipmap/ic_launcher" />
 
-                            <ImageView
-                                style="@style/iv"
-                                android:src="@mipmap/ic_launcher" />
-
-                            <TextView
-                                style="@style/tv.small"
-                                android:text="@string/empty" />
-                        </LinearLayout>
-                    </RelativeLayout>
+                        <TextView
+                            style="@style/tv.small"
+                            android:text="@string/empty" />
+                    </LinearLayout>
+                </RelativeLayout>
 
 
                 <!--</android.support.v4.widget.SwipeRefreshLayout>-->
