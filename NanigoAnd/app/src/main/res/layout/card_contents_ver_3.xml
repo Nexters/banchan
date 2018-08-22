@@ -72,7 +72,7 @@
                     android:id="@+id/iv_answer_a_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/front"
+                    android:src="@drawable/default_pattern"
                     android:scaleType="centerCrop"/>
 
                 <TextView
@@ -119,7 +119,7 @@
                     android:id="@+id/iv_answer_b_img"
                     android:layout_width="136dp"
                     android:layout_height="138dp"
-                    android:src="@drawable/backoimg"
+                    android:src="@drawable/default_pattern"
                     android:scaleType="centerCrop"/>
 
                 <TextView

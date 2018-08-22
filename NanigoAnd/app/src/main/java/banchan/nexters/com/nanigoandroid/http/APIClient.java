@@ -13,6 +13,7 @@ public class APIClient {
         if (retrofit==null) {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(new LoggerIntercepter())
                     .connectTimeout(60, TimeUnit.SECONDS)
                     .writeTimeout(60, TimeUnit.SECONDS)
                     .readTimeout(60, TimeUnit.SECONDS)

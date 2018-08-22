@@ -39,6 +39,10 @@
     <color name="upload_image">#33cdd7e0</color>
     <color name="upload_image_text">#cdd7e0</color>
     <color name="upload_type_text">#5f7f90</color>
+    <color name="image_A_mark">#27d1ff</color>
+    <color name="image_B_mark">#ff6d65</color>
+    <color name="AB_text_dark_grey_blue">#2d4053</color>
+    <color name="black_50">#80000000</color>
 
 </resources>
 

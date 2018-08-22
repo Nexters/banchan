@@ -21,5 +21,14 @@
     <string name="type_ox">O/X</string>
     <string name="type_ab">A/B</string>
     <string name="question_upload_button">질문 등록</string>
+    <string name="question_ab_txt">텍스트 영역</string>
+    <string name="dialog_text">사진 업로드</string>
+    <string name="upload_success">질문 업로드 완료</string>
+    <string name="upload_fail">질문 업로드 실패!</string>
+
+    <!--질문카드 리스트 보기-->
+    <string name="get_list_success">질문카드 리스트 갱신 완료</string>
+    <string name="get_list_fail">질문카드 리스트 갱신 실패</string>
+    <string name="data_empty">데이터 없음</string>
 
 </resources>

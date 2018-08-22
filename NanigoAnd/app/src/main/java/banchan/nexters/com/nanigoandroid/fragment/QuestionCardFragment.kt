@@ -6,16 +6,24 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
+import banchan.nexters.com.nanigoandroid.data.CardList
+import banchan.nexters.com.nanigoandroid.data.QuestionCard
+import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
-
-
+import banchan.nexters.com.nanigoandroid.utils.IsOnline
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class QuestionCardFragment: Fragment(){
@@ -27,6 +35,12 @@ class QuestionCardFragment: Fragment(){
     lateinit var mFlipListener: FlipListener
 
     lateinit var colors: IntArray
+    private val userId: String? = null//PreferenceManager.getInstance(activity).userId
+    private var lastOrder = 0
+    private var itemCount = 10
+
+    private val service = APIUtil.getService()
+    private var mCardList: MutableList<QuestionCard> = mutableListOf()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +49,7 @@ class QuestionCardFragment: Fragment(){
         val view = inflater.inflate(R.layout.fragment_question_card, container, false)
 
         mProgressBar = view.findViewById(R.id.activity_main_progress_bar)
-        mSnappyView = view.findViewById(R.id.rv_question_card)
+        mSnappyView = view.findViewById<RecyclerView>(R.id.rv_question_card)
         mBtnX = view.findViewById(R.id.btn_answer_x)
         mBtnX.setOnClickListener {
             mFlipListener.onButtonClick(mSnappyView, false)
@@ -46,6 +60,7 @@ class QuestionCardFragment: Fragment(){
             mFlipListener.onButtonClick(mSnappyView, true)
             mSnappyView.setBackgroundColor(colors[0])
         }
+
 
         setup()
         reload()
@@ -62,12 +77,14 @@ class QuestionCardFragment: Fragment(){
     }
 
     private fun setup() {
+        getCardList()
+
         mSnappyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = SnappyAdapter()
-        mSnappyView.adapter = mAdapter
+
+
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(mSnappyView)
-        mFlipListener = mAdapter!!.getListener()
+
 
         val typeArray = context!!.resources.obtainTypedArray(R.array.main_background_colors)
         colors = IntArray(typeArray.length())
@@ -79,6 +96,50 @@ class QuestionCardFragment: Fragment(){
         mSnappyView.setBackgroundColor(colors[0])
     }
 
+    private fun getCardList() {
+        IsOnline.onlineCheck(activity!!.applicationContext, IsOnline.onlineCallback {
+            viewLoadingProgress()
+            service.getCardList(if(userId.isNullOrEmpty()) { 1004.toString() } else { userId }, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
+                override fun onResponse(call: Call<CardList>?, response: Response<CardList>?) {
+                    if(response!!.isSuccessful) {
+                        val result = response.body()
+                        if(result != null) {
+                            if (result.type == "SUCCESS") {
+                                if(result.data.isNotEmpty()) {
+                                    mCardList.clear()
+                                    mCardList.addAll(result.data)
+
+                                    if(mAdapter == null) {
+                                        mAdapter = SnappyAdapter(mCardList)
+                                        mSnappyView.adapter = mAdapter
+                                        mFlipListener = mAdapter!!.getListener()
+                                    } else {
+                                        mAdapter!!.notifyDataSetChanged()
+                                    }
+                                    goneLoadingProgress()
+                                    Toast.makeText(context, resources.getString(R.string.get_list_success), Toast.LENGTH_LONG).show()
+                                } else {
+                                    Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(context, resources.getString(R.string.get_list_fail), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        val data = JSONObject(response.errorBody()!!.string())
+                        Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+
+                        Log.e("oooo", data.toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<CardList>?, t: Throwable?) {
+                    Log.e("onFailure", call.toString())
+                }
+            })
+        })
+    }
+
     private fun paginate() {
         //mRecyclerView.setPaginationReserved()
         //mAdapter!!.addAll(createTouristSpots())
@@ -87,16 +148,24 @@ class QuestionCardFragment: Fragment(){
 
 
     private fun reload() {
-        mSnappyView.setVisibility(View.GONE)
-        mProgressBar.setVisibility(View.VISIBLE)
+        mSnappyView.visibility = View.GONE
+        viewLoadingProgress()
         Handler().postDelayed({
 //            mAdapter = SnappyAdapter()
 //            mSnappyView.setAdapter(mAdapter)
-            mSnappyView.setVisibility(View.VISIBLE)
-            mProgressBar.setVisibility(View.GONE)
+            goneLoadingProgress()
+            mSnappyView.visibility = View.VISIBLE
+
         }, 1000)
     }
 
+    private fun viewLoadingProgress() {
+        mProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun goneLoadingProgress() {
+        mProgressBar.visibility = View.GONE
+    }
 
 
 }
