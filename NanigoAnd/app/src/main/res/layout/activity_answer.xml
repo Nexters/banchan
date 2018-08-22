@@ -210,8 +210,8 @@
                 <TextView
                     android:id="@+id/tv_answer_gauge_percentage_1"
                     style="@style/tv_noto"
-                    android:layout_gravity="center"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:paddingLeft="17.6dp"
                     android:text="85%"
@@ -250,7 +250,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginBottom="12.2dp"
+                android:layout_marginBottom="32.3dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="5.8dp"
@@ -277,8 +277,8 @@
                 <TextView
                     android:id="@+id/tv_answer_gauge_percentage_2"
                     style="@style/tv_noto"
-                    android:layout_gravity="center"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:paddingLeft="17.6dp"
                     android:text="85%"
@@ -289,50 +289,79 @@
             <!--chart view 2 END-->
 
             <!--info view START-->
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height"
-                android:background="@color/nanigoGrey20"
-                android:gravity="center_vertical|right"
-                android:orientation="horizontal">
+                android:background="@color/bg_reviews">
 
-                <ImageView
-                    style="@style/iv"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="3dp"
-                    android:src="@drawable/icon_answer_view_count" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
 
-                <TextView
-                    style="@style/tv_noto"
-                    android:layout_centerVertical="true"
-                    android:text="30"
+                    <TextView
+                        style="@style/tv_noto"
+                        android:layout_marginLeft="24dp"
+                        android:text="참여자 수"
+                        android:textColor="#5f7f90"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        style="@style/tv_noto"
+                        android:id="@+id/tv_answer_info_view_count"
+                        android:layout_marginLeft="10dp"
+                        android:text="30"
+                        android:textColor="#3b464b"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/iv"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/icon_answer_view_count" />
+
+                    <TextView
                         android:id="@+id/tv_answer_view_count"
-                    android:textColor="#b38799a3"
-                    android:textSize="15sp" />
+                        style="@style/tv_noto"
+                        android:layout_centerVertical="true"
+                        android:text="30"
+                        android:textColor="#b38799a3"
+                        android:textSize="15sp" />
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="13dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="13dp"
-                    android:background="#8799a3" />
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="13dp"
+                        android:background="#8799a3" />
 
-                <ImageView
-                    style="@style/iv"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="3dp"
-                    android:src="@drawable/icon_answer_comment_count" />
+                    <ImageView
+                        style="@style/iv"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/icon_answer_comment_count" />
 
-                <TextView
-                    android:id="@+id/tv_answer_comment_count"
-                    style="@style/tv_noto"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="32dp"
-                    android:text="30"
-                    android:textColor="#b38799a3"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_answer_comment_count"
+                        style="@style/tv_noto"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="32dp"
+                        android:text="30"
+                        android:textColor="#b38799a3"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
             <!--info view END-->
             <View style="@style/divider_answer" />
 
@@ -340,7 +369,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/nanigoGrey20"
+                android:background="@color/bg_reviews"
                 android:orientation="vertical"
                 android:paddingTop="20dp">
                 <!--input-->
@@ -370,7 +399,8 @@
                         style="@style/tv_noto"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:padding="15dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
                         android:text="등록"
                         android:textColor="#5f7f90"
                         android:textSize="15sp" />
@@ -385,6 +415,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="32dp"
                     android:paddingBottom="32dp">
 
                     <android.support.v7.widget.RecyclerView
