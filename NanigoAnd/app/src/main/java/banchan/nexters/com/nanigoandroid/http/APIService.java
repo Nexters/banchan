@@ -13,6 +13,7 @@ import banchan.nexters.com.nanigoandroid.data.TestData;
 import banchan.nexters.com.nanigoandroid.data.UploadCardData;
 import banchan.nexters.com.nanigoandroid.data.User;
 import banchan.nexters.com.nanigoandroid.data.UserData;
+import banchan.nexters.com.nanigoandroid.data.VoteCard;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -180,4 +181,10 @@ public interface APIService {
 
     @GET(APIUrl.NOTVOTEDCARD)
     Call<CardList> getCardList(@Path(value = "userId", encoded = true) String userId, @Path(value = "lastOrder", encoded = true) String lastOrder, @Path(value = "count", encoded = true) String count);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(APIUrl.VOTECARD)
+    Call<JsonObject> voteCard(@Body VoteCard params);
+
 }

@@ -13,13 +13,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import banchan.nexters.com.nanigoandroid.MyApplication
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
 import banchan.nexters.com.nanigoandroid.data.CardList
 import banchan.nexters.com.nanigoandroid.data.QuestionCard
+import banchan.nexters.com.nanigoandroid.data.VoteCard
 import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
 import banchan.nexters.com.nanigoandroid.utils.IsOnline
+import com.google.gson.JsonObject
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,12 +59,12 @@ class QuestionCardFragment: Fragment(){
         mBtnX = view.findViewById(R.id.btn_answer_x)
         mBtnX.setOnClickListener {
             mFlipListener.onButtonClick(mSnappyView, false, mPosition)
-            mSnappyView.setBackgroundColor(colors[0])
+            // 결과 api 연동
         }
         mBtnO = view.findViewById(R.id.btn_answer_o)
         mBtnO.setOnClickListener {
             mFlipListener.onButtonClick(mSnappyView, true, mPosition)
-            mSnappyView.setBackgroundColor(colors[0])
+            // 결과 api 연동
         }
 
 
@@ -113,7 +116,7 @@ class QuestionCardFragment: Fragment(){
 
     private fun getCardList() {
         IsOnline.onlineCheck(activity!!.applicationContext, IsOnline.onlineCallback {
-            viewLoadingProgress()
+            MyApplication.get().progressON(activity)
             service.getCardList(if(userId.isNullOrEmpty()) { 1004.toString() } else { userId }, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
                 override fun onResponse(call: Call<CardList>?, response: Response<CardList>?) {
                     if(response!!.isSuccessful) {
@@ -136,8 +139,11 @@ class QuestionCardFragment: Fragment(){
                                 } else {
                                     Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_SHORT).show()
                                 }
+
+                                MyApplication.get().progressOFF()
                             } else {
                                 Toast.makeText(context, resources.getString(R.string.get_list_fail), Toast.LENGTH_SHORT).show()
+                                MyApplication.get().progressOFF()
                             }
                         }
                     } else {
@@ -152,6 +158,40 @@ class QuestionCardFragment: Fragment(){
                     Log.e("onFailure", call.toString())
                 }
             })
+        })
+    }
+
+    private fun postVoteResult(answer: String) {
+
+
+        val voteDto = VoteCard(answer, )
+        service.voteCard(cardDto).enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
+                try {
+                    if(response!!.isSuccessful) {
+                        val result = response.body().toString()
+                        val data = JSONObject(result)
+                        if(data.getString("type") == "SUCCESS") {
+                            Toast.makeText(applicationContext, resources.getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, resources.getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        val data = JSONObject(response.errorBody()!!.string())
+                        Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show()
+
+                        Log.e("oooo", data.toString())
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
+                Log.e("onFailure", call.toString())
+            }
+
         })
     }
 
