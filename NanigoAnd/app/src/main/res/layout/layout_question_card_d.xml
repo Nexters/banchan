@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_question_img"
+        android:layout_width="280dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/shape_answer_img"
+        android:scaleType="centerCrop"
+        android:src="@drawable/front"
+        app:layout_constraintBottom_toTopOf="@+id/v_border_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_question" />
+
+    <View
+        android:id="@+id/v_border_line"
+        android:layout_width="280dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/divide_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/rl_answer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_question_img" />
+
+    <RelativeLayout
+        android:id="@+id/rl_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="19dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_border_line">
+
+        <RelativeLayout
+            android:id="@+id/rl_answer_a"
+            android:layout_width="136dp"
+            android:layout_height="103dp"
+            android:background="@drawable/shape_answer_img">
+
+            <ImageView
+                android:id="@+id/iv_answer_a_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pattern" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:text="A"
+                android:textColor="#27d1ff"
+                android:textSize="25sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_txt_a"
+                android:layout_width="114dp"
+                android:layout_height="28dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/shape_answer_text">
+
+                <TextView
+                    android:id="@+id/tv_txt_a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="사내식당"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id='@+id/rl_answer_b'
+            android:layout_width="136dp"
+            android:layout_height="103dp"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/rl_answer_a"
+            android:background="@drawable/shape_answer_img">
+
+            <ImageView
+                android:id="@+id/iv_answer_b_img"
+                android:layout_width="136dp"
+                android:layout_height="138dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_pattern" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:text="B"
+                android:textColor="#fe726a"
+                android:textSize="25sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_txt_b"
+                android:layout_width="114dp"
+                android:layout_height="28dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/shape_answer_text">
+
+                <TextView
+                    android:id="@+id/tv_txt_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="바질스튜"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

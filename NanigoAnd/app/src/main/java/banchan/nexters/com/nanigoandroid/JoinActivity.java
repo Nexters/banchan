@@ -1,5 +1,6 @@
 package banchan.nexters.com.nanigoandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.support.annotation.Nullable;
@@ -24,7 +25,6 @@ import banchan.nexters.com.nanigoandroid.http.APIUtil;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
 import banchan.nexters.com.nanigoandroid.utils.PreferenceManager;
 import banchan.nexters.com.nanigoandroid.utils.Utils;
-import banchan.nexters.com.nanigoandroid.widget.Loading;
 import banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePicker;
 import banchan.nexters.com.nanigoandroid.widget.rulers.RulerValuePickerListener;
 
@@ -142,7 +142,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
             @Override
             public void onSuccess() {
-                new Loading().progressON(JoinActivity.this);
+                MyApplication.Companion.get().progressON(JoinActivity.this);
+
                 service.userName().enqueue(new Callback<NameData>() {
                     @Override
                     public void onResponse(Call<NameData> call, retrofit2.Response<NameData> response) {
@@ -171,16 +172,17 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                         } else {
                             Toast.makeText(getApplicationContext(), "ERROR : " + response.body().getReason(), Toast.LENGTH_SHORT).show();
+
                         }
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
+
                     }
 
                     @Override
                     public void onFailure(Call<NameData> call, Throwable t) {
                         //request fail(not found, time out, etc...)
                         Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
-                        new Loading().progressOFF();
-                    }
+                        MyApplication.Companion.get().progressOFF();                    }
                 });
             }
         });
@@ -195,7 +197,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
             @Override
             public void onSuccess() {
-                new Loading().progressON(JoinActivity.this);
+                MyApplication.Companion.get().progressON(JoinActivity.this);
 
                 /**
                  *
@@ -235,6 +237,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                     PreferenceManager.getInstance(getApplicationContext()).setUserId(userId);
 
                                     Toast.makeText(getApplicationContext(), "성공  " + userId, Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(JoinActivity.this, MainActivity.class));
                                 } else {
                                     Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
 
@@ -251,14 +254,14 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         //request fail(not found, time out, etc...)
                         Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                     }
                 });
             }

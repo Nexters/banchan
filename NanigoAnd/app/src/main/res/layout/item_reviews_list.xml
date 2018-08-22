@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_reviews_layout_color"
+    android:background="@color/bg_reviews"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="23dp"
-    android:paddingRight="22dp"
-    android:paddingTop="16dp">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <!--comment view START-->
+    <LinearLayout
+        android:id="@+id/item_reviews_layout_visible"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:paddingTop="16dp">
 
-        <ImageView
-            android:id="@+id/item_reviews_icon"
-            style="@style/iv"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_a_review" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/item_reviews_name"
-            style="@style/tv"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/item_reviews_icon"
-            android:text="어지러운 고래"
-            android:textColor="#2d4053"
-            android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/item_reviews_icon"
+                style="@style/iv"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_a_review" />
 
-        <View
-            android:id="@+id/item_reviews_view"
-            android:layout_width="2dp"
-            android:layout_height="12dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/item_reviews_name"
-            android:background="#5f7f90" />
+            <TextView
+                android:id="@+id/item_reviews_name"
+                style="@style/tv"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/item_reviews_icon"
+                android:text="어지러운 고래"
+                android:textColor="#2d4053"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/item_reviews_time"
-            style="@style/tv_noto"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/item_reviews_view"
-            android:text="2min ago"
-            android:textColor="#5f7f90"
-            android:textSize="12sp" />
+            <View
+                android:id="@+id/item_reviews_view"
+                android:layout_width="2dp"
+                android:layout_height="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/item_reviews_name"
+                android:background="#5f7f90" />
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content">-->
+            <TextView
+                android:id="@+id/item_reviews_time"
+                style="@style/tv_noto"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/item_reviews_view"
+                android:text="2min ago"
+                android:textColor="#5f7f90"
+                android:textSize="12sp" />
+
 
             <ImageView
                 android:id="@+id/item_reviews_more"
@@ -59,38 +64,65 @@
                 android:layout_gravity="right"
                 android:paddingTop="2dp"
                 android:src="@drawable/ic_review_more" />
-            <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_toLeftOf="@+id/item_reviews_more"-->
-                <!--android:layout_alignTop="@+id/item_reviews_more"-->
-                <!--android:background="@color/white"-->
-                <!--android:orientation="vertical">-->
+        </RelativeLayout>
 
-                <!--<TextView-->
-                    <!--style="@style/tv_noto"-->
-                    <!--android:text="수정하기" />-->
+        <ViewSwitcher
+            android:id="@+id/item_reviews_view_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <!--<TextView-->
-                    <!--style="@style/tv_noto"-->
-                    <!--android:text="삭제하기" />-->
+            <TextView
+                android:id="@+id/item_reviews_comment"
+                style="@style/tv_noto"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:text="사용자 누구?"
+                android:textSize="15sp" />
 
-                <!--<TextView-->
-                    <!--style="@style/tv_noto"-->
-                    <!--android:text="신고하기" />-->
-            <!--</LinearLayout>-->
-        <!--</RelativeLayout>-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_review_input_box">
+
+                <EditText
+                    android:id="@+id/item_reviews_comment_edit"
+                    style="@style/tv_noto"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/item_reviews_comment_submit"
+                    android:background="@null"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="300"
+                    android:paddingLeft="6dp"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_reviews_comment_submit"
+                    style="@style/tv_noto"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="수정"
+                    android:textColor="#5f7f90"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </ViewSwitcher>
 
 
-    </RelativeLayout>
-
+    </LinearLayout>
+    <!--comment view END-->
 
     <TextView
-        android:id="@+id/item_reviews_comment"
-        style="@style/tv_noto"
-        android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
-        android:text="사용자 누구?" />
+        android:id="@+id/item_reviews_report"
+        style="@style/tv"
+        android:layout_centerInParent="true"
+        android:text="신고 처리가 완료된 댓글입니다."
+        android:textColor="#c9d0d7"
+        android:textSize="15sp"
+        android:visibility="gone" />
 
 
-</LinearLayout>
+</RelativeLayout>
