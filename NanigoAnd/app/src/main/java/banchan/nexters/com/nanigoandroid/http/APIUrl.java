@@ -31,6 +31,8 @@ public class APIUrl {
     public static final String REVIEWSDEL = "/api/reviews/{deleteReviewId}";
     public static final String REVIEWSREPORT = "/api/reviews/report";
 
-
+    //질문 카드
+    public static final String UPLOADCARD = "/api/questionCard";
+    public static final String NOTVOTEDCARD = "/api/user/{userId}/notVotedQuestions/{lastOrder}/{count}";
 
 }

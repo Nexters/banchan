@@ -11,15 +11,23 @@ class ImageUtil {
 
     private val TAG = "ImageUtil"
 
+    companion object {
+        val baseURL = "https://s3.ap-northeast-2.amazonaws.com/nanigo-deploy/img/"
+    }
+
     fun bitmap2ByteArray(file: File) : String{
 
         val bitmap = BitmapFactory.decodeFile(file.path)
         val byteArray = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray)
-        val bytes = byteArray.toByteArray()
-        val encodedImg = Base64.encodeToString(bytes, Base64.DEFAULT)
+        val filename = file.toString()
+        if (filename.contains(".jpg") || filename.contains(".jpeg")) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray)
+        }
 
-        Log.i(TAG, "uploadFile : $encodedImg")
+        val bytes = byteArray.toByteArray()
+        val encodedImg = Base64.encodeToString(bytes, Base64.NO_WRAP)
+
+        Log.i(TAG, "uploadFile encodedImg: $encodedImg")
 
         return encodedImg
     }
