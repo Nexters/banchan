@@ -119,7 +119,7 @@ public interface APIService {
      }
      */
     @Headers("Content-Type: application/json")
-    @PUT(APIUrl.REVIEWS)
+    @POST(APIUrl.REVIEWS)
     Call<JsonObject> insertReviews(@Body Reviews params);
 
 
@@ -137,7 +137,7 @@ public interface APIService {
      }
      */
     @Headers("Content-Type: application/json")
-    @POST(APIUrl.REVIEWS)
+    @PUT(APIUrl.REVIEWS)
     Call<JsonObject> updateReviews(@Body Reviews params);
 
 

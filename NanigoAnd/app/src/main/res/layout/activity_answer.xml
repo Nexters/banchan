@@ -70,6 +70,15 @@
             <!--ic open end-->
             <!--question view START-->
 
+            <!--questionType B START-->
+            <!--questionType B END-->
+
+            <!--questionType C START-->
+            <!--questionType C END-->
+
+            <!--questionType D START-->
+            <!--questionType D END-->
+
             <!--question view END-->
             <!--fold start-->
             <LinearLayout

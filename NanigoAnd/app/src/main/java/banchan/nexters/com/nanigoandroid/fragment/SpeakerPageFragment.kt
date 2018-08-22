@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import banchan.nexters.com.nanigoandroid.CardUploadActivity
 import banchan.nexters.com.nanigoandroid.MainActivity
+import banchan.nexters.com.nanigoandroid.MyApplication
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.R.drawable.bg_chart_round_grey
 import banchan.nexters.com.nanigoandroid.data.NameData
@@ -21,7 +22,6 @@ import banchan.nexters.com.nanigoandroid.http.APIService
 import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.utils.IsOnline
 import banchan.nexters.com.nanigoandroid.utils.PreferenceManager
-import banchan.nexters.com.nanigoandroid.widget.Loading
 import kotlinx.android.synthetic.main.fragment_card_page.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -67,7 +67,7 @@ class SpeakerPageFragment : Fragment() {
 
 
         IsOnline.onlineCheck(activity) {
-            //            Loading().progressON(activity)
+            MyApplication.get().progressON(activity)
             service!!.userInfo(userId).enqueue(object : Callback<UserData> {
                 override fun onResponse(call: Call<UserData>, response: retrofit2.Response<UserData>) {
                     if (response.body()!!.type == "SUCCESS") {
@@ -89,13 +89,12 @@ class SpeakerPageFragment : Fragment() {
                     } else {
                         Toast.makeText(activity!!.applicationContext, "ERROR : " + response.body()!!.reason, Toast.LENGTH_SHORT).show()
                     }
-                    Loading().progressOFF()
-                }
+MyApplication.get().progressOFF()                }
 
                 override fun onFailure(call: Call<UserData>, t: Throwable) {
                     //request fail(not found, time out, etc...)
                     Toast.makeText(activity?.applicationContext, "onFailure", Toast.LENGTH_SHORT).show()
-                    Loading().progressOFF()
+                    MyApplication.get().progressOFF()
                 }
             })
         }

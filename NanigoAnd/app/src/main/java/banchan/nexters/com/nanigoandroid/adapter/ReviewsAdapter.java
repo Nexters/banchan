@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import banchan.nexters.com.nanigoandroid.JoinActivity;
+import banchan.nexters.com.nanigoandroid.MyApplication;
 import banchan.nexters.com.nanigoandroid.R;
 import banchan.nexters.com.nanigoandroid.data.Reviews;
 import banchan.nexters.com.nanigoandroid.data.ReviewsList;
@@ -35,7 +36,6 @@ import banchan.nexters.com.nanigoandroid.http.APIUtil;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
 import banchan.nexters.com.nanigoandroid.utils.PreferenceManager;
 import banchan.nexters.com.nanigoandroid.utils.Utils;
-import banchan.nexters.com.nanigoandroid.widget.Loading;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -163,7 +163,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                     // AlertDialog 셋팅
                     alert.setPositiveButton("신고", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, int id) {
-                            reportReviews(reviewsList.getId(),new mCallback() {
+                            reportReviews(reviewsList.getId(), new mCallback() {
                                 @Override
                                 public void onSuccess() {
                                     Toast.makeText(applicationContext, "신고가 완료되었습니다!", Toast.LENGTH_SHORT).show();
@@ -275,7 +275,6 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     }
 
 
-
     private static APIService service = APIUtil.getService();
 
 
@@ -284,7 +283,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         IsOnline.onlineCheck(applicationContext, new IsOnline.onlineCallback() {
             @Override
             public void onSuccess() {
-//                new Loading().progressON(activity);
+                MyApplication.Companion.get().progressON(activity);
 
                 service.updateReviews(review).enqueue(new Callback<JsonObject>() {
                     @Override
@@ -321,14 +320,14 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         //request fail(not found, time out, etc...)
                         Toast.makeText(applicationContext, "onFailure", Toast.LENGTH_SHORT).show();
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                         callback.onFailure();
 
                     }
@@ -344,7 +343,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         IsOnline.onlineCheck(applicationContext, new IsOnline.onlineCallback() {
             @Override
             public void onSuccess() {
-//                new Loading().progressON(activity);
+                MyApplication.Companion.get().progressON(activity);
 
                 Reviews review = new Reviews();
                 review.setReviewId(reviewId);
@@ -384,14 +383,14 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                             callback.onFailure();
 
                         }
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         //request fail(not found, time out, etc...)
                         Toast.makeText(applicationContext, "onFailure", Toast.LENGTH_SHORT).show();
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                         callback.onFailure();
 
                     }
@@ -407,7 +406,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         IsOnline.onlineCheck(applicationContext, new IsOnline.onlineCallback() {
             @Override
             public void onSuccess() {
-//                new Loading().progressON(activity);
+                MyApplication.Companion.get().progressON(activity);
 
                 service.deleteReviews(reviewId + "").enqueue(new Callback<JsonObject>() {
                     @Override
@@ -442,7 +441,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                             callback.onFailure();
 
                         }
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                     }
 
                     @Override
@@ -451,7 +450,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                         Toast.makeText(applicationContext, "onFailure", Toast.LENGTH_SHORT).show();
                         callback.onFailure();
 
-                        new Loading().progressOFF();
+                        MyApplication.Companion.get().progressOFF();
                     }
                 });
             }

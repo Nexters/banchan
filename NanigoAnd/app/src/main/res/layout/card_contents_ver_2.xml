@@ -51,19 +51,34 @@
             app:layout_constraintRight_toRightOf="parent"
             />
 
-        <ImageView
-            android:id="@+id/iv_question_img"
-            android:layout_width="280dp"
-            android:layout_height="140dp"
-            android:layout_below="@id/v_border_line"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
-            android:src="@drawable/default_pattern"
-            android:scaleType="centerCrop"
-            android:background="@drawable/shape_answer_img"
-            app:layout_constraintTop_toBottomOf="@id/v_border_line"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+    <include layout="@layout/layout_question_card_b"
+        android:id="@+id/iv_question_img"
+        android:layout_width="280dp"
+        android:layout_height="140dp"
+        android:layout_below="@id/v_border_line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/default_pattern"
+        android:scaleType="centerCrop"
+        android:background="@drawable/shape_answer_img"
+        app:layout_constraintTop_toBottomOf="@id/v_border_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <!--<ImageView-->
+            <!--android:id="@+id/iv_question_img"-->
+            <!--android:layout_width="280dp"-->
+            <!--android:layout_height="140dp"-->
+            <!--android:layout_below="@id/v_border_line"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="18dp"-->
+            <!--android:src="@drawable/default_pattern"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:background="@drawable/shape_answer_img"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/v_border_line"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
 </android.support.constraint.ConstraintLayout>
