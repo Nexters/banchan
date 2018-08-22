@@ -10,12 +10,15 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.animation.FlipAnimation
+import banchan.nexters.com.nanigoandroid.data.QuestionCard
 import banchan.nexters.com.nanigoandroid.item.TestItem
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
+import banchan.nexters.com.nanigoandroid.utils.ImageUtil
+import com.squareup.picasso.Picasso
 import java.util.*
 
 
-class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListener {
+class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListener {
 
 
     val VIEW_TYPE_A = 0
@@ -48,28 +51,52 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = mItemList.get(position)
+        val itemDetail = item.detail
 
-        val test = mItems[position]
+        //val test = mItems[position]
         if (holder is AHolder) {
-            (holder as AHolder).mQuestion.text = test.question
+            (holder as AHolder).mQuestion.text = itemDetail.TXT_Q
             (holder as AHolder).mCard.tag = "mCard"
             (holder as AHolder).mResult_O.tag = "mResult_O"
             (holder as AHolder).mResult_X.tag = "mResult_X"
             (holder as AHolder).mRootLayout.tag = "mRootLayout"
         } else if (holder is BHolder){
-            (holder as BHolder).mQuestion.text = test.question
+            (holder as BHolder).mQuestion.text = itemDetail.TXT_Q
+            if(itemDetail.IMG_Q!!.isNotEmpty()) {
+                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as BHolder).mImageQ)
+            }
             (holder as BHolder).mCard.tag = "mCard"
             (holder as BHolder).mResult_O.tag = "mResult_O"
             (holder as BHolder).mResult_X.tag = "mResult_X"
             (holder as BHolder).mRootLayout.tag = "mRootLayout"
         } else if (holder is CHolder){
-            (holder as CHolder).mQuestion.text = test.question
+            (holder as CHolder).mQuestion.text = itemDetail.TXT_Q
+            (holder as CHolder).mTextA.text = itemDetail.TXT_A
+            (holder as CHolder).mTextB.text = itemDetail.TXT_B
+            if(itemDetail.IMG_A!!.isNotEmpty()) {
+                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as CHolder).mImageA)
+            }
+            if(itemDetail.IMG_B!!.isNotEmpty()) {
+                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as CHolder).mImageB)
+            }
             (holder as CHolder).mCard.tag = "mCard"
             (holder as CHolder).mResult_O.tag = "mResult_O"
             (holder as CHolder).mResult_X.tag = "mResult_X"
             (holder as CHolder).mRootLayout.tag = "mRootLayout"
         } else {
-            (holder as DHolder).mQuestion.text = test.question
+            (holder as DHolder).mQuestion.text = itemDetail.TXT_Q
+            if(itemDetail.IMG_Q!!.isNotEmpty()) {
+                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as DHolder).mImageQ)
+            }
+            (holder as DHolder).mTextA.text = itemDetail.TXT_A
+            (holder as DHolder).mTextB.text = itemDetail.TXT_B
+            if(itemDetail.IMG_A!!.isNotEmpty()) {
+                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as DHolder).mImageA)
+            }
+            if(itemDetail.IMG_B!!.isNotEmpty()) {
+                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as DHolder).mImageB)
+            }
             (holder as DHolder).mCard.tag = "mCard"
             (holder as DHolder).mResult_O.tag = "mResult_O"
             (holder as DHolder).mResult_X.tag = "mResult_X"
@@ -79,19 +106,23 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (mItems.get(position).item_viewtype == VIEW_TYPE_A) {
-            VIEW_TYPE_A
-        } else if (mItems.get(position).item_viewtype == VIEW_TYPE_B){
-            VIEW_TYPE_B
-        } else if (mItems.get(position).item_viewtype == VIEW_TYPE_C){
-            VIEW_TYPE_C
-        } else {
-            VIEW_TYPE_D
+
+        val item = mItemList.get(position)
+
+        return when(item.type) {
+            "A" -> VIEW_TYPE_A
+            "B" -> VIEW_TYPE_B
+            "C" -> VIEW_TYPE_C
+            "D" -> VIEW_TYPE_D
+            else -> {
+                0
+            }
         }
+
     }
 
     override fun getItemCount(): Int {
-        return mItems.size
+        return mItemList.size
     }
 
 
@@ -125,11 +156,11 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
         var mQuestion: TextView
 
         init {
-            mCard = itemView.findViewById(R.id.cl_card)
-            mResult_O = itemView.findViewById(R.id.O_img)
-            mResult_X = itemView.findViewById(R.id.X_img)
-            mRootLayout = itemView.findViewById(R.id.rl_root)
-            mQuestion = itemView.findViewById(R.id.tv_question)
+            mCard = view.findViewById(R.id.cl_card)
+            mResult_O = view.findViewById(R.id.O_img)
+            mResult_X = view.findViewById(R.id.X_img)
+            mRootLayout = view.findViewById(R.id.rl_root)
+            mQuestion = view.findViewById(R.id.tv_question)
         }
     }
 
@@ -140,6 +171,7 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
         var mResult_X: ImageView
         var mRootLayout: RelativeLayout
         var mQuestion: TextView
+        var mImageQ: ImageView
 
         init {
             mCard = itemView.findViewById(R.id.cl_card)
@@ -147,6 +179,7 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
             mResult_X = itemView.findViewById(R.id.X_img)
             mRootLayout = itemView.findViewById(R.id.rl_root)
             mQuestion = itemView.findViewById(R.id.tv_question)
+            mImageQ = view.findViewById(R.id.iv_question_img)
         }
     }
 
@@ -157,13 +190,21 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
         var mResult_X: ImageView
         var mRootLayout: RelativeLayout
         var mQuestion: TextView
+        var mTextA: TextView
+        var mTextB: TextView
+        var mImageA: ImageView
+        var mImageB: ImageView
 
         init {
-            mCard = itemView.findViewById(R.id.cl_card)
-            mResult_O = itemView.findViewById(R.id.O_img)
-            mResult_X = itemView.findViewById(R.id.X_img)
-            mRootLayout = itemView.findViewById(R.id.rl_root)
-            mQuestion = itemView.findViewById(R.id.tv_question)
+            mCard = view.findViewById(R.id.cl_card)
+            mResult_O = view.findViewById(R.id.O_img)
+            mResult_X = view.findViewById(R.id.X_img)
+            mRootLayout = view.findViewById(R.id.rl_root)
+            mQuestion = view.findViewById(R.id.tv_question)
+            mTextA = view.findViewById(R.id.tv_txt_a)
+            mTextB = view.findViewById(R.id.tv_txt_b)
+            mImageA = view.findViewById(R.id.iv_answer_a_img)
+            mImageB = view.findViewById(R.id.iv_answer_b_img)
         }
     }
 
@@ -174,6 +215,11 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
         var mResult_X: ImageView
         var mRootLayout: RelativeLayout
         var mQuestion: TextView
+        var mTextA: TextView
+        var mTextB: TextView
+        var mImageQ: ImageView
+        var mImageA: ImageView
+        var mImageB: ImageView
 
         init {
             mCard = itemView.findViewById(R.id.cl_card)
@@ -181,6 +227,11 @@ class SnappyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListe
             mResult_X = itemView.findViewById(R.id.X_img)
             mRootLayout = itemView.findViewById(R.id.rl_root)
             mQuestion = itemView.findViewById(R.id.tv_question)
+            mTextA = view.findViewById(R.id.tv_txt_a)
+            mTextB = view.findViewById(R.id.tv_txt_b)
+            mImageQ = view.findViewById(R.id.iv_question_img)
+            mImageA = view.findViewById(R.id.iv_answer_a_img)
+            mImageB = view.findViewById(R.id.iv_answer_b_img)
         }
     }
 }

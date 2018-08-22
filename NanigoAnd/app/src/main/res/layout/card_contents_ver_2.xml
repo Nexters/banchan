@@ -58,7 +58,7 @@
             android:layout_below="@id/v_border_line"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="18dp"
-            android:src="@drawable/front"
+            android:src="@drawable/default_pattern"
             android:scaleType="centerCrop"
             android:background="@drawable/shape_answer_img"
             app:layout_constraintTop_toBottomOf="@id/v_border_line"

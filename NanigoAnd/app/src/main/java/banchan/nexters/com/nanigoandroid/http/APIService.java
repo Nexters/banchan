@@ -4,15 +4,15 @@ import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
+import banchan.nexters.com.nanigoandroid.data.CardList;
 import banchan.nexters.com.nanigoandroid.data.NameData;
 import banchan.nexters.com.nanigoandroid.data.QuestionData;
 import banchan.nexters.com.nanigoandroid.data.Reviews;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
-import banchan.nexters.com.nanigoandroid.data.User;
 import banchan.nexters.com.nanigoandroid.data.TestData;
+import banchan.nexters.com.nanigoandroid.data.UploadCardData;
+import banchan.nexters.com.nanigoandroid.data.User;
 import banchan.nexters.com.nanigoandroid.data.UserData;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -20,10 +20,8 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -164,4 +162,22 @@ public interface APIService {
 
     @DELETE(APIUrl.REVIEWSDEL)
     Call<JsonObject> deleteReviews(@Path(value = "deleteReviewId", encoded = true) String deleteReviewId);
+
+    /**
+     "detail": {
+     "TXT_Q": "얘들아 어떤 사진이 더 잘 생겼어?",
+     "TXT_A": "셀카",
+     "TXT_B": "SM 사진",
+     "IMG_A": "~~~~~~~~~~~~",
+     "IMG_B": "------------"
+     },
+     "type": "A",
+     "userId": 43
+     */
+    @Headers("Content-Type: application/json")
+    @POST(APIUrl.UPLOADCARD)
+    Call<JsonObject> uploadCard(@Body UploadCardData params);
+
+    @GET(APIUrl.NOTVOTEDCARD)
+    Call<CardList> getCardList(@Path(value = "userId", encoded = true) String userId, @Path(value = "lastOrder", encoded = true) String lastOrder, @Path(value = "count", encoded = true) String count);
 }

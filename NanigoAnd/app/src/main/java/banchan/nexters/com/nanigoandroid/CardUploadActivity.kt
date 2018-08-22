@@ -9,7 +9,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import banchan.nexters.com.nanigoandroid.data.CardDetailData
+import banchan.nexters.com.nanigoandroid.data.UploadCardData
+import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.utils.ImageUtil
+import banchan.nexters.com.nanigoandroid.utils.IsOnline
+import banchan.nexters.com.nanigoandroid.utils.PreferenceManager
+import com.google.gson.JsonObject
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo
 import com.miguelbcr.ui.rx_paparazzo2.entities.size.SmallSize
 import com.squareup.picasso.Picasso
@@ -17,6 +24,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_card_upload.*
 import kotlinx.android.synthetic.main.layout_toolbar_question_upload.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 
 
@@ -166,18 +177,18 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             IMG_TYPE_Q -> {
                 rl_qi_wrap.visibility = View.GONE
                 iv_q_image.visibility = View.VISIBLE
-                Picasso.get().load("file://"+path).config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_q_image)
+                Picasso.get().load("file://$path").config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_q_image)
             }
             IMG_TYPE_A -> {
                 iv_qa_camera.visibility = View.GONE
                 iv_type_a_img.visibility = View.VISIBLE
-                Picasso.get().load("file://"+path).config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_type_a_img)
+                Picasso.get().load("file://$path").config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_type_a_img)
                 tv_a_mark.setTextColor(resources.getColor(R.color.image_A_mark))
             }
             IMG_TYPE_B -> {
                 iv_qb_camera.visibility = View.GONE
                 iv_type_b_img.visibility = View.VISIBLE
-                Picasso.get().load("file://"+path).config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_type_b_img)
+                Picasso.get().load("file://$path").config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_type_b_img)
                 tv_b_mark.setTextColor(resources.getColor(R.color.image_B_mark))
             }
         }
@@ -198,11 +209,59 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
         }
         * */
 
-        val txt_q = et_question.text
-        val txt_a = tv_qa_type_txt.text
-        val txt_b = tv_qb_type_txt.text
+        val service = APIUtil.getService()
 
+        IsOnline.onlineCheck(applicationContext, IsOnline.onlineCallback {
+            val txt_q = if(et_question.text.toString().isEmpty()) { " " } else { et_question.text.toString() }
+            val txt_a = if(tv_qa_type_txt.text.toString().isEmpty()) { " " } else { tv_qa_type_txt.text.toString() }
+            val txt_b = if(tv_qb_type_txt.text.toString().isEmpty()) { " " } else { tv_qb_type_txt.text.toString() }
+            val card_type = if(img_q.isNullOrEmpty()) {
+                if( txt_a.isBlank() && txt_b.isBlank()) {
+                    "A"
+                } else {
+                    "C"
+                }
+            } else {
+                if( txt_a.isBlank() && txt_b.isBlank()) {
+                    "B"
+                } else {
+                    "D"
+                }
+            }
 
+            val userId = PreferenceManager.getInstance(applicationContext).userId
+            val userIdInt: Int? = if(!userId.isNullOrEmpty()) { userId.toInt() } else { 1004 }
+            val cardDetailDto = CardDetailData(txt_q, txt_a, txt_b, img_q, img_a, img_b)
+            val cardDto = UploadCardData(cardDetailDto, card_type, userIdInt!!)
+            service.uploadCard(cardDto).enqueue(object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
+                    try {
+                        if(response!!.isSuccessful) {
+                            val result = response.body().toString()
+                            val data = JSONObject(result)
+                            if(data.getString("type") == "SUCCESS") {
+                                Toast.makeText(applicationContext, resources.getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
+                                finish()
+                            } else {
+                                Toast.makeText(applicationContext, resources.getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            val data = JSONObject(response.errorBody()!!.string())
+                            Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show()
+
+                            Log.e("oooo", data.toString())
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
+                    Log.e("onFailure", call.toString())
+                }
+
+            })
+        })
 
     }
 
