@@ -37,12 +37,19 @@ data class QuestionCard(
         @SerializedName("userId") var userId: Int,
         @SerializedName("detail") var detail: CardDetailData,
         @SerializedName("vote") var vote: Vote,
-        @SerializedName("review") var review: Int
+        @SerializedName("review") var review: Int,
+        @SerializedName("tag") var tag: Tag
 )
 
 data class Vote(
         @SerializedName("a") var a: Int,
         @SerializedName("b") var b: Int,
         @SerializedName("total") var total: Int
+)
+
+data class Tag(
+        @SerializedName("new") var new: Boolean,
+        @SerializedName("first") var first: Boolean,
+        @SerializedName("random") var random: Boolean
 )
 
