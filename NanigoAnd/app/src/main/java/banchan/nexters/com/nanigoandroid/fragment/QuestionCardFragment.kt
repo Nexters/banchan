@@ -38,6 +38,7 @@ class QuestionCardFragment: Fragment(){
     private val userId: String? = null//PreferenceManager.getInstance(activity).userId
     private var lastOrder = 0
     private var itemCount = 10
+    private var mPosition = 0
 
     private val service = APIUtil.getService()
     private var mCardList: MutableList<QuestionCard> = mutableListOf()
@@ -50,14 +51,16 @@ class QuestionCardFragment: Fragment(){
 
         mProgressBar = view.findViewById(R.id.activity_main_progress_bar)
         mSnappyView = view.findViewById<RecyclerView>(R.id.rv_question_card)
+
+
         mBtnX = view.findViewById(R.id.btn_answer_x)
         mBtnX.setOnClickListener {
-            mFlipListener.onButtonClick(mSnappyView, false)
+            mFlipListener.onButtonClick(mSnappyView, false, mPosition)
             mSnappyView.setBackgroundColor(colors[0])
         }
         mBtnO = view.findViewById(R.id.btn_answer_o)
         mBtnO.setOnClickListener {
-            mFlipListener.onButtonClick(mSnappyView, true)
+            mFlipListener.onButtonClick(mSnappyView, true, mPosition)
             mSnappyView.setBackgroundColor(colors[0])
         }
 
@@ -80,11 +83,23 @@ class QuestionCardFragment: Fragment(){
         getCardList()
 
         mSnappyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mSnappyView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val offset = mSnappyView.computeVerticalScrollOffset()
 
+                val myCellHeight = mSnappyView.getChildAt(0).measuredHeight
+                if (offset % myCellHeight == 0) {
+                    mPosition = offset / myCellHeight
+                    mSnappyView.setBackgroundColor(colors[mPosition%5])
+                    Toast.makeText(context, "mPosition : $mPosition", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
 
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(mSnappyView)
-
 
         val typeArray = context!!.resources.obtainTypedArray(R.array.main_background_colors)
         colors = IntArray(typeArray.length())
@@ -92,8 +107,8 @@ class QuestionCardFragment: Fragment(){
             colors[i] = typeArray.getColor(i, 0)
         }
         typeArray.recycle()
-
         mSnappyView.setBackgroundColor(colors[0])
+
     }
 
     private fun getCardList() {

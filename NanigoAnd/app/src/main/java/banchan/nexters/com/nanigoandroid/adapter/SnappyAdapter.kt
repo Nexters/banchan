@@ -18,13 +18,21 @@ import com.squareup.picasso.Picasso
 
 class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListener {
 
-
     val VIEW_TYPE_A = 0
     val VIEW_TYPE_B = 1
     val VIEW_TYPE_C = 3
     val VIEW_TYPE_D = 4
 
+    lateinit var colors: IntArray
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val typeArray = parent.context!!.resources.obtainTypedArray(R.array.main_background_colors)
+        colors = IntArray(typeArray.length())
+        for (i in 0 until typeArray.length()) {
+            colors[i] = typeArray.getColor(i, 0)
+        }
+        typeArray.recycle()
+
 
         return if (viewType == VIEW_TYPE_A) {
             AHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_question_card, parent, false))
@@ -50,6 +58,10 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
         (holder as CardHolder).mUsername.text = item.username
         (holder as CardHolder).mViewCount.text = item.vote.total.toString()
         (holder as CardHolder).mCommentCount.text = item.review.toString()
+        (holder as CardHolder).mBadgeNew.visibility = if(item.tag.new) { View.VISIBLE } else { View.GONE }
+        (holder as CardHolder).mBadgeFirst.visibility = if(item.tag.first) { View.VISIBLE } else { View.GONE }
+        (holder as CardHolder).mBadgeRandom.visibility = if(item.tag.random) { View.VISIBLE } else { View.GONE }
+        (holder as CardHolder).mQmark.setTextColor(colors[position%5])
 
 
 
@@ -85,6 +97,15 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
             }
         }
 
+        /*//현재 목록 상 마지막 셀을 요청하면
+        if (position == mItemList.size - 1 && !isMore) {
+            cur_page++
+            isMore = true
+            //더보기 더 가져오기
+            showLoading(true)
+            getImageQuery()
+        }*/
+
     }
 
 
@@ -110,7 +131,7 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
     }
 
 
-    override fun onButtonClick(v: View, isO: Boolean) {
+    override fun onButtonClick(v: View, isO: Boolean, position: Int) {
         val rootLayout = v.findViewWithTag<RelativeLayout>("mRootLayout")
         val result_o = v.findViewWithTag<ImageView>("mResult_O")
         val result_x = v.findViewWithTag<ImageView>("mResult_X")
@@ -139,6 +160,10 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
         var mUsername: TextView
         var mViewCount: TextView
         var mCommentCount: TextView
+        var mBadgeNew: ImageView
+        var mBadgeFirst: ImageView
+        var mBadgeRandom: ImageView
+        var mQmark: TextView
 
         init {
             mCard = view.findViewById(R.id.cl_card)
@@ -148,6 +173,10 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
             mUsername = view.findViewById(R.id.tv_username)
             mViewCount = view.findViewById(R.id.tv_view_count)
             mCommentCount = view.findViewById(R.id.tv_comment_count)
+            mBadgeNew = view.findViewById(R.id.iv_badge1)
+            mBadgeFirst = view.findViewById(R.id.iv_badge2)
+            mBadgeRandom = view.findViewById(R.id.iv_badge3)
+            mQmark = view.findViewById(R.id.tv_Q)
         }
     }
 
