@@ -52,7 +52,6 @@
             />
 
     <include layout="@layout/layout_question_card_b"
-        android:id="@+id/iv_question_img"
         android:layout_width="280dp"
         android:layout_height="140dp"
         android:layout_below="@id/v_border_line"
