@@ -144,33 +144,32 @@ class QuestionCardFragment: Fragment(){
                         val result = response.body()
                         if(result != null) {
                             if (result.type == "SUCCESS") {
-                                if(result.data.size > 1) {
-                                    val newList: MutableList<QuestionCard> = result.data
-                                    if(mCardList.size > 0) {
-                                        newList.removeAt(0)
-                                        mCardList.addAll(newList)
-                                    } else {
-                                        mCardList.clear()
-                                        mCardList.addAll(newList)
-                                    }
-
-                                    if(mAdapter == null) {
-                                        mAdapter = SnappyAdapter(mCardList)
-                                        mSnappyView.adapter = mAdapter
-                                        mFlipListener = mAdapter!!.getListener()
-                                    } else {
-                                        mAdapter!!.setItemList(mCardList)
-                                        mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
-                                    }
-                                    //Toast.makeText(context, resources.getString(R.string.get_list_success), Toast.LENGTH_LONG).show()
-                                    Log.i(TAG, "getCardList :"+ resources.getString(R.string.get_list_success))
+                                val newList: MutableList<QuestionCard> = result.data
+                                if(mCardList.size > 0) {
+                                    mCardList.addAll(newList)
                                 } else {
-                                    Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_SHORT).show()
+                                    mCardList.clear()
+                                    mCardList.addAll(newList)
                                 }
+
+                                if(mAdapter == null) {
+                                    mAdapter = SnappyAdapter(mCardList)
+                                    mSnappyView.adapter = mAdapter
+                                    mFlipListener = mAdapter!!.getListener()
+                                } else {
+                                    mAdapter!!.setItemList(mCardList)
+                                    mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
+                                }
+                                //Toast.makeText(context, resources.getString(R.string.get_list_success), Toast.LENGTH_LONG).show()
+                                Log.i(TAG, "getCardList :"+ resources.getString(R.string.get_list_success))
 
                                 MyApplication.get().progressOFF()
                             } else {
-                                Toast.makeText(context, resources.getString(R.string.get_list_fail), Toast.LENGTH_SHORT).show()
+                                if(result.reason == "QuestionNotFound") {
+                                    Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(context, resources.getString(R.string.get_list_fail), Toast.LENGTH_SHORT).show()
+                                }
                                 MyApplication.get().progressOFF()
                             }
                         }
