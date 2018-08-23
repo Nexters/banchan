@@ -161,39 +161,39 @@ class QuestionCardFragment: Fragment(){
         })
     }
 
-    private fun postVoteResult(answer: String) {
-
-
-        val voteDto = VoteCard(answer, )
-        service.voteCard(cardDto).enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
-                try {
-                    if(response!!.isSuccessful) {
-                        val result = response.body().toString()
-                        val data = JSONObject(result)
-                        if(data.getString("type") == "SUCCESS") {
-                            Toast.makeText(applicationContext, resources.getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
-                            finish()
-                        } else {
-                            Toast.makeText(applicationContext, resources.getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
-                        }
-                    } else {
-                        val data = JSONObject(response.errorBody()!!.string())
-                        Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show()
-
-                        Log.e("oooo", data.toString())
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
-                Log.e("onFailure", call.toString())
-            }
-
-        })
-    }
+//    private fun postVoteResult(answer: String) {
+//
+//
+//        val voteDto = VoteCard(answer, )
+//        service.voteCard(cardDto).enqueue(object : Callback<JsonObject> {
+//            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
+//                try {
+//                    if(response!!.isSuccessful) {
+//                        val result = response.body().toString()
+//                        val data = JSONObject(result)
+//                        if(data.getString("type") == "SUCCESS") {
+//                            Toast.makeText(applicationContext, resources.getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
+//                            finish()
+//                        } else {
+//                            Toast.makeText(applicationContext, resources.getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
+//                        }
+//                    } else {
+//                        val data = JSONObject(response.errorBody()!!.string())
+//                        Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show()
+//
+//                        Log.e("oooo", data.toString())
+//                    }
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
+//                Log.e("onFailure", call.toString())
+//            }
+//
+//        })
+//    }
 
     private fun paginate() {
         //mRecyclerView.setPaginationReserved()

@@ -1,6 +1,7 @@
 package banchan.nexters.com.nanigoandroid.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ public class OnBoardAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     String[] lotties;
+
+
 
     public OnBoardAdapter(Context context, String[] lotties) {
         mContext = context;
