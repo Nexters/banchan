@@ -37,7 +37,7 @@ public class AnswerActivity extends AppCompatActivity {
     private APIService service = APIUtil.getService();
     private SwipeRefreshLayout swipe_answer_reviews;
 
-    int questionId = 52;
+    int questionId = 0;
     RecyclerView rv_answer_reviews_list;
     private ReviewsAdapter adapter;
 
@@ -88,6 +88,7 @@ public class AnswerActivity extends AppCompatActivity {
 //            }
 //        });
 
+        questionId = getIntent().getIntExtra("QUESTIONID", 52);
         initView();
         initialize();
         questionInfo();
@@ -202,7 +203,7 @@ public class AnswerActivity extends AppCompatActivity {
                             if (questionType.equals("A") || questionType.equals("B")) {
                                 iv_answer_small_1.setImageResource(R.drawable.ic_a_small);
                                 iv_answer_small_2.setImageResource(R.drawable.ic_b_small);
-                            }else{
+                            } else {
                                 iv_answer_small_1.setImageResource(R.drawable.ic_o_small);
                                 iv_answer_small_2.setImageResource(R.drawable.ic_x_small);
                             }
@@ -270,7 +271,7 @@ public class AnswerActivity extends AppCompatActivity {
                                     adapter.notifyItemRangeInserted(adapter.getItemCount(), reviewsLists.size() - 1);
                                 } else {
                                     reviewsLists = response.body().getData();
-                                    adapter = new ReviewsAdapter(reviewsLists, questionType,AnswerActivity.this, getApplicationContext());
+                                    adapter = new ReviewsAdapter(reviewsLists, questionType, AnswerActivity.this, getApplicationContext());
                                     rv_answer_reviews_list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 //                                    rv_answer_reviews_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
 

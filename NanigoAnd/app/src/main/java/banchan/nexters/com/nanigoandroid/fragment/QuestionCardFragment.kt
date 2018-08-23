@@ -16,6 +16,7 @@ import android.widget.Toast
 import banchan.nexters.com.nanigoandroid.AnswerActivity
 import banchan.nexters.com.nanigoandroid.MyApplication
 import banchan.nexters.com.nanigoandroid.R
+import banchan.nexters.com.nanigoandroid.WelcomeActivity
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_A
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_B
@@ -209,7 +210,10 @@ class QuestionCardFragment: Fragment(){
                                 mAdapter!!.removeItemAtPosition(mPosition)
                                 mAdapter!!.notifyItemRemoved(mPosition)
                                 mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
-                                startActivity(Intent(context, AnswerActivity::class.java))
+                                val intent = Intent(context, AnswerActivity::class.java)
+                                intent.putExtra("QUESTIONID", currentItem.id)
+                                startActivity(intent)
+//                                startActivity(Intent(context, AnswerActivity::class.java))
                             }, 500)
 
                         } else {
