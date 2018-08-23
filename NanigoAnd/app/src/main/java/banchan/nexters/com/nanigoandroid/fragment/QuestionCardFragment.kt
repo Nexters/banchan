@@ -16,7 +16,6 @@ import android.widget.Toast
 import banchan.nexters.com.nanigoandroid.AnswerActivity
 import banchan.nexters.com.nanigoandroid.MyApplication
 import banchan.nexters.com.nanigoandroid.R
-import banchan.nexters.com.nanigoandroid.WelcomeActivity
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_A
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_B
@@ -114,7 +113,7 @@ class QuestionCardFragment: Fragment(){
                     Log.i(TAG, "Item Position : $mPosition")
 
                     val currentItem = mCardList.get(mPosition)
-                    if(mPosition == mCardList.size-1) {
+                    if(mPosition == mCardList.size-2) {
                         getCardList(currentItem.order)
                     }
                 }
@@ -146,7 +145,9 @@ class QuestionCardFragment: Fragment(){
                         if(result != null) {
                             if (result.type == "SUCCESS") {
                                 val newList: MutableList<QuestionCard> = result.data
+                                newList.add(newList.size, newList[newList.size-1])
                                 if(mCardList.size > 0) {
+                                    mCardList.removeAt(mCardList.size-1)
                                     mCardList.addAll(newList)
                                 } else {
                                     mCardList.clear()
@@ -206,10 +207,15 @@ class QuestionCardFragment: Fragment(){
 
                             //결과 선택한 카드는 리스트에서 제외
                             Handler().postDelayed({
-                                mCardList.removeAt(mPosition)
-                                mAdapter!!.removeItemAtPosition(mPosition)
-                                mAdapter!!.notifyItemRemoved(mPosition)
-                                mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
+                                if(mPosition == mCardList.size-2) {
+                                    getCardList(0)
+                                    mAdapter!!.notifyDataSetChanged()
+                                } else {
+                                    mCardList.removeAt(mPosition)
+                                    mAdapter!!.removeItemAtPosition(mPosition)
+                                    mAdapter!!.notifyItemRemoved(mPosition)
+                                    mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
+                                }
                                 val intent = Intent(context, AnswerActivity::class.java)
                                 intent.putExtra("QUESTIONID", currentItem.id)
                                 startActivity(intent)

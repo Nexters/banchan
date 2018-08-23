@@ -7,6 +7,7 @@ import java.util.HashMap;
 import banchan.nexters.com.nanigoandroid.data.CardList;
 import banchan.nexters.com.nanigoandroid.data.NameData;
 import banchan.nexters.com.nanigoandroid.data.QuestionData;
+import banchan.nexters.com.nanigoandroid.data.ReportCard;
 import banchan.nexters.com.nanigoandroid.data.Reviews;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
 import banchan.nexters.com.nanigoandroid.data.TestData;
@@ -186,5 +187,9 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST(APIUrl.VOTECARD)
     Call<JsonObject> voteCard(@Body VoteCard params);
+
+    @Headers("Content-Type: application/json")
+    @POST(APIUrl.CARDREPORT)
+    Call<JsonObject> reportCard(@Body ReportCard params);
 
 }

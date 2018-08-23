@@ -1,5 +1,7 @@
 package banchan.nexters.com.nanigoandroid.adapter
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
@@ -9,12 +11,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.animation.FlipAnimation
 import banchan.nexters.com.nanigoandroid.data.QuestionCard
+import banchan.nexters.com.nanigoandroid.data.ReportCard
+import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
 import banchan.nexters.com.nanigoandroid.utils.ImageUtil
+import banchan.nexters.com.nanigoandroid.utils.IsOnline
+import banchan.nexters.com.nanigoandroid.utils.PreferenceManager
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
 
 
 class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListener {
@@ -26,10 +37,17 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
         val VIEW_TYPE_D = 4
     }
 
+    init {
+        mItemList.removeAt(mItemList.size-1)
 
+    }
+    var mContext: Context? = null
+
+    private val service = APIUtil.getService()
     lateinit var colors: IntArray
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        mContext = parent.context
         val typeArray = parent.context!!.resources.obtainTypedArray(R.array.main_background_colors)
         colors = IntArray(typeArray.length())
         for (i in 0 until typeArray.length()) {
@@ -66,6 +84,33 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
         (holder as CardHolder).mBadgeFirst.visibility = if(item.tag.first) { View.VISIBLE } else { View.GONE }
         (holder as CardHolder).mBadgeRandom.visibility = if(item.tag.random) { View.VISIBLE } else { View.GONE }
         (holder as CardHolder).mQmark.setTextColor(colors[position%5])
+
+
+        (holder as CardHolder).mReport.setOnClickListener(View.OnClickListener {
+            val alert = AlertDialog.Builder(mContext)
+            if (PreferenceManager.getInstance(mContext).userId != item.userId.toString()) {
+                // AlertDialog 셋팅
+                alert.setPositiveButton("신고") { dialog, id ->
+                    reportCards(item.id, object : mCallback {
+                        override fun onSuccess() {
+                            Toast.makeText(mContext, "신고가 완료되었습니다!", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+
+                        override fun onFailure() {
+                            Toast.makeText(mContext, mContext!!.resources.getString(R.string.failed), Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+                    })
+                }
+            }
+
+
+            // 다이얼로그 생성
+            val alertDialog = alert.create()
+            alertDialog.show()
+        })
+
 
 
 
@@ -112,7 +157,58 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
 
     }
 
+    private fun reportCards(questionId: Int, callback: mCallback) {
 
+        IsOnline.onlineCheck(mContext) {
+            val userId = Integer.parseInt(PreferenceManager.getInstance(mContext).userId)
+            val review = ReportCard(questionId, userId)
+            service.reportCard(review).enqueue(object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: retrofit2.Response<JsonObject>) {
+
+                    try {
+
+                        if (response.isSuccessful) {
+                            val result = response.body()!!.toString()
+                            val data = JSONObject(result)
+
+
+                            if (data.getString("type") == "SUCCESS") {
+                                //                                    String userId = data.getJSONObject("data").getString("id");
+
+                                //                                    Toast.makeText(applicationContext, "성공  ", Toast.LENGTH_SHORT).show();
+                                callback.onSuccess()
+
+                            } else {
+                                //                                    Toast.makeText(applicationContext, "fail", Toast.LENGTH_SHORT).show();
+                                callback.onFailure()
+
+                            }
+                        } else {
+                            //end respone error
+                            val data = JSONObject(response.errorBody()!!.string())
+                            Toast.makeText(mContext, "error", Toast.LENGTH_SHORT).show()
+                            callback.onFailure()
+
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        callback.onFailure()
+
+                    }
+
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    //request fail(not found, time out, etc...)
+                    Toast.makeText(mContext, "onFailure", Toast.LENGTH_SHORT).show()
+                    callback.onFailure()
+
+                }
+            })
+        }
+
+    }
 
     override fun getItemViewType(position: Int): Int {
 
@@ -183,6 +279,7 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
         var mBadgeFirst: ImageView
         var mBadgeRandom: ImageView
         var mQmark: TextView
+        var mReport: ImageView
 
         init {
             mCard = view.findViewById(R.id.cl_card)
@@ -196,6 +293,7 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             mBadgeFirst = view.findViewById(R.id.iv_badge2)
             mBadgeRandom = view.findViewById(R.id.iv_badge3)
             mQmark = view.findViewById(R.id.tv_Q)
+            mReport = view.findViewById(R.id.iv_question_report)
         }
     }
 
@@ -253,5 +351,12 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             mImageA = view.findViewById(R.id.iv_answer_a_img)
             mImageB = view.findViewById(R.id.iv_answer_b_img)
         }
+    }
+
+
+    private interface mCallback {
+        fun onSuccess()
+
+        fun onFailure()
     }
 }

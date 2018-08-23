@@ -35,4 +35,6 @@ public class APIUrl {
     public static final String UPLOADCARD = "/api/questionCard";
     public static final String NOTVOTEDCARD = "/api/user/{userId}/notVotedQuestions/{lastOrder}/{count}";
     public static final String VOTECARD = "/api/vote";
+    public static final String CARDREPORT = "/api/question/report";
+
 }
