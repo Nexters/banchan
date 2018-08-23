@@ -13,6 +13,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+    <RelativeLayout
+        android:id="@+id/rl_tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        >
+        <ImageView
+            android:id="@+id/iv_tab_speaker"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_speaker"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/iv_tab_nanigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/nanigo_logo"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/iv_tab_mypage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_user"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            />
+
+    </RelativeLayout>
 
     <!--<ProgressBar
         android:id="@+id/activity_main_progress_bar"

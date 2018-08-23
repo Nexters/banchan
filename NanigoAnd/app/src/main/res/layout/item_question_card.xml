@@ -40,7 +40,7 @@
                         android:id="@+id/iv_question_report"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/icon_change"
+                        android:src="@drawable/ic_report"
                         android:clickable="true"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="17dp"
