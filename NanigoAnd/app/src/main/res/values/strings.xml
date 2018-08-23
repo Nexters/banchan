@@ -9,8 +9,9 @@
     <string name="err_internet">인터넷 연결을 확인해주세요.</string>
 
     <string name="empty">없음없음없음</string>
-<string name="failed">실패했어요</string>
+    <string name="failed">실패했어요</string>
 
+    <string name="onboard_around"><u>둘러보기</u></string>
     <!--질문올리기-->
     <string name="question_upload_head">질문올리기</string>
     <string name="question_text_count">글자수 %1$d/53</string>

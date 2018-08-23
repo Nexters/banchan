@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/onBoard"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_onboard_02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_onboard_txt_02"
+        android:scaleType="fitCenter"
+        app:lottie_fileName="nanigo_onboarding_02.json" />
+
+    <LinearLayout
+        android:id="@+id/layout_onboard_txt_02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/layout_onbaord_trash_02"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/tv.medium"
+            android:layout_margin="10dp"
+            android:text="고민말고 물어보세요!"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/tv_noto"
+            android:gravity="center"
+            android:text="이거할까 저거할까 혼자 고민하지 마시고
+함께하는 나니들의 도움을 받아보세요!"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+    <!--Trash View-->
+    <LinearLayout
+        android:id="@+id/layout_onbaord_trash_02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_above="@id/ll_button" />
+
+        <LinearLayout
+            android:id="@+id/ll_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/btn"
+                android:background="@drawable/btn_color"
+                android:text="시작하기"
+                android:textColor="@color/white"
+                android:textSize="26sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="@string/onboard_around"
+                android:textColor="#222548"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

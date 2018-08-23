@@ -237,7 +237,10 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                     PreferenceManager.getInstance(getApplicationContext()).setUserId(userId);
 
                                     Toast.makeText(getApplicationContext(), "성공  " + userId, Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(JoinActivity.this, MainActivity.class));
+                                    Intent intent = new Intent(JoinActivity.this,WelcomeActivity.class);
+                                    intent.putExtra("NAME",prefix+" "+postfix);
+                                    startActivity(intent);
+                                    finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
 

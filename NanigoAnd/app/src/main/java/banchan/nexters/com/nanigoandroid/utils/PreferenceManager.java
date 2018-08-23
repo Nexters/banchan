@@ -74,6 +74,16 @@ public class PreferenceManager {
     }
 
 
+    private String ONBOARD = "ONBOARD";
+
+    public void setOnboard(boolean key) {
+        mEditor.putBoolean(ONBOARD, key);
+        mEditor.apply();
+    }
+
+    public boolean getOnboard() {
+        return mPrefs.getBoolean(ONBOARD, true);
+    }
 
 
     private String UUID = "UUID";
