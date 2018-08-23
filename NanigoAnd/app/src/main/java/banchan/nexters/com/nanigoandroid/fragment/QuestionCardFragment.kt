@@ -1,5 +1,6 @@
 package banchan.nexters.com.nanigoandroid.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import banchan.nexters.com.nanigoandroid.AnswerActivity
 import banchan.nexters.com.nanigoandroid.MyApplication
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
@@ -30,6 +32,8 @@ import retrofit2.Response
 
 
 class QuestionCardFragment: Fragment(){
+    private val TAG = "QuestionCardFragment"
+
     lateinit var mProgressBar: ProgressBar
     lateinit var mSnappyView: RecyclerView
     lateinit var mBtnX: ImageView
@@ -45,6 +49,7 @@ class QuestionCardFragment: Fragment(){
 
     private val service = APIUtil.getService()
     private var mCardList: MutableList<QuestionCard> = mutableListOf()
+    private var myCellHeight: Int? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,24 +61,22 @@ class QuestionCardFragment: Fragment(){
         mSnappyView = view.findViewById<RecyclerView>(R.id.rv_question_card)
 
 
-        mBtnX = view.findViewById(R.id.btn_answer_x)
-        mBtnX.setOnClickListener {
-            mFlipListener.onButtonClick(mSnappyView, false, mPosition)
-            // 결과 api 연동
-        }
         mBtnO = view.findViewById(R.id.btn_answer_o)
         mBtnO.setOnClickListener {
-            mFlipListener.onButtonClick(mSnappyView, true, mPosition)
             // 결과 api 연동
+            postVoteResult("A")
         }
-
+        mBtnX = view.findViewById(R.id.btn_answer_x)
+        mBtnX.setOnClickListener {
+            // 결과 api 연동
+            postVoteResult("B")
+        }
 
         setup()
         reload()
 
         return view
     }
-
 
     fun newInstance() : QuestionCardFragment {
         val args: Bundle = Bundle()
@@ -86,14 +89,16 @@ class QuestionCardFragment: Fragment(){
         getCardList()
 
         mSnappyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         mSnappyView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val offset = mSnappyView.computeVerticalScrollOffset()
-
-                val myCellHeight = mSnappyView.getChildAt(0).measuredHeight
-                if (offset % myCellHeight == 0) {
-                    mPosition = offset / myCellHeight
+                if(myCellHeight==null) {
+                    myCellHeight = mSnappyView.getChildAt(0).measuredHeight
+                }
+                if (offset % myCellHeight!! == 0) {
+                    mPosition = offset / myCellHeight!!
                     mSnappyView.setBackgroundColor(colors[mPosition%5])
                     Toast.makeText(context, "mPosition : $mPosition", Toast.LENGTH_SHORT).show()
                 }
@@ -117,7 +122,7 @@ class QuestionCardFragment: Fragment(){
     private fun getCardList() {
         IsOnline.onlineCheck(activity!!.applicationContext, IsOnline.onlineCallback {
             MyApplication.get().progressON(activity)
-            service.getCardList(if(userId.isNullOrEmpty()) { 1004.toString() } else { userId }, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
+            service.getCardList(if(userId.isNullOrEmpty()) { 0.toString() } else { userId }, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
                 override fun onResponse(call: Call<CardList>?, response: Response<CardList>?) {
                     if(response!!.isSuccessful) {
                         val result = response.body()
@@ -163,23 +168,30 @@ class QuestionCardFragment: Fragment(){
 
     private fun postVoteResult(answer: String) {
 
-
-        val voteDto = VoteCard(answer, )
-        service.voteCard(cardDto).enqueue(object : Callback<JsonObject> {
+        val currentItem = mCardList.get(mPosition)
+        val voteDto = VoteCard(answer, currentItem.id, currentItem.tag.random, userId?.toInt() ?: 1004)
+        service.voteCard(voteDto).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
                 try {
                     if(response!!.isSuccessful) {
                         val result = response.body().toString()
                         val data = JSONObject(result)
                         if(data.getString("type") == "SUCCESS") {
-                            Toast.makeText(applicationContext, resources.getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
-                            finish()
+                            Log.i(TAG, resources.getString(R.string.vote_card_success))
+                            mFlipListener.onButtonClick(mSnappyView, answer, mPosition)
+                            startActivity(Intent(context, AnswerActivity::class.java))
+                            //결과 선택한 카드는 리스트에서 제외
+                            /*Handler().postDelayed({
+                                mCardList.removeAt(mPosition)
+                                mAdapter!!.notifyItemChanged(mPosition)
+                            }, 1000)*/
+
                         } else {
-                            Toast.makeText(applicationContext, resources.getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
+                            Log.i(TAG, resources.getString(R.string.vote_card_fail))
                         }
                     } else {
                         val data = JSONObject(response.errorBody()!!.string())
-                        Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
 
                         Log.e("oooo", data.toString())
                     }

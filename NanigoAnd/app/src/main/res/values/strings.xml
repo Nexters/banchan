@@ -30,5 +30,7 @@
     <string name="get_list_success">질문카드 리스트 갱신 완료</string>
     <string name="get_list_fail">질문카드 리스트 갱신 실패</string>
     <string name="data_empty">데이터 없음</string>
+    <string name="vote_card_success">결과 선택 완료</string>
+    <string name="vote_card_fail">결과 선택 실패!</string>
 
 </resources>

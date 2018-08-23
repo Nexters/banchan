@@ -131,13 +131,13 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
     }
 
 
-    override fun onButtonClick(v: View, isO: Boolean, position: Int) {
+    override fun onButtonClick(v: View, answer: String, position: Int) {
         val rootLayout = v.findViewWithTag<RelativeLayout>("mRootLayout")
         val result_o = v.findViewWithTag<ImageView>("mResult_O")
         val result_x = v.findViewWithTag<ImageView>("mResult_X")
         val card = v.findViewWithTag<ConstraintLayout>("mCard")
 
-        if(isO) {
+        if(answer == "A") {
             val flipAnimation = FlipAnimation(card, result_o)
             rootLayout.startAnimation(flipAnimation)
         } else {
