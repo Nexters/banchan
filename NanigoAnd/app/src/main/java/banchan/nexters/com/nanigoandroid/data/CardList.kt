@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class CardList(
         @SerializedName("type") var type: String,
         @SerializedName("reason") var reason: String,
-        @SerializedName("data") var data: List<QuestionCard>
+        @SerializedName("data") var data: MutableList<QuestionCard>
 )

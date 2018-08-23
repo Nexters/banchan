@@ -1,5 +1,6 @@
 package banchan.nexters.com.nanigoandroid.adapter
 
+import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -16,12 +17,15 @@ import banchan.nexters.com.nanigoandroid.utils.ImageUtil
 import com.squareup.picasso.Picasso
 
 
-class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListener {
+class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListener {
 
-    val VIEW_TYPE_A = 0
-    val VIEW_TYPE_B = 1
-    val VIEW_TYPE_C = 3
-    val VIEW_TYPE_D = 4
+    companion object {
+        val VIEW_TYPE_A = 0
+        val VIEW_TYPE_B = 1
+        val VIEW_TYPE_C = 3
+        val VIEW_TYPE_D = 4
+    }
+
 
     lateinit var colors: IntArray
 
@@ -51,10 +55,10 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
 
         //val test = mItems[position]
 
-        (holder as CardHolder).mCard.tag = "mCard"
-        (holder as CardHolder).mResult_O.tag = "mResult_O"
-        (holder as CardHolder).mResult_X.tag = "mResult_X"
-        (holder as CardHolder).mRootLayout.tag = "mRootLayout"
+        (holder as CardHolder).mCard.tag = "mCard$position"
+        (holder as CardHolder).mResult_O.tag = "mResult_O$position"
+        (holder as CardHolder).mResult_X.tag = "mResult_X$position"
+        (holder as CardHolder).mRootLayout.tag = "mRootLayout$position"
         (holder as CardHolder).mUsername.text = item.username
         (holder as CardHolder).mViewCount.text = item.vote.total.toString()
         (holder as CardHolder).mCommentCount.text = item.review.toString()
@@ -69,30 +73,30 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
             (holder as AHolder).mQuestion.text = itemDetail.TXT_Q
         } else if (holder is BHolder){
             (holder as BHolder).mQuestion.text = itemDetail.TXT_Q
-            if(itemDetail.IMG_Q!!.isNotEmpty()) {
+            if(itemDetail.IMG_Q.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as BHolder).mImageQ)
             }
         } else if (holder is CHolder){
             (holder as CHolder).mQuestion.text = itemDetail.TXT_Q
             (holder as CHolder).mTextA.text = itemDetail.TXT_A
             (holder as CHolder).mTextB.text = itemDetail.TXT_B
-            if(itemDetail.IMG_A!!.isNotEmpty()) {
+            if(itemDetail.IMG_A.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as CHolder).mImageA)
             }
-            if(itemDetail.IMG_B!!.isNotEmpty()) {
+            if(itemDetail.IMG_B.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as CHolder).mImageB)
             }
         } else {
             (holder as DHolder).mQuestion.text = itemDetail.TXT_Q
-            if(itemDetail.IMG_Q!!.isNotEmpty()) {
+            if(itemDetail.IMG_Q.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as DHolder).mImageQ)
             }
             (holder as DHolder).mTextA.text = itemDetail.TXT_A
             (holder as DHolder).mTextB.text = itemDetail.TXT_B
-            if(itemDetail.IMG_A!!.isNotEmpty()) {
+            if(itemDetail.IMG_A.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as DHolder).mImageA)
             }
-            if(itemDetail.IMG_B!!.isNotEmpty()) {
+            if(itemDetail.IMG_B.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as DHolder).mImageB)
             }
         }
@@ -130,19 +134,34 @@ class SnappyAdapter(val mItemList: List<QuestionCard>) : RecyclerView.Adapter<Re
         return mItemList.size
     }
 
+    fun removeItemAtPosition(position: Int) {
+        mItemList.removeAt(position)
+    }
 
-    override fun onButtonClick(v: View, isO: Boolean, position: Int) {
-        val rootLayout = v.findViewWithTag<RelativeLayout>("mRootLayout")
-        val result_o = v.findViewWithTag<ImageView>("mResult_O")
-        val result_x = v.findViewWithTag<ImageView>("mResult_X")
-        val card = v.findViewWithTag<ConstraintLayout>("mCard")
+    fun setItemList(list: MutableList<QuestionCard>) {
+        mItemList = list
+    }
 
-        if(isO) {
+    override fun onButtonClick(v: View, answer: String, position: Int) {
+        val rootLayout = v.findViewWithTag<RelativeLayout>("mRootLayout$position")
+        val result_o = v.findViewWithTag<ImageView>("mResult_O$position")
+        val result_x = v.findViewWithTag<ImageView>("mResult_X$position")
+        val card = v.findViewWithTag<ConstraintLayout>("mCard$position")
+
+        if(answer == "A") {
             val flipAnimation = FlipAnimation(card, result_o)
             rootLayout.startAnimation(flipAnimation)
+            Handler().postDelayed({
+                card.visibility = View.VISIBLE
+                result_o.visibility = View.GONE
+            }, 1000)
         } else {
             val flipAnimation = FlipAnimation(card, result_x)
             rootLayout.startAnimation(flipAnimation)
+            Handler().postDelayed({
+                card.visibility = View.VISIBLE
+                result_x.visibility = View.GONE
+            }, 1000)
         }
 
 
