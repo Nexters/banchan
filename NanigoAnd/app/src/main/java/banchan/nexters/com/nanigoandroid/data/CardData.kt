@@ -20,12 +20,12 @@ data class UploadCardData(
 )
 
 data class CardDetailData(
-        @SerializedName("TXT_Q") var TXT_Q: String?,
-        @SerializedName("TXT_A") var TXT_A: String?,
-        @SerializedName("TXT_B") var TXT_B: String?,
-        @SerializedName("IMG_Q") var IMG_Q: String?,
-        @SerializedName("IMG_A") var IMG_A: String?,
-        @SerializedName("IMG_B") var IMG_B: String?
+        @SerializedName("TXT_Q") var TXT_Q: String = " ",
+        @SerializedName("TXT_A") var TXT_A: String = " ",
+        @SerializedName("TXT_B") var TXT_B: String = " ",
+        @SerializedName("IMG_Q") var IMG_Q: String = " ",
+        @SerializedName("IMG_A") var IMG_A: String = " ",
+        @SerializedName("IMG_B") var IMG_B: String = " "
 )
 
 data class QuestionCard(

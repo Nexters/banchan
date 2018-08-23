@@ -40,9 +40,9 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
     private val IMG_TYPE_A = "IMG_TYPE_A"
     private val IMG_TYPE_B = "IMG_TYPE_B"
 
-    private var img_q: String? = null
-    private var img_a: String? = null
-    private var img_b: String? = null
+    private var img_q: String = " "
+    private var img_a: String = " "
+    private var img_b: String = " "
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -215,7 +215,7 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             val txt_q = if(et_question.text.toString().isEmpty()) { " " } else { et_question.text.toString() }
             val txt_a = if(tv_qa_type_txt.text.toString().isEmpty()) { " " } else { tv_qa_type_txt.text.toString() }
             val txt_b = if(tv_qb_type_txt.text.toString().isEmpty()) { " " } else { tv_qb_type_txt.text.toString() }
-            val card_type = if(img_q.isNullOrEmpty()) {
+            val card_type = if(img_q.isBlank()) {
                 if( txt_a.isBlank() && txt_b.isBlank()) {
                     "A"
                 } else {

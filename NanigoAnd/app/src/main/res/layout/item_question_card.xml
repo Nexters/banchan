@@ -187,7 +187,7 @@
                 android:layout_height="380dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/shape_alpha1"
-                android:src="@drawable/backoimg"
+                android:src="@drawable/shape_alpha1"
                 android:visibility="invisible" />
 
             <ImageView
@@ -196,7 +196,7 @@
                 android:layout_height="380dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/shape_alpha1"
-                android:src="@drawable/backximg"
+                android:src="@drawable/shape_alpha1"
                 android:visibility="invisible" />
 
         </RelativeLayout>

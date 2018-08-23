@@ -12,12 +12,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.Toast
 import banchan.nexters.com.nanigoandroid.AnswerActivity
 import banchan.nexters.com.nanigoandroid.MyApplication
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter
+import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_A
+import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_B
+import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_C
+import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_D
 import banchan.nexters.com.nanigoandroid.data.CardList
 import banchan.nexters.com.nanigoandroid.data.QuestionCard
 import banchan.nexters.com.nanigoandroid.data.VoteCard
@@ -25,6 +28,7 @@ import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
 import banchan.nexters.com.nanigoandroid.utils.IsOnline
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,7 +38,6 @@ import retrofit2.Response
 class QuestionCardFragment: Fragment(){
     private val TAG = "QuestionCardFragment"
 
-    lateinit var mProgressBar: ProgressBar
     lateinit var mSnappyView: RecyclerView
     lateinit var mBtnX: ImageView
     lateinit var mBtnO: ImageView
@@ -43,8 +46,7 @@ class QuestionCardFragment: Fragment(){
 
     lateinit var colors: IntArray
     private val userId: String? = null//PreferenceManager.getInstance(activity).userId
-    private var lastOrder = 0
-    private var itemCount = 10
+    private val itemCount = 10
     private var mPosition = 0
 
     private val service = APIUtil.getService()
@@ -57,7 +59,6 @@ class QuestionCardFragment: Fragment(){
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_question_card, container, false)
 
-        mProgressBar = view.findViewById(R.id.activity_main_progress_bar)
         mSnappyView = view.findViewById<RecyclerView>(R.id.rv_question_card)
 
 
@@ -73,7 +74,7 @@ class QuestionCardFragment: Fragment(){
         }
 
         setup()
-        reload()
+        //reload()
 
         return view
     }
@@ -86,7 +87,7 @@ class QuestionCardFragment: Fragment(){
     }
 
     private fun setup() {
-        getCardList()
+        getCardList(0)
 
         mSnappyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -100,11 +101,26 @@ class QuestionCardFragment: Fragment(){
                 if (offset % myCellHeight!! == 0) {
                     mPosition = offset / myCellHeight!!
                     mSnappyView.setBackgroundColor(colors[mPosition%5])
-                    Toast.makeText(context, "mPosition : $mPosition", Toast.LENGTH_SHORT).show()
+                    val viewType = mAdapter!!.getItemViewType(mPosition)
+                    if(viewType == VIEW_TYPE_A || viewType == VIEW_TYPE_B) {
+                        Picasso.get().load(R.drawable.o_btn).fit().centerCrop().into(mBtnO)
+                        Picasso.get().load(R.drawable.x_btn).fit().centerCrop().into(mBtnX)
+                    } else if(viewType == VIEW_TYPE_C || viewType == VIEW_TYPE_D) {
+                        Picasso.get().load(R.drawable.a_btn).fit().centerCrop().into(mBtnO)
+                        Picasso.get().load(R.drawable.b_btn).fit().centerCrop().into(mBtnX)
+                    }
+                    //Toast.makeText(context, "mPosition : $mPosition", Toast.LENGTH_SHORT).show()
+                    Log.i(TAG, "Item Position : $mPosition")
+
+                    val currentItem = mCardList.get(mPosition)
+                    if(mPosition == mCardList.size-1) {
+                        getCardList(currentItem.order)
+                    }
                 }
 
             }
         })
+
 
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(mSnappyView)
@@ -119,7 +135,7 @@ class QuestionCardFragment: Fragment(){
 
     }
 
-    private fun getCardList() {
+    private fun getCardList(lastOrder: Int) {
         IsOnline.onlineCheck(activity!!.applicationContext, IsOnline.onlineCallback {
             MyApplication.get().progressON(activity)
             service.getCardList(if(userId.isNullOrEmpty()) { 0.toString() } else { userId }, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
@@ -128,19 +144,26 @@ class QuestionCardFragment: Fragment(){
                         val result = response.body()
                         if(result != null) {
                             if (result.type == "SUCCESS") {
-                                if(result.data.isNotEmpty()) {
-                                    mCardList.clear()
-                                    mCardList.addAll(result.data)
+                                if(result.data.size > 1) {
+                                    val newList: MutableList<QuestionCard> = result.data
+                                    if(mCardList.size > 0) {
+                                        newList.removeAt(0)
+                                        mCardList.addAll(newList)
+                                    } else {
+                                        mCardList.clear()
+                                        mCardList.addAll(newList)
+                                    }
 
                                     if(mAdapter == null) {
                                         mAdapter = SnappyAdapter(mCardList)
                                         mSnappyView.adapter = mAdapter
                                         mFlipListener = mAdapter!!.getListener()
                                     } else {
-                                        mAdapter!!.notifyDataSetChanged()
+                                        mAdapter!!.setItemList(mCardList)
+                                        mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
                                     }
-                                    goneLoadingProgress()
-                                    Toast.makeText(context, resources.getString(R.string.get_list_success), Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(context, resources.getString(R.string.get_list_success), Toast.LENGTH_LONG).show()
+                                    Log.i(TAG, "getCardList :"+ resources.getString(R.string.get_list_success))
                                 } else {
                                     Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_SHORT).show()
                                 }
@@ -179,12 +202,16 @@ class QuestionCardFragment: Fragment(){
                         if(data.getString("type") == "SUCCESS") {
                             Log.i(TAG, resources.getString(R.string.vote_card_success))
                             mFlipListener.onButtonClick(mSnappyView, answer, mPosition)
-                            startActivity(Intent(context, AnswerActivity::class.java))
+
+
                             //결과 선택한 카드는 리스트에서 제외
-                            /*Handler().postDelayed({
+                            Handler().postDelayed({
                                 mCardList.removeAt(mPosition)
-                                mAdapter!!.notifyItemChanged(mPosition)
-                            }, 1000)*/
+                                mAdapter!!.removeItemAtPosition(mPosition)
+                                mAdapter!!.notifyItemRemoved(mPosition)
+                                mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
+                                startActivity(Intent(context, AnswerActivity::class.java))
+                            }, 500)
 
                         } else {
                             Log.i(TAG, resources.getString(R.string.vote_card_fail))
@@ -205,33 +232,6 @@ class QuestionCardFragment: Fragment(){
             }
 
         })
-    }
-
-    private fun paginate() {
-        //mRecyclerView.setPaginationReserved()
-        //mAdapter!!.addAll(createTouristSpots())
-        mAdapter!!.notifyDataSetChanged()
-    }
-
-
-    private fun reload() {
-        mSnappyView.visibility = View.GONE
-        viewLoadingProgress()
-        Handler().postDelayed({
-//            mAdapter = SnappyAdapter()
-//            mSnappyView.setAdapter(mAdapter)
-            goneLoadingProgress()
-            mSnappyView.visibility = View.VISIBLE
-
-        }, 1000)
-    }
-
-    private fun viewLoadingProgress() {
-        mProgressBar.visibility = View.VISIBLE
-    }
-
-    private fun goneLoadingProgress() {
-        mProgressBar.visibility = View.GONE
     }
 
 
