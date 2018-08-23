@@ -69,20 +69,41 @@
             </LinearLayout>
             <!--ic open end-->
             <!--question view START-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+                <!--questionType B START-->
+                <include layout="@layout/layout_question_card_b"
+                    android:visibility="gone"
+                    android:id="@+id/laout_answer_question_card_b"/>
+                <!--questionType B END-->
 
-            <!--questionType B START-->
-            <!--questionType B END-->
+                <!--questionType C START-->
+                <include layout="@layout/layout_question_card_c"
+                    android:visibility="gone"
+                    android:id="@+id/laout_answer_question_card_c"/>
 
-            <!--questionType C START-->
-            <!--questionType C END-->
+                <!--questionType C END-->
 
-            <!--questionType D START-->
-            <!--questionType D END-->
+                <!--questionType D START-->
+                <include layout="@layout/layout_question_card_d"
+                    android:visibility="gone"
+                    android:id="@+id/laout_answer_question_card_d" />
 
+                <!--questionType D END-->
+            </LinearLayout>
             <!--question view END-->
+            <View
+                style="@style/divider_answer"
+                android:layout_marginTop="15dp" />
+
             <!--fold start-->
             <LinearLayout
                 android:id="@+id/ll_answer_fold"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -106,15 +127,13 @@
             <!--ic fold end-->
 
 
-            <View
-                style="@style/divider_answer"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="14dp" />
+
 
             <!--투표결과 START-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -317,8 +336,8 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        style="@style/tv_noto"
                         android:id="@+id/tv_answer_info_view_count"
+                        style="@style/tv_noto"
                         android:layout_marginLeft="10dp"
                         android:text="30"
                         android:textColor="#3b464b"
@@ -408,11 +427,13 @@
                         style="@style/tv_noto"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:textStyle="bold"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
                         android:padding="10dp"
                         android:text="등록"
                         android:textColor="#5f7f90"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
                 <!--input end-->
                 <!--<android.support.v4.widget.SwipeRefreshLayout-->
@@ -424,8 +445,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="32dp"
-                    android:paddingBottom="32dp">
+                    android:paddingBottom="32dp"
+                    android:paddingTop="32dp">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_answer_reviews_list"

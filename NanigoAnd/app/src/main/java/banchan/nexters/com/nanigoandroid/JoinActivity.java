@@ -147,7 +147,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 service.userName().enqueue(new Callback<NameData>() {
                     @Override
                     public void onResponse(Call<NameData> call, retrofit2.Response<NameData> response) {
-                        if (response.body().getType().equals("SUCCESS")) {
+                        if (response.isSuccessful() && response.body().getType().equals("SUCCESS")) {
 
                             for (NameList name : response.body().getData()) {
                                 switch (name.getType()) {
