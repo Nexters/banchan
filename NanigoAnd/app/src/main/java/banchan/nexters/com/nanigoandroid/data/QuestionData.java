@@ -182,59 +182,69 @@ public class QuestionData {
 
         @SerializedName("IMG_A")
         @Expose
-        private String iMGA;
+        private String imgA;
         @SerializedName("TXT_A")
         @Expose
-        private String tXTA;
+        private String txtA;
+        @SerializedName("IMG_Q")
+        @Expose
+        private String imgQ;
         @SerializedName("TXT_Q")
         @Expose
-        private String tXTQ;
+        private String txtQ;
         @SerializedName("TXT_B")
         @Expose
-        private String tXTB;
+        private String txtB;
         @SerializedName("IMG_B")
         @Expose
-        private String iMGB;
+        private String imgB;
 
-        public String getIMGA() {
-            return iMGA;
+        public String getImgA() {
+            return imgA;
         }
 
-        public void setIMGA(String iMGA) {
-            this.iMGA = iMGA;
+        public void setImgA(String imgA) {
+            this.imgA = imgA;
         }
 
-        public String getTXTA() {
-            return tXTA;
+        public String getTxtA() {
+            return txtA;
         }
 
-        public void setTXTA(String tXTA) {
-            this.tXTA = tXTA;
+        public void setTxtA(String txtA) {
+            this.txtA = txtA;
         }
 
-        public String getTXTQ() {
-            return tXTQ;
+        public String getImgQ() {
+            return imgQ;
         }
 
-        public void setTXTQ(String tXTQ) {
-            this.tXTQ = tXTQ;
+        public void setImgQ(String imgQ) {
+            this.imgQ = imgQ;
         }
 
-        public String getTXTB() {
-            return tXTB;
+        public String getTxtQ() {
+            return txtQ;
         }
 
-        public void setTXTB(String tXTB) {
-            this.tXTB = tXTB;
+        public void setTxtQ(String txtQ) {
+            this.txtQ = txtQ;
         }
 
-        public String getIMGB() {
-            return iMGB;
+        public String getTxtB() {
+            return txtB;
         }
 
-        public void setIMGB(String iMGB) {
-            this.iMGB = iMGB;
+        public void setTxtB(String txtB) {
+            this.txtB = txtB;
         }
 
+        public String getImgB() {
+            return imgB;
+        }
+
+        public void setImgB(String imgB) {
+            this.imgB = imgB;
+        }
     }
 }

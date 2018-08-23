@@ -70,7 +70,7 @@ class SpeakerPageFragment : Fragment() {
             MyApplication.get().progressON(activity)
             service!!.userInfo(userId).enqueue(object : Callback<UserData> {
                 override fun onResponse(call: Call<UserData>, response: retrofit2.Response<UserData>) {
-                    if (response.body()!!.type == "SUCCESS") {
+                    if (response.isSuccessful && response.body()!!.type == "SUCCESS") {
                         var speaker = response.body()!!.data.speaker.toString()
                         tv_speaker_count.text =
                                 speaker.split("\\.".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]

@@ -16,15 +16,23 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
+
 import java.util.List;
 
 import banchan.nexters.com.nanigoandroid.adapter.ReviewsAdapter;
 import banchan.nexters.com.nanigoandroid.data.QuestionData;
+import banchan.nexters.com.nanigoandroid.data.Reviews;
 import banchan.nexters.com.nanigoandroid.data.ReviewsData;
 import banchan.nexters.com.nanigoandroid.data.ReviewsList;
 import banchan.nexters.com.nanigoandroid.http.APIService;
 import banchan.nexters.com.nanigoandroid.http.APIUtil;
+import banchan.nexters.com.nanigoandroid.utils.ImageUtil;
 import banchan.nexters.com.nanigoandroid.utils.IsOnline;
+import banchan.nexters.com.nanigoandroid.utils.PreferenceManager;
 import banchan.nexters.com.nanigoandroid.utils.SimpleDividerItemDecoration;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +78,25 @@ public class AnswerActivity extends AppCompatActivity {
     private TextView tv_answer_comment_count;
     private TextView tv_answer_info_view_count;
 
+    private LinearLayout ll_answer_open;
+    private LinearLayout ll_answer_fold;
+
+    private View laout_answer_question_card_b;
+    private LinearLayout laout_answer_question_card_c;
+    private LinearLayout laout_answer_question_card_d;
+
     private String questionType = "";
+
+
+    //    card view
+    private ImageView iv_question_img;
+    private ImageView iv_answer_a_img;
+    private ImageView iv_answer_b_img;
+    private TextView tv_txt_a;
+    private TextView tv_txt_b;
+
+
+    private QuestionData questionData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,10 +125,24 @@ public class AnswerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!et_answer_review_input.getText().toString().equals("")) {
                     //submit reviews
+                    insertReviews();
                 }
             }
         });
 
+        ll_answer_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                visibleDetail(true);
+            }
+        });
+
+        ll_answer_fold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                visibleDetail(false);
+            }
+        });
     }
 
     private void initView() {
@@ -131,6 +171,15 @@ public class AnswerActivity extends AppCompatActivity {
 
         btn_answer_reviews_submit = (TextView) findViewById(R.id.btn_answer_reviews_submit);
 
+        ll_answer_open = (LinearLayout) findViewById(R.id.ll_answer_open);
+        ll_answer_fold = (LinearLayout) findViewById(R.id.ll_answer_fold);
+
+        laout_answer_question_card_b = (View) findViewById(R.id.laout_answer_question_card_b);
+        laout_answer_question_card_c = (LinearLayout) findViewById(R.id.laout_answer_question_card_c);
+        laout_answer_question_card_d = (LinearLayout) findViewById(R.id.laout_answer_question_card_d);
+
+
+
     }
 
     private void initialize() {
@@ -153,11 +202,11 @@ public class AnswerActivity extends AppCompatActivity {
                 service.questionInfo(questionId + "").enqueue(new Callback<QuestionData>() {
                     @Override
                     public void onResponse(Call<QuestionData> call, retrofit2.Response<QuestionData> response) {
-                        if (response.body().getType().equals("SUCCESS")) {
-                            QuestionData questionData = response.body();
-                            questionType = questionData.getType();
+                        if (response.isSuccessful() && response.body().getType().equals("SUCCESS")) {
+                            questionData = response.body();
+                            questionType = questionData.getData().getType();
 
-                            tv_answer_title.setText(questionData.getData().getDetail().getTXTQ());
+                            tv_answer_title.setText(questionData.getData().getDetail().getTxtQ());
                             //"(총 00명이 참여)"
                             tv_answer_count.setText("(총 " + questionData.getData().getVote().getTotal() + "명이 참여)");
 
@@ -201,15 +250,15 @@ public class AnswerActivity extends AppCompatActivity {
                              */
                             //ox ab 다르게 세팅하기
                             if (questionType.equals("A") || questionType.equals("B")) {
-                                iv_answer_small_1.setImageResource(R.drawable.ic_a_small);
-                                iv_answer_small_2.setImageResource(R.drawable.ic_b_small);
-                            } else {
                                 iv_answer_small_1.setImageResource(R.drawable.ic_o_small);
                                 iv_answer_small_2.setImageResource(R.drawable.ic_x_small);
+                            } else {
+                                iv_answer_small_1.setImageResource(R.drawable.ic_a_small);
+                                iv_answer_small_2.setImageResource(R.drawable.ic_b_small);
                             }
 
-                            tv_answer_small_1.setText(questionData.getData().getDetail().getTXTA());
-                            tv_answer_small_2.setText(questionData.getData().getDetail().getTXTB());
+                            tv_answer_small_1.setText(questionData.getData().getDetail().getTxtA());
+                            tv_answer_small_2.setText(questionData.getData().getDetail().getTxtB());
 
 
                             tv_answer_gauge_percentage_1.setText((int) (percentage_1 * 100) + "%");
@@ -221,8 +270,9 @@ public class AnswerActivity extends AppCompatActivity {
                             tv_answer_comment_count.setText(questionData.getData().getReview() + "");
                             tv_answer_info_view_count.setText(questionData.getData().getVote().getTotal() + "");
 
+
                         } else {
-                            Toast.makeText(getApplicationContext(), "TYPE IS FAIL", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "다시 시도해주세요", Toast.LENGTH_SHORT).show();
 
                         }//end else type is fail
                     }
@@ -255,7 +305,7 @@ public class AnswerActivity extends AppCompatActivity {
                         rv_answer_reviews_list.setVisibility(View.VISIBLE);
                         ll_answer_reviews_empty.setVisibility(View.GONE);
                         isLoading = false;
-                        if (response.body().getType().equals("SUCCESS")) {
+                        if (response.isSuccessful() && response.body().getType().equals("SUCCESS")) {
                             if (response.body().getData().size() == 0) {
                                 if (currentPage == 0) {
                                     ll_answer_reviews_empty.setVisibility(View.VISIBLE);
@@ -327,4 +377,148 @@ public class AnswerActivity extends AppCompatActivity {
         });
 
     }
+
+
+    private void insertReviews() {
+
+        final Reviews review = new Reviews();
+        review.setContent(et_answer_review_input.getText().toString());
+        review.setQuestionId(questionId);
+        review.setUserId(Integer.parseInt(PreferenceManager.getInstance(getApplicationContext()).getUserId()));
+
+        IsOnline.onlineCheck(getApplicationContext(), new IsOnline.onlineCallback() {
+            @Override
+            public void onSuccess() {
+                MyApplication.Companion.get().progressON(AnswerActivity.this);
+
+                service.insertReviews(review).enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+
+                        try {
+
+                            if (response.isSuccessful()) {
+                                String result = response.body().toString();
+                                JSONObject data = new JSONObject(result);
+
+
+                                if (data.getString("type").equals("SUCCESS")) {
+//                                    String userId = data.getJSONObject("data").getString("id");
+
+                                    Toast.makeText(getApplicationContext(), "댓글을 입력하였습니다!", Toast.LENGTH_SHORT).show();
+                                    et_answer_review_input.setText("");
+                                    currentPage = 0;
+                                    reviewsList(currentPage);
+
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
+
+
+                                }
+                            } else {
+//end respone error
+                                JSONObject data = new JSONObject(response.errorBody().string());
+                                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        MyApplication.Companion.get().progressOFF();
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        //request fail(not found, time out, etc...)
+                        Toast.makeText(getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                        MyApplication.Companion.get().progressOFF();
+
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void visibleDetail(boolean isVisible) {
+        if (isVisible) {
+            ll_answer_open.setVisibility(View.GONE);
+            ll_answer_fold.setVisibility(View.VISIBLE);
+
+
+
+            switch (questionType) {
+                case "B":
+                    iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
+
+                    laout_answer_question_card_b.setVisibility(View.VISIBLE);
+                    if (questionData.getData().getDetail().getImgQ() != null && questionData.getData().getDetail().getImgQ() != "") {
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ()).fit().centerCrop().into(iv_question_img);
+                    }
+                    break;
+                case "C":
+                    iv_answer_a_img = (ImageView) findViewById(R.id.iv_answer_a_img);
+                    iv_answer_b_img = (ImageView) findViewById(R.id.iv_answer_b_img);
+                    tv_txt_a = (TextView) findViewById(R.id.tv_txt_a);
+                    tv_txt_b = (TextView) findViewById(R.id.tv_txt_b);
+
+                    laout_answer_question_card_c.setVisibility(View.VISIBLE);
+                    if (questionData.getData().getDetail().getImgA() != null && questionData.getData().getDetail().getImgA() != "") {
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA()).fit().centerCrop().into(iv_answer_a_img);
+                    }
+                    if (questionData.getData().getDetail().getImgB() != null && questionData.getData().getDetail().getImgB() != "") {
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgB()).fit().centerCrop().into(iv_answer_b_img);
+                    }
+                    if (questionData.getData().getDetail().getTxtA() != null && questionData.getData().getDetail().getTxtA() != "") {
+                        tv_txt_a.setText(questionData.getData().getDetail().getTxtA());
+                    }
+                    if (questionData.getData().getDetail().getTxtB() != null && questionData.getData().getDetail().getTxtB() != "") {
+                        tv_txt_b.setText(questionData.getData().getDetail().getTxtB());
+                    }
+                    break;
+                case "D":
+                    iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
+                    iv_answer_a_img = (ImageView) findViewById(R.id.iv_answer_a_img);
+                    iv_answer_b_img = (ImageView) findViewById(R.id.iv_answer_b_img);
+                    tv_txt_a = (TextView) findViewById(R.id.tv_txt_a);
+                    tv_txt_b = (TextView) findViewById(R.id.tv_txt_b);
+
+                    laout_answer_question_card_d.setVisibility(View.VISIBLE);
+                    if (questionData.getData().getDetail().getImgQ() != null && questionData.getData().getDetail().getImgQ() != "") {
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ())
+                                .fit().centerCrop()
+                                .into(iv_question_img);
+                    }
+                    if (questionData.getData().getDetail().getImgA() != null && questionData.getData().getDetail().getImgA() != "") {
+                        String path = ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA();
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA())
+                                .fit().centerCrop()
+                                .into(iv_answer_a_img);
+                    }
+                    if (questionData.getData().getDetail().getImgB() != null && questionData.getData().getDetail().getImgB() != "") {
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgB()).fit().centerCrop().into(iv_answer_b_img);
+                    }
+                    if (questionData.getData().getDetail().getTxtA() != null && questionData.getData().getDetail().getTxtA() != "") {
+                        tv_txt_a.setText(questionData.getData().getDetail().getTxtA());
+                    }
+                    if (questionData.getData().getDetail().getTxtB() != null && questionData.getData().getDetail().getTxtB() != "") {
+                        tv_txt_b.setText(questionData.getData().getDetail().getTxtB());
+                    }
+                    break;
+            }
+
+        } else {
+            ll_answer_open.setVisibility(View.VISIBLE);
+            ll_answer_fold.setVisibility(View.GONE);
+
+            laout_answer_question_card_b.setVisibility(View.GONE);
+            laout_answer_question_card_c.setVisibility(View.GONE);
+            laout_answer_question_card_d.setVisibility(View.GONE);
+
+        }
+
+    }
+
 }
