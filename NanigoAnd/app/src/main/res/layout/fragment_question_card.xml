@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/rl_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -48,7 +48,7 @@
             android:clickable="true"
             />
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <!--<ProgressBar
         android:id="@+id/activity_main_progress_bar"

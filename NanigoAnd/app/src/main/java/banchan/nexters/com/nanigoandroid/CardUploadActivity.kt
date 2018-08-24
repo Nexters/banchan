@@ -274,7 +274,7 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             val userId = PreferenceManager.getInstance(applicationContext).userId
-            val userIdInt: Int? = if(!userId.isNullOrEmpty()) { userId.toInt() } else { 1004 }
+            val userIdInt: Int? = if(!userId.isNullOrEmpty()) { userId.toInt() } else { 0 }
             val cardDetailDto = CardDetailData(txt_q, txt_a, txt_b, img_q, img_a, img_b)
             val cardDto = UploadCardData(cardDetailDto, card_type, userIdInt!!)
             service.uploadCard(cardDto).enqueue(object : Callback<JsonObject> {
