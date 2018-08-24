@@ -17,10 +17,14 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        main_tablayout.addTab(main_tablayout.newTab().setTag("확성기"))
-        main_tablayout.addTab(main_tablayout.newTab().setTag("Nanigo"))
-        main_tablayout.addTab(main_tablayout.newTab().setTag("마이페이지"))
+        main_tablayout.addTab(main_tablayout.newTab().setIcon(R.drawable.selector_tab_speaker))
+        main_tablayout.addTab(main_tablayout.newTab().setIcon(R.drawable.selector_tab_logo))
+        main_tablayout.addTab(main_tablayout.newTab().setIcon(R.drawable.selector_tab_mypage))
         main_tablayout.tabGravity = TabLayout.GRAVITY_FILL
+        for (i in 0 until main_tablayout.getTabCount()) {
+            val tab = main_tablayout.getTabAt(i)
+            if (tab != null) tab.setCustomView(R.layout.layout_tab_view)
+        }
 
         main_viewpager.adapter = MainPagerAdapter(supportFragmentManager)
         main_viewpager.currentItem = 1
