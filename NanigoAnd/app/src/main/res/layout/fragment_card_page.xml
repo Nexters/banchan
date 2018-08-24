@@ -10,14 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/layout_card_page"
-            layout="@layout/layout_toolbar" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_card_page"
+            android:layout_marginTop="72dp"
             android:orientation="vertical">
 
             <ImageView
