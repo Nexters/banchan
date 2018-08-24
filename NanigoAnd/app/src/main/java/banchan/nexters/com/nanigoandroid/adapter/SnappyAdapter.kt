@@ -120,6 +120,8 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             (holder as BHolder).mQuestion.text = itemDetail.TXT_Q
             if(itemDetail.IMG_Q.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as BHolder).mImageQ)
+            } else {
+                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as BHolder).mImageQ)
             }
         } else if (holder is CHolder){
             (holder as CHolder).mQuestion.text = itemDetail.TXT_Q
@@ -127,22 +129,32 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             (holder as CHolder).mTextB.text = itemDetail.TXT_B
             if(itemDetail.IMG_A.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as CHolder).mImageA)
+            } else {
+                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageA)
             }
             if(itemDetail.IMG_B.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as CHolder).mImageB)
+            } else {
+                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageB)
             }
         } else {
             (holder as DHolder).mQuestion.text = itemDetail.TXT_Q
             if(itemDetail.IMG_Q.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as DHolder).mImageQ)
+            } else {
+                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageQ)
             }
             (holder as DHolder).mTextA.text = itemDetail.TXT_A
             (holder as DHolder).mTextB.text = itemDetail.TXT_B
             if(itemDetail.IMG_A.isNotBlank()) {
                 Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as DHolder).mImageA)
+            } else {
+                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageA)
             }
             if(itemDetail.IMG_B.isNotBlank()) {
-                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as DHolder).mImageB)
+                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as DHolder).mImageA)
+            } else {
+                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageA)
             }
         }
 
