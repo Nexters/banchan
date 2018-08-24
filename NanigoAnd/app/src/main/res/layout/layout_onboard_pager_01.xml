@@ -35,8 +35,7 @@
         <TextView
             style="@style/tv_noto"
             android:gravity="center"
-            android:text="나니고는 일상에서 마주치는 어렵고도 가벼운
-고민들을 질문히고 답변하는 고민해결 서비스입니다."
+            android:text="@string/onboard_desc_01"
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>

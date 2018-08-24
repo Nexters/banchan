@@ -26,12 +26,14 @@
 
             <TextView
                 android:id="@+id/tv_question"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="@color/question_text"
                 android:text="전 남친한테 새벽에 연락왔는데 답장 해볼까?가나다라마바사아자차카타파하하하하하하하하하"
                 android:layout_toRightOf="@id/tv_Q"
+                android:breakStrategy="high_quality"
+                android:hyphenationFrequency="full"
                 android:layout_marginLeft="18dp"
                 android:maxHeight="75dp"
                 android:maxLines="3"

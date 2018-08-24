@@ -180,8 +180,14 @@ public interface APIService {
     @POST(APIUrl.UPLOADCARD)
     Call<JsonObject> uploadCard(@Body UploadCardData params);
 
-    @GET(APIUrl.NOTVOTEDCARD)
+      @GET(APIUrl.NOTVOTEDCARD)
     Call<CardList> getCardList(@Path(value = "userId", encoded = true) String userId, @Path(value = "lastOrder", encoded = true) String lastOrder, @Path(value = "count", encoded = true) String count);
+
+    @GET(APIUrl.MYQUESTIONCARD)
+    Call<CardList> mQuestions(@Path(value = "userId", encoded = true) String userId, @Path(value = "page", encoded = true) String lastOrder, @Path(value = "count", encoded = true) String count);
+
+    @GET(APIUrl.MYVOTECARD)
+    Call<CardList> mVotes(@Path(value = "userId", encoded = true) String userId, @Path(value = "page", encoded = true) String lastOrder, @Path(value = "count", encoded = true) String count);
 
 
     @Headers("Content-Type: application/json")

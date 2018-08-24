@@ -122,10 +122,12 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
         val imageList = ArrayList<String>()
 
 
+        var txt_q =itemDetail.TXT_Q
+        txt_q.replace(" ","\u00A0")
         if (holder is AHolder) {
-            (holder as AHolder).mQuestion.text = itemDetail.TXT_Q
+            (holder as AHolder).mQuestion.text = txt_q
         } else if (holder is BHolder){
-            (holder as BHolder).mQuestion.text = itemDetail.TXT_Q
+            (holder as BHolder).mQuestion.text = txt_q
             if(itemDetail.IMG_Q.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_Q
                 Picasso.get().load(url).fit().centerCrop().into((holder as BHolder).mImageQ)
@@ -134,7 +136,7 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
                 Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as BHolder).mImageQ)
             }
         } else if (holder is CHolder){
-            (holder as CHolder).mQuestion.text = itemDetail.TXT_Q
+            (holder as CHolder).mQuestion.text = txt_q
             (holder as CHolder).mTextA.text = itemDetail.TXT_A
             (holder as CHolder).mTextB.text = itemDetail.TXT_B
             if(itemDetail.IMG_A.isNotBlank()) {
@@ -152,7 +154,7 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
                 Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageB)
             }
         } else {
-            (holder as DHolder).mQuestion.text = itemDetail.TXT_Q
+            (holder as DHolder).mQuestion.text = txt_q
             if(itemDetail.IMG_Q.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_Q
                 Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageQ)

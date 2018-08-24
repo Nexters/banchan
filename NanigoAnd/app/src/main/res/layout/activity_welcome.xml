@@ -42,10 +42,10 @@
 
             <TextView
                 android:id="@+id/tv_welcome_name"
-                android:layout_width="match_parent"
-                android:gravity="center"
                 style="@style/tv"
+                android:layout_width="match_parent"
                 android:autoSizeTextType="uniform"
+                android:gravity="center"
                 android:text="춤추는 고양이님"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
@@ -69,9 +69,12 @@
         android:id="@+id/lottie_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_above="@+id/btn_welcome_go"
         android:layout_below="@+id/ll_welcome"
-        android:scaleType="fitCenter"
+        android:scaleType="fitEnd"
         app:lottie_autoPlay="true"
         app:lottie_fileName="nanigo_welcome.json" />
 
@@ -80,6 +83,7 @@
         style="@style/btn"
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_white"
+        android:layout_marginTop="0dp"
         android:text="홈으로 가기"
         android:textColor="#4e4eb7"
         android:textSize="26sp" />

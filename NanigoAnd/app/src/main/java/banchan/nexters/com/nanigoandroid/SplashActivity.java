@@ -12,17 +12,19 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        if(PreferenceManager.getInstance(getApplicationContext()).getOnboard()){
-            startActivity(new Intent(this,OnBoardActivity.class));
-            finish();
-        }else{
-            if(PreferenceManager.getInstance(getApplicationContext()).getUserId().equals("")){
-                startActivity(new Intent(this,JoinActivity.class));
-                finish();
-            } else {
-                startActivity(new Intent(this,MainActivity.class));
-                finish();
-            }
-        }
+        startActivity(new Intent(this,MainActivity.class));
+
+//        if(PreferenceManager.getInstance(getApplicationContext()).getOnboard()){
+//            startActivity(new Intent(this,OnBoardActivity.class));
+//            finish();
+//        }else{
+//            if(PreferenceManager.getInstance(getApplicationContext()).getUserId().equals("")){
+//                startActivity(new Intent(this,JoinActivity.class));
+//                finish();
+//            } else {
+//                startActivity(new Intent(this,MainActivity.class));
+//                finish();
+//            }
+//        }
     }
 }

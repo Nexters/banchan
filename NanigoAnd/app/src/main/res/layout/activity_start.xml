@@ -24,7 +24,6 @@
         <TextView
             style="@style/tv.large"
             android:layout_gravity="center"
-            android:fontFamily="@font/noto_sans"
             android:text="환영합니다" />
 
         <TextView

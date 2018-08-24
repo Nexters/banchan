@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import banchan.nexters.com.nanigoandroid.R
 
-class MyPageFragment: Fragment() {
+class MyPageFragment2: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -15,9 +15,9 @@ class MyPageFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_card_page, container, false)
     }
 
-    fun newInstance() : MyPageFragment {
+    fun newInstance() : MyPageFragment2 {
         val args: Bundle = Bundle()
-        val frag = MyPageFragment()
+        val frag = MyPageFragment2()
         frag.arguments = args
         return frag
     }

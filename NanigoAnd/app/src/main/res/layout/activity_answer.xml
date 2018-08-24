@@ -35,6 +35,7 @@
                 <TextView
                     android:id="@+id/tv_answer_title_q"
                     style="@style/tv.question"
+                    android:textColor="@color/nanigoPink"
                     android:layout_marginRight="6dp"
                     android:text="Q." />
 
