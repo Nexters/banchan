@@ -1,9 +1,12 @@
 package banchan.nexters.com.nanigoandroid.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Point;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-
+import android.view.Display;
+import android.view.WindowManager;
 
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
@@ -57,5 +60,25 @@ public class Utils {
             return true;
         }
         return false;
+    }
+
+    public static Point getScreenSize(Context context, boolean bToDPI) {
+        Point size = new Point();
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+
+        display.getSize(size);
+
+        if( bToDPI ) {
+            size.x = (int) convertPixelToDp(size.x);
+            size.y = (int) convertPixelToDp(size.y);
+        }
+
+        return size;
+    }
+
+    public static double convertPixelToDp(float px) {
+        return px / Resources.getSystem().getDisplayMetrics().density;
     }
 }

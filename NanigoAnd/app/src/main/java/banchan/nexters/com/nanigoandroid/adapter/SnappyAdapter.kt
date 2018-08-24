@@ -2,6 +2,7 @@ package banchan.nexters.com.nanigoandroid.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
@@ -12,6 +13,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import banchan.nexters.com.nanigoandroid.ImageViewActivity
 import banchan.nexters.com.nanigoandroid.R
 import banchan.nexters.com.nanigoandroid.animation.FlipAnimation
 import banchan.nexters.com.nanigoandroid.data.QuestionCard
@@ -26,6 +28,7 @@ import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
+import java.util.*
 
 
 class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), FlipListener {
@@ -105,13 +108,12 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
                 }
             }
 
-
             // 다이얼로그 생성
             val alertDialog = alert.create()
             alertDialog.show()
         })
 
-
+        val imageList = ArrayList<String>()
 
 
         if (holder is AHolder) {
@@ -119,7 +121,9 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
         } else if (holder is BHolder){
             (holder as BHolder).mQuestion.text = itemDetail.TXT_Q
             if(itemDetail.IMG_Q.isNotBlank()) {
-                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as BHolder).mImageQ)
+                val url = ImageUtil.baseURL + itemDetail.IMG_Q
+                Picasso.get().load(url).fit().centerCrop().into((holder as BHolder).mImageQ)
+                imageList.add(url)
             } else {
                 Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as BHolder).mImageQ)
             }
@@ -128,44 +132,53 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             (holder as CHolder).mTextA.text = itemDetail.TXT_A
             (holder as CHolder).mTextB.text = itemDetail.TXT_B
             if(itemDetail.IMG_A.isNotBlank()) {
-                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as CHolder).mImageA)
+                val url = ImageUtil.baseURL + itemDetail.IMG_A
+                Picasso.get().load(url).fit().centerCrop().into((holder as CHolder).mImageA)
+                imageList.add(url)
             } else {
                 Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageA)
             }
             if(itemDetail.IMG_B.isNotBlank()) {
-                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as CHolder).mImageB)
+                val url = ImageUtil.baseURL + itemDetail.IMG_B
+                Picasso.get().load(url).fit().centerCrop().into((holder as CHolder).mImageB)
+                imageList.add(url)
             } else {
                 Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageB)
             }
         } else {
             (holder as DHolder).mQuestion.text = itemDetail.TXT_Q
             if(itemDetail.IMG_Q.isNotBlank()) {
-                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_Q).fit().centerCrop().into((holder as DHolder).mImageQ)
+                val url = ImageUtil.baseURL + itemDetail.IMG_Q
+                Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageQ)
+                imageList.add(url)
             } else {
                 Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageQ)
             }
             (holder as DHolder).mTextA.text = itemDetail.TXT_A
             (holder as DHolder).mTextB.text = itemDetail.TXT_B
             if(itemDetail.IMG_A.isNotBlank()) {
-                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_A).fit().centerCrop().into((holder as DHolder).mImageA)
+                val url = ImageUtil.baseURL + itemDetail.IMG_A
+                Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageA)
+                imageList.add(url)
             } else {
                 Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageA)
             }
             if(itemDetail.IMG_B.isNotBlank()) {
-                Picasso.get().load(ImageUtil.baseURL + itemDetail.IMG_B).fit().centerCrop().into((holder as DHolder).mImageA)
+                val url = ImageUtil.baseURL + itemDetail.IMG_B
+                Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageB)
+                imageList.add(url)
             } else {
-                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageA)
+                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageB)
             }
         }
 
-        /*//현재 목록 상 마지막 셀을 요청하면
-        if (position == mItemList.size - 1 && !isMore) {
-            cur_page++
-            isMore = true
-            //더보기 더 가져오기
-            showLoading(true)
-            getImageQuery()
-        }*/
+        (holder as CardHolder).mCard.setOnClickListener {
+            if(imageList.size > 0) {
+                val intent = Intent(mContext, ImageViewActivity::class.java)
+                intent.putStringArrayListExtra(ImageViewActivity.KEY_IMAGE_URL_LIST, imageList)
+                mContext!!.startActivity(intent)
+            }
+        }
 
     }
 

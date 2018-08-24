@@ -43,6 +43,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".ImageViewActivity"/>
     </application>
 
 </manifest>
