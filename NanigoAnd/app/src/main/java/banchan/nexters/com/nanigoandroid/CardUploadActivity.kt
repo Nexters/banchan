@@ -1,7 +1,8 @@
 package banchan.nexters.com.nanigoandroid
 
+import android.app.Activity
 import android.content.DialogInterface
-import android.graphics.Bitmap
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import banchan.nexters.com.nanigoandroid.data.CardDetailData
 import banchan.nexters.com.nanigoandroid.data.UploadCardData
@@ -17,32 +19,30 @@ import banchan.nexters.com.nanigoandroid.utils.ImageUtil
 import banchan.nexters.com.nanigoandroid.utils.IsOnline
 import banchan.nexters.com.nanigoandroid.utils.PreferenceManager
 import com.google.gson.JsonObject
-import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo
-import com.miguelbcr.ui.rx_paparazzo2.entities.size.SmallSize
 import com.squareup.picasso.Picasso
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_card_upload.*
 import kotlinx.android.synthetic.main.layout_toolbar_question_upload.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-
-
 
 
 class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG = "CardUploadActivity"
 
-    private val IMG_TYPE_Q = "IMG_TYPE_Q"
-    private val IMG_TYPE_A = "IMG_TYPE_A"
-    private val IMG_TYPE_B = "IMG_TYPE_B"
+    companion object {
+        val IMG_TYPE_Q = "IMG_TYPE_Q"
+        val IMG_TYPE_A = "IMG_TYPE_A"
+        val IMG_TYPE_B = "IMG_TYPE_B"
+    }
 
-    private var img_q: String = " "
-    private var img_a: String = " "
-    private var img_b: String = " "
+
+    private var img_q: String = ""
+    private var img_a: String = ""
+    private var img_b: String = ""
+
+    private var imm: InputMethodManager? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +64,11 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
+        //바깥영역 터치 시 키보드 창 닫힘
+        imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //imm.hideSoftInputFromWindow(et_question.getWindowToken(), 0)
+
+
         //사진 업로드
         btn_qi_upload.setOnClickListener(this)
         btn_qa_type.setOnClickListener(this)
@@ -74,9 +79,21 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
         toolbar_exit.setOnClickListener(this)
 
         btn_question_upload.setOnClickListener(this)
+        rl.setOnClickListener(this)
     }
 
+    private fun hideKeyboard() {
+        var view = getCurrentFocus()
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(this)
+        }
+        imm!!.hideSoftInputFromWindow(view.getWindowToken(), 0)
+    }
+
+
     override fun onClick(v: View?) {
+        hideKeyboard()
         when( v?.id ?: -1) {
             R.id.btn_qi_upload -> makeDialog(IMG_TYPE_Q)
             R.id.btn_qa_type -> makeDialog(IMG_TYPE_A)
@@ -93,6 +110,7 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.toolbar_exit -> finish()
             R.id.btn_question_upload -> uploadQuestion()
+            R.id.rl -> {}
         }
     }
 
@@ -104,7 +122,14 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
 
     // 카메라 띄우기(갤러리, 파일 경로) - 크롭 - 파일로 다운
     private fun getPicture(flag : String) {
-        RxPaparazzo.single(this)
+        val intent = Intent(this@CardUploadActivity, CameraActivity::class.java)
+        intent.putExtra(CameraActivity.INTENT_KEY, CameraActivity.KEY_GALLERY)
+        intent.putExtra(CameraActivity.INTENT_FLAG, flag)
+        startActivityForResult(intent, 1)
+
+/*
+
+        RxPaparazzo.single(camera)
                 .crop() //편집기능
                 .size(SmallSize()) //해상도 조절
                 .usingGallery()
@@ -114,11 +139,17 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
                     // 파일 경로
                     response -> Log.i(TAG, "파일 경로 : "+ response.data().file.toString())
                     convertFileByte(flag, response.data().file)
-                }
+                }*/
     }
 
     private fun takePicture(flag : String) {
-        RxPaparazzo.single(this)
+        val intent = Intent(this@CardUploadActivity, CameraActivity::class.java)
+        intent.putExtra(CameraActivity.INTENT_KEY, CameraActivity.KEY_CAMERA)
+        intent.putExtra(CameraActivity.INTENT_FLAG, flag)
+        startActivityForResult(intent, 1)
+
+        /*val camera = CameraActivity()
+        RxPaparazzo.single(camera)
                 .crop() //편집기능
                 .size(SmallSize()) //해상도 조절
                 .usingCamera()
@@ -128,7 +159,20 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
                     // 파일 경로
                     response -> Log.i(TAG, "파일 경로 : "+ response.data().file.toString())
                     convertFileByte(flag, response.data().file)
-                }
+                }*/
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                val file = data!!.getStringExtra("file")
+                val flag = data!!.getStringExtra(CameraActivity.INTENT_FLAG)
+                convertFileByte(flag, file)
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //만약 반환값이 없을 경우의 코드를 여기에 작성하세요.
+            }
+        }
     }
 
     private fun makeDialog(flag : String) {
@@ -163,13 +207,13 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    fun convertFileByte(flag: String, file: File) {
+    fun convertFileByte(flag: String, file: String) {
         when(flag) {
             IMG_TYPE_Q -> img_q = ImageUtil().bitmap2ByteArray(file)
             IMG_TYPE_A -> img_a = ImageUtil().bitmap2ByteArray(file)
             IMG_TYPE_B -> img_b = ImageUtil().bitmap2ByteArray(file)
         }
-        setThumb(flag, file.path)
+        setThumb(flag, file)
     }
 
     fun setThumb(flag: String, path: String) {
@@ -177,18 +221,18 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             IMG_TYPE_Q -> {
                 rl_qi_wrap.visibility = View.GONE
                 iv_q_image.visibility = View.VISIBLE
-                Picasso.get().load("file://$path").config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_q_image)
+                Picasso.get().load("file://$path").fit().centerCrop().into(iv_q_image)
             }
             IMG_TYPE_A -> {
                 iv_qa_camera.visibility = View.GONE
                 iv_type_a_img.visibility = View.VISIBLE
-                Picasso.get().load("file://$path").config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_type_a_img)
+                Picasso.get().load("file://$path").fit().centerCrop().into(iv_type_a_img)
                 tv_a_mark.setTextColor(resources.getColor(R.color.image_A_mark))
             }
             IMG_TYPE_B -> {
                 iv_qb_camera.visibility = View.GONE
                 iv_type_b_img.visibility = View.VISIBLE
-                Picasso.get().load("file://$path").config(Bitmap.Config.RGB_565).fit().centerCrop().into(iv_type_b_img)
+                Picasso.get().load("file://$path").fit().centerCrop().into(iv_type_b_img)
                 tv_b_mark.setTextColor(resources.getColor(R.color.image_B_mark))
             }
         }

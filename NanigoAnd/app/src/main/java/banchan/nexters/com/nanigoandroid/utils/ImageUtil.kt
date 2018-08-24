@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 class ImageUtil {
 
@@ -15,9 +14,9 @@ class ImageUtil {
         val baseURL = "https://s3.ap-northeast-2.amazonaws.com/nanigo-deploy/img/"
     }
 
-    fun bitmap2ByteArray(file: File) : String{
+    fun bitmap2ByteArray(file: String) : String{
 
-        val bitmap = BitmapFactory.decodeFile(file.path)
+        val bitmap = BitmapFactory.decodeFile(file)
         val byteArray = ByteArrayOutputStream()
         val filename = file.toString()
         if (filename.contains(".jpg") || filename.contains(".jpeg")) {
