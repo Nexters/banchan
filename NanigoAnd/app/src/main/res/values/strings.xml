@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NanigoAnd</string>
+    <string name="app_name">Nanigo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -33,6 +33,6 @@
     <string name="data_empty">새로고침 중...</string>
     <string name="vote_card_success">결과 선택 완료</string>
     <string name="vote_card_fail">결과 선택 실패!</string>
-    <string name="last_card">더 이상 질문카드가 없네요!\고민을 올려주세요</string>
+    <string name="last_card">더 이상 질문카드가 없네요!\n고민을 올려주세요</string>
 
 </resources>
