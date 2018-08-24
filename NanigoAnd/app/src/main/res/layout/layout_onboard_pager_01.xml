@@ -7,6 +7,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <!--<VideoView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/vv_onboard_01"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/layout_onboard_txt_01" />-->
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_onboard_01"

@@ -52,7 +52,6 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                overridePendingTransition(R.anim.slide_out_top, R.anim.fade_in_reavel);
                 finish();
             }
         });

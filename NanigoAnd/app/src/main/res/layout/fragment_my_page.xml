@@ -13,8 +13,8 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/mypage.collapsing"
             android:layout_width="match_parent"
-            android:background="@color/white"
             android:layout_height="match_parent"
+            android:background="@color/white"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <TextView
@@ -30,121 +30,122 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/ll_mypage_tab"
-                android:layout_height="@dimen/height"
-                android:background="@drawable/bg_underline_grey"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_mypage_q_selected"
-                    style="@style/tv"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_underline_black"
-                    android:gravity="center"
-                    android:text="내 질문 카드"
-                    android:textColor="@color/nanigoBlack"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_mypage_q_deselected"
-                    style="@style/tv"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="내 질문 카드"
-                    android:textColor="@color/nanigoBlack"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_mypage_a_selected"
-                    style="@style/tv"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_underline_black"
-                    android:gravity="center"
-                    android:text="내 답변 카드"
-                    android:textColor="@color/nanigoBlack"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_mypage_a_deselected"
-                    style="@style/tv"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="내 답변 카드"
-                    android:textColor="@color/nanigoBlack"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_mypage_list_refresh"
-                android:layout_below="@+id/ll_mypage_tab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="32dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="32dp">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_mypage_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_mypage_empty"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            style="@style/iv"
-                            android:src="@mipmap/ic_launcher" />
-
-                        <TextView
-                            style="@style/tv.small"
-                            android:text="@string/empty" />
-                    </LinearLayout>
-                </RelativeLayout>
-
-
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-        </RelativeLayout>
-    </LinearLayout>
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:orientation="vertical">-->
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="@dimen/height"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/ll_mypage_tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height"
+            android:background="@drawable/bg_underline_grey"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_mypage_q_selected"
+                style="@style/tv"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_underline_black"
+                android:gravity="center"
+                android:text="내 질문 카드"
+                android:textColor="@color/nanigoBlack"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_mypage_q_deselected"
+                style="@style/tv"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="내 질문 카드"
+                android:textColor="@color/nanigoBlack"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_mypage_a_selected"
+                style="@style/tv"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_underline_black"
+                android:gravity="center"
+                android:text="내 답변 카드"
+                android:textColor="@color/nanigoBlack"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_mypage_a_deselected"
+                style="@style/tv"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="내 답변 카드"
+                android:textColor="@color/nanigoBlack"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_mypage_list_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_mypage_tab"
+            android:background="#ecf0f3">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_mypage_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/ll_mypage_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <!--<ImageView-->
+                        <!--style="@style/iv"-->
+                        <!--android:src="@mipmap/ic_launcher" />-->
+
+                    <TextView
+                        style="@style/tv.small"
+                        android:text="@string/empty" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+    <!--</FrameLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height"
         android:gravity="top"
-        app:layout_anchor="@id/mypage.collapsing"
-        android:layout_height="@dimen/height">
+        app:layout_anchor="@id/mypage.collapsing">
 
         <ImageView
             android:id="@+id/iv_mypage_arrow"
@@ -160,6 +161,5 @@
             android:layout_centerInParent="true"
             android:src="@drawable/icon_user" />
     </RelativeLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>

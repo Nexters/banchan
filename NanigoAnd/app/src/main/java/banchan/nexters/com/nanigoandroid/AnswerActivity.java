@@ -106,15 +106,11 @@ public class AnswerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
 
-/**
- * toobar
- */
-        ImageView toolbar_exit = (ImageView) findViewById(R.id.toolbar_exit);
-        toolbar_exit.setVisibility(View.VISIBLE);
-        toolbar_exit.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.ic_answer_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_out_top,0);
             }
         });
 //        swipe_answer_reviews = findViewById(R.id.swipe_answer_reviews);

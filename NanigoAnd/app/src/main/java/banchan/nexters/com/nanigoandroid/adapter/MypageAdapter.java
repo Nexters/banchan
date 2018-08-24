@@ -2,6 +2,7 @@ package banchan.nexters.com.nanigoandroid.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -29,6 +30,7 @@ import banchan.nexters.com.nanigoandroid.R;
 import banchan.nexters.com.nanigoandroid.data.QuestionCard;
 import banchan.nexters.com.nanigoandroid.data.Reviews;
 import banchan.nexters.com.nanigoandroid.data.ReviewsList;
+import banchan.nexters.com.nanigoandroid.data.VoteCard;
 import banchan.nexters.com.nanigoandroid.http.APIService;
 import banchan.nexters.com.nanigoandroid.http.APIUtil;
 import banchan.nexters.com.nanigoandroid.utils.ImageUtil;
@@ -69,6 +71,12 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
         private ImageView iv_badge2;
         private ImageView iv_badge3;
 
+        //        popup view
+//        private LinearLayout ll_mypage_popup;
+//        private TextView tv_mypage_popup_txt;
+//        private ImageView ic_mypage_popup_a;
+//        private ImageView ic_mypage_popup_b;
+
         public ViewHolder(View convertView) {
             super(convertView);
 
@@ -94,12 +102,14 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
     }
 
     private List<QuestionCard> questionCardList;
-    private String questionType;
     private String tab;
-
-    public MypageAdapter(List<QuestionCard> list, String tab) {
+    private Context context;
+private Activity activity;
+    public MypageAdapter(List<QuestionCard> list, String tab, Context context, Activity activity) {
         questionCardList = list;
         this.tab = tab;
+        this.context = context;
+        this.activity = activity;
     }
 
     @Override
@@ -150,6 +160,70 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
             h.tv_username.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setView(R.layout.layout_my_decision);
+
+//                    final Dialog dialog = new Dialog(context);
+//                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                    View dialogLayout = inflater.inflate(R.layout.layout_my_decision, null);
+
+//                    dialog.setContentView(dialogLayout);
+
+                  final  AlertDialog dialog = builder.show();
+
+                    TextView tv_mypage_popup_txt = (TextView) dialog.findViewById(R.id.tv_mypage_popup_txt);
+                    ImageView ic_mypage_popup_a = (ImageView) dialog.findViewById(R.id.ic_mypage_popup_a);
+                    ImageView ic_mypage_popup_b = (ImageView) dialog.findViewById(R.id.ic_mypage_popup_b);
+
+                    tv_mypage_popup_txt.setText(PreferenceManager.getInstance(context).getUserName() + "님은\n어떤 결정을 내렸나요?");
+
+                    if(card.getDecision().equals("UNDECIDED")){
+
+                        ic_mypage_popup_a.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                vote("A", card.getId(), new mCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        Toast.makeText(context, "성공했어요", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+                                        Toast.makeText(context, "실패했어요", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+                                });
+                            }
+                        });
+                        ic_mypage_popup_b.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                vote("B", card.getId(), new mCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        Toast.makeText(context, "성공했어요", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();                                }
+
+                                    @Override
+                                    public void onFailure() {
+                                        Toast.makeText(context, "실패했어요", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+                                });
+                            }
+                        });
+
+                    }else if(card.getDecision().equals("A")){
+                        ic_mypage_popup_b.setVisibility(View.GONE);
+                    }else if(card.getDecision().equals("B")){
+                        ic_mypage_popup_a.setVisibility(View.GONE);
+
+                    }
+
+
+
 
                 }
             });
@@ -159,7 +233,7 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
 
         h.iv_view_count.setImageResource(R.drawable.ic_view_count_dark);
         h.tv_view_count.setText(card.getVote().getTotal() + "");
-        h.iv_comment_count.setImageResource(R.drawable.ic_view_count_dark);
+        h.iv_comment_count.setImageResource(R.drawable.ic_comment_count_dark);
         h.tv_comment_count.setText(card.getReview() + "");
 
         switch (card.getType()) {
@@ -212,4 +286,71 @@ public class MypageAdapter extends RecyclerView.Adapter<MypageAdapter.ViewHolder
         }
 
     }
+
+    private static APIService service = APIUtil.getService();
+
+
+    private void vote(final String answer, final int questionId, final mCallback callback) {
+
+        IsOnline.onlineCheck(context, new IsOnline.onlineCallback() {
+            @Override
+            public void onSuccess() {
+
+                VoteCard card = new VoteCard(answer, questionId, false, Integer.parseInt(PreferenceManager.getInstance(context).getUserId()));
+                service.voteCard(card).enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+
+                        try {
+
+                            if (response.isSuccessful()) {
+                                String result = response.body().toString();
+                                JSONObject data = new JSONObject(result);
+
+
+                                if (data.getString("type").equals("SUCCESS")) {
+//                                    String userId = data.getJSONObject("data").getString("id");
+
+//                                    Toast.makeText(context, "성공했어요", Toast.LENGTH_SHORT).show();
+                                    callback.onSuccess();
+
+                                } else {
+//                                    Toast.makeText(applicationContext, "fail", Toast.LENGTH_SHORT).show();
+
+                                    callback.onFailure();
+                                }
+                            } else {
+//end respone error
+                                JSONObject data = new JSONObject(response.errorBody().string());
+//                                Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show();
+                                callback.onFailure();
+
+
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        //request fail(not found, time out, etc...)
+//                        Toast.makeText(applicationContext, "onFailure", Toast.LENGTH_SHORT).show();
+                        callback.onFailure();
+
+                    }
+                });
+            }
+        });
+
+    }
+
+    private interface mCallback {
+        void onSuccess();
+
+        void onFailure();
+    }
+
+
 }

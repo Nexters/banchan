@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/bg_round_white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_mypage_popup_txt"
+
+        style="@style/tv.large"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="청순한 호랑이님은 어떤 결정을 내렸나요?"
+        android:textColor="@color/nanigoBlack" />
+
+    <TextView
+        style="@style/tv_noto"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:text="(한번 선택한 답은 수정할 수 없습니다)"
+        android:textColor="@color/nanigoBlack" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <ImageView
+            android:id="@+id/ic_mypage_popup_a"
+            style="@style/iv"
+            android:src="@drawable/ic_a_popup" />
+
+        <ImageView
+            android:id="@+id/ic_mypage_popup_b"
+            style="@style/iv"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_b_popup" />
+    </RelativeLayout>
+</LinearLayout>

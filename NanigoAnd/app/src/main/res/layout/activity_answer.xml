@@ -10,7 +10,25 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/layout_toolbar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height"
+        >
+        <TextView
+            style="@style/tv"
+            android:textSize="20sp"
+            android:textColor="@color/nanigoBlack"
+            android:layout_centerInParent="true"
+            android:text="결과보기"/>
+        <ImageView
+            android:src="@drawable/delete_icon"
+            android:layout_alignParentRight="true"
+            android:id="@+id/ic_answer_close"
+            android:padding="14dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            style="@style/iv"/>
+    </RelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -42,7 +60,7 @@
                 <TextView
                     android:id="@+id/tv_answer_title"
                     style="@style/tv.medium"
-                    android:text="전 남친한테 새벽에 연락왔는데 답장해볼까?"
+                    android:text="NANIGO"
                     android:textColor="@color/nanigoBlack" />
             </LinearLayout>
 
@@ -61,6 +79,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="더보기"
+                    android:layout_marginRight="5dp"
                     android:textColor="@color/nanigoGrey"
                     android:textSize="16sp" />
 
@@ -118,6 +137,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="접기"
+                    android:layout_marginRight="5dp"
                     android:textColor="@color/nanigoGrey"
                     android:textSize="16sp" />
 
@@ -176,7 +196,7 @@
                     style="@style/tv_noto"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="85%"
+                    android:text="0%"
                     android:textColor="@color/nanigoBlack"
                     android:textSize="38sp"
                     android:textStyle="bold" />
@@ -203,7 +223,7 @@
                     style="@style/tv_noto"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="화이트백"
+                    android:text="NANIGO"
                     android:textColor="@color/nanigoBlack"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -230,7 +250,7 @@
                         style="@style/tv_noto"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.8"
+                        android:layout_weight="0.1"
                         android:background="@drawable/bg_chart_round_case1"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
@@ -244,7 +264,7 @@
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:paddingLeft="17.6dp"
-                    android:text="85%"
+                    android:text="0%"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -272,7 +292,7 @@
                     style="@style/tv_noto"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="캐쥬얼백"
+                    android:text="NANIGO"
                     android:textColor="@color/nanigoBlack"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -299,7 +319,7 @@
                         style="@style/tv_noto"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="0.6"
+                        android:layout_weight="0.1"
                         android:background="@drawable/bg_chart_round_case2"
                         android:gravity="center_vertical" />
                 </LinearLayout>
@@ -311,7 +331,7 @@
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:paddingLeft="17.6dp"
-                    android:text="85%"
+                    android:text="0%"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -341,8 +361,8 @@
                         android:id="@+id/tv_answer_info_view_count"
                         style="@style/tv_noto"
                         android:layout_marginLeft="10dp"
-                        android:text="30"
-                        android:textColor="#3b464b"
+                        android:text="0"
+                        android:textColor="#8799A3"
                         android:textSize="15sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -363,7 +383,7 @@
                         android:id="@+id/tv_answer_view_count"
                         style="@style/tv_noto"
                         android:layout_centerVertical="true"
-                        android:text="30"
+                        android:text="0"
                         android:textColor="#b38799a3"
                         android:textSize="15sp" />
 
@@ -386,7 +406,7 @@
                         style="@style/tv_noto"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="32dp"
-                        android:text="30"
+                        android:text="0"
                         android:textColor="#b38799a3"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -463,9 +483,9 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            style="@style/iv"
-                            android:src="@mipmap/ic_launcher" />
+                        <!--<ImageView-->
+                            <!--style="@style/iv"-->
+                            <!--android:src="@mipmap/ic_launcher" />-->
 
                         <TextView
                             style="@style/tv.small"

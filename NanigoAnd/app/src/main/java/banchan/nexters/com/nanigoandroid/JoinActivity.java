@@ -93,7 +93,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         btn_join_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (btn_join_ok.isEnabled()) {
+                if (btn_join_ok.isSelected()) {
 //                    startActivity(new Intent(JoinActivity.this,));
                     joinUser();
                 } else {
@@ -235,6 +235,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                                     String userId = data.getJSONObject("data").getString("id");
                                     PreferenceManager.getInstance(getApplicationContext()).setUserId(userId);
+                                    PreferenceManager.getInstance(getApplicationContext()).setUserName(prefix+" "+postfix);
 
                                     Toast.makeText(getApplicationContext(), "성공  " + userId, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(JoinActivity.this,WelcomeActivity.class);

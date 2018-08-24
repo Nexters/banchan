@@ -84,9 +84,10 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         tv_mypage_a_selected.setOnClickListener(this);
         tv_mypage_a_deselected.setOnClickListener(this);
 
-        if(tab.equals("A")){
+        tv_mypage_user.setText(PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserName()+"님");
+        if (tab.equals("A")) {
             mVotes(currentPage);
-        }else{
+        } else {
             mQuestions(currentPage);
         }
 
@@ -119,8 +120,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 /**
                  * userId, lastOrder, count
                  */
-                String userId = "72";
-//                String userId = PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserId();
+                String userId = PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserId();
 
                 service.mQuestions(userId, page + "", "5").enqueue(new Callback<CardList>() {
                     @Override
@@ -138,15 +138,15 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                 adapter.notifyItemRangeInserted(adapter.getItemCount(), cardLists.size() - 1);
                             } else {
                                 cardLists = response.body().getData();
-                                adapter = new MypageAdapter(cardLists, tab);
+                                adapter = new MypageAdapter(cardLists, tab, getActivity().getApplicationContext(),getActivity());
                                 rv_mypage_list.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
                                 ItemClickSupport.addTo(rv_mypage_list).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                                     @Override
                                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                                         Intent intent = new Intent(getActivity(), AnswerActivity.class);
-                                        intent.putExtra("QUESTIONID",cardLists.get(position).getId());
+                                        intent.putExtra("QUESTIONID", cardLists.get(position).getId());
                                         startActivity(intent);
-                                        getActivity().overridePendingTransition(R.anim.fade_out_scale_up,R.anim.fade_in_reavel);
+                                        getActivity().overridePendingTransition(0, R.anim.fade_in_reavel);
 
                                     }
                                 });
@@ -160,7 +160,8 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                         // 최하단
                                         // if direction -1 is 최상단
                                         if (!isLoading) {
-                                            currentPage = cardLists.get(cardLists.size() - 1).getId();
+//                                            currentPage = cardLists.get(cardLists.size() - 1).getId();
+                                            currentPage++;
                                             mQuestions(currentPage);
                                             isLoading = true;
                                         }
@@ -180,7 +181,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                 }
 //                                currentPage = 0;
 
-                            }else{
+                            } else {
                                 isLoading = false;
                                 currentPage = 0;
                                 Toast.makeText(getActivity().getApplicationContext(), "TYPE IS FAIL", Toast.LENGTH_SHORT).show();
@@ -198,6 +199,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                         isLoading = false;
                         currentPage = 0;
                         Toast.makeText(getActivity().getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                        MyApplication.Companion.get().progressOFF();
 
                     }
                 });
@@ -216,8 +218,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 /**
                  * userId, lastOrder, count
                  */
-                String userId = "1004";
-//                String userId = PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserId();
+                String userId = PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserId();
 
                 service.mVotes(userId, page + "", "5").enqueue(new Callback<CardList>() {
                     @Override
@@ -235,7 +236,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                 adapter.notifyItemRangeInserted(adapter.getItemCount(), cardLists.size() - 1);
                             } else {
                                 cardLists = response.body().getData();
-                                adapter = new MypageAdapter(cardLists, tab);
+                                adapter = new MypageAdapter(cardLists, tab, getActivity().getApplicationContext(),getActivity());
                                 rv_mypage_list.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
                                 rv_mypage_list.setAdapter(adapter);
                             }
@@ -247,7 +248,8 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                         // 최하단
                                         // if direction -1 is 최상단
                                         if (!isLoading) {
-                                            currentPage = cardLists.get(cardLists.size() - 1).getId();
+//                                            currentPage = cardLists.get(cardLists.size() - 1).getId();
+                                            currentPage++;
                                             mVotes(currentPage);
                                             isLoading = true;
                                         }
@@ -267,7 +269,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                 }
 //                                currentPage = 0;
 
-                            }else{
+                            } else {
                                 isLoading = false;
                                 currentPage = 0;
                                 Toast.makeText(getActivity().getApplicationContext(), "TYPE IS FAIL", Toast.LENGTH_SHORT).show();
@@ -285,6 +287,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                         isLoading = false;
                         currentPage = 0;
                         Toast.makeText(getActivity().getApplicationContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                        MyApplication.Companion.get().progressOFF();
 
                     }
                 });
@@ -303,7 +306,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 tv_mypage_q_deselected.setVisibility(View.VISIBLE);
                 tv_mypage_a_selected.setVisibility(View.VISIBLE);
                 tv_mypage_a_deselected.setVisibility(View.GONE);
-                currentPage=0;
+                currentPage = 0;
                 mVotes(currentPage);
                 cardLists.clear();
             }
@@ -315,7 +318,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 tv_mypage_q_deselected.setVisibility(View.GONE);
                 tv_mypage_a_selected.setVisibility(View.GONE);
                 tv_mypage_a_deselected.setVisibility(View.VISIBLE);
-                currentPage=0;
+                currentPage = 0;
                 mQuestions(currentPage);
                 cardLists.clear();
             }
@@ -323,6 +326,38 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private Boolean isVisible = false;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (isVisible ){
+            init();
+        }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        isVisible = isVisibleToUser;
+        if ( isVisible) {
+            init();
+        }
+    }
+
+    private void init(){
+        if(tab.equals("A")){
+            currentPage = 0;
+            mVotes(currentPage);
+            cardLists.clear();
+        }else if(tab.equals("B")){
+            currentPage = 0;
+            mQuestions(currentPage);
+            cardLists.clear();
+        }
+    }
 }
