@@ -7,7 +7,7 @@
 
     <item
         android:state_selected="false"
-        android:drawable="@drawable/icon_user"/>
+        android:drawable="@drawable/icon_user_grey"/>
 
 
 </selector>
