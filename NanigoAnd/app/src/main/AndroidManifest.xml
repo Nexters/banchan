@@ -20,10 +20,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".JoinActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".AnswerActivity" />
         <activity android:name=".OnBoardActivity" />
-        <activity android:name=".CardUploadActivity" />
+        <activity android:name=".CardUploadActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -42,8 +43,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WelcomeActivity"></activity>
-        <activity android:name=".ImageViewActivity"/>
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".ImageViewActivity" />
+        <activity android:name=".CameraActivity"></activity>
     </application>
 
 </manifest>
