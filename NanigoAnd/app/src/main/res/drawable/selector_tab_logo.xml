@@ -3,7 +3,7 @@
 
     <item
         android:state_selected="true"
-        android:drawable="@drawable/nanigo_logo"/>
+        android:drawable="@drawable/nanigo_logo_white"/>
 
     <item
         android:state_selected="false"

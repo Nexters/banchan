@@ -7,7 +7,7 @@
 
     <item
         android:state_selected="false"
-        android:drawable="@drawable/ic_speaker"/>
+        android:drawable="@drawable/ic_speaker_grey"/>
 
 
 </selector>
