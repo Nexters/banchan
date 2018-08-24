@@ -21,9 +21,7 @@ import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TY
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_B
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_C
 import banchan.nexters.com.nanigoandroid.adapter.SnappyAdapter.Companion.VIEW_TYPE_D
-import banchan.nexters.com.nanigoandroid.data.CardList
-import banchan.nexters.com.nanigoandroid.data.QuestionCard
-import banchan.nexters.com.nanigoandroid.data.VoteCard
+import banchan.nexters.com.nanigoandroid.data.*
 import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
 import banchan.nexters.com.nanigoandroid.utils.IsOnline
@@ -135,6 +133,13 @@ class QuestionCardFragment: Fragment(){
 
     }
 
+    fun addLastCard(): QuestionCard {
+        val detail = CardDetailData(resources.getString(R.string.last_card))
+        val lastCard = QuestionCard(-1, 0, " ", "A", "UNDECIDED", -1, detail, Vote(0, 0, 0), 0, Tag(false, false, false))
+        //mItemList.add(mItemList.size, lastCard)
+        return lastCard
+    }
+
     private fun getCardList(lastOrder: Int) {
         IsOnline.onlineCheck(activity!!.applicationContext, IsOnline.onlineCallback {
             MyApplication.get().progressON(activity)
@@ -145,11 +150,12 @@ class QuestionCardFragment: Fragment(){
                         if(result != null) {
                             if (result.type == "SUCCESS") {
                                 val newList: MutableList<QuestionCard> = result.data
-                                newList.add(newList.size, newList[newList.size-1])
-                                if(mCardList.size > 0) {
+                                newList.add(newList.size, addLastCard())
+                                if(mCardList.size > 0 && lastOrder != 0) {
                                     mCardList.removeAt(mCardList.size-1)
                                     mCardList.addAll(newList)
                                 } else {
+                                    mAdapter = null
                                     mCardList.clear()
                                     mCardList.addAll(newList)
                                 }
@@ -168,7 +174,17 @@ class QuestionCardFragment: Fragment(){
                                 MyApplication.get().progressOFF()
                             } else {
                                 if(result.reason == "QuestionNotFound") {
-                                    Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_SHORT).show()
+                                    Handler().postDelayed({
+                                        MyApplication.get().progressON(activity)
+                                        Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_LONG).show()
+                                        getCardList(0)
+                                        mBtnO.isClickable = false
+                                        mBtnX.isClickable = false
+                                    }, 2000)
+                                    MyApplication.get().progressOFF()
+                                    mBtnO.isClickable = true
+                                    mBtnX.isClickable = true
+
                                 } else {
                                     Toast.makeText(context, resources.getString(R.string.get_list_fail), Toast.LENGTH_SHORT).show()
                                 }

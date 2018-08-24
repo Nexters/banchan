@@ -115,37 +115,6 @@ public class ImageViewActivity extends AppCompatActivity {
 			//ViewPager에 만들어 낸 View 추가
 			container.addView(view);
 
-			/*if( mItems.get(position) != null ) {
-				// ImageView - Bitmap too large to be uploaded into a texture occur (origin image is big size...)
-				// load image size from screen size
-
-				ImageRequestBuilder imageRequestBuilder =
-						ImageRequestBuilder.newBuilderWithSource(Uri.parse(mItems.get(position)))
-								.setResizeOptions(new ResizeOptions(mSize.x, mSize.y));
-
-				view.setController(
-						Picasso.
-						Fresco.newDraweeControllerBuilder()
-								.setImageRequest(imageRequestBuilder.build())
-								.build());
-
-				GenericDraweeHierarchy hierarchy =
-						new GenericDraweeHierarchyBuilder(container.getResources())
-								.setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER)
-								.build();
-
-				view.setHierarchy(hierarchy);
-				container.addView(view,
-						ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-				final GestureDetector.SimpleOnGestureListener singleTapDetector = new GestureDetector.SimpleOnGestureListener() {
-					@Override
-					public boolean onSingleTapConfirmed(MotionEvent e) {
-						toggleViewer();
-						return super.onSingleTapConfirmed(e);
-					}
-				};
-			}*/
 
 			return view;
 		}
