@@ -50,6 +50,7 @@
                     android:layout_toRightOf="@id/tv_Q"
                     android:gravity="top"
                     android:hint="@string/question_text_hint"
+                    android:background="@null"
                     android:inputType="textMultiLine"
                     android:maxLength="53"
                     android:maxLines="4"
@@ -60,6 +61,7 @@
                 <TextView
                     android:id="@+id/tv_q_text_count"
                     android:layout_width="match_parent"
+                    style="@style/tv_noto"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/et_question"
                     android:layout_marginLeft="6dp"
@@ -136,6 +138,7 @@
                 <TextView
                     android:id="@+id/tv_q_type"
                     android:layout_width="wrap_content"
+                    style="@style/tv_noto"
                     android:layout_height="wrap_content"
                     android:text="@string/question_type"
                     android:textColor="@color/upload_type_text"

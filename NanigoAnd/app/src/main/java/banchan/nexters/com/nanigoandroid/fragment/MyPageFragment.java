@@ -219,7 +219,6 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                  * userId, lastOrder, count
                  */
                 String userId = PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserId();
-
                 service.mVotes(userId, page + "", "5").enqueue(new Callback<CardList>() {
                     @Override
                     public void onResponse(Call<CardList> call, retrofit2.Response<CardList> response) {
@@ -308,7 +307,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 tv_mypage_a_deselected.setVisibility(View.GONE);
                 currentPage = 0;
                 mVotes(currentPage);
-                cardLists.clear();
+//                cardLists.clear();
             }
         } else {
             tab = "A";
@@ -320,7 +319,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 tv_mypage_a_deselected.setVisibility(View.VISIBLE);
                 currentPage = 0;
                 mQuestions(currentPage);
-                cardLists.clear();
+//                cardLists.clear();
             }
         }
 

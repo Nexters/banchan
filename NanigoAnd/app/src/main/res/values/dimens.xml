@@ -11,5 +11,5 @@
 
     <dimen name="ruler_text">16sp</dimen>
 
-    <dimen name="height">48dp</dimen>
+    <dimen name="height">50dp</dimen>
 </resources>

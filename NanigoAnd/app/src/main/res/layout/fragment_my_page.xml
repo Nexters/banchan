@@ -20,7 +20,6 @@
             <TextView
                 android:id="@+id/tv_mypage_user"
                 style="@style/tv.large"
-                android:layout_marginBottom="40dp"
                 android:layout_marginTop="100dp"
                 android:paddingLeft="20dp"
                 android:text="청순한 호랑이, 23"
@@ -126,8 +125,8 @@
                     android:orientation="vertical">
 
                     <!--<ImageView-->
-                        <!--style="@style/iv"-->
-                        <!--android:src="@mipmap/ic_launcher" />-->
+                    <!--style="@style/iv"-->
+                    <!--android:src="@mipmap/ic_launcher" />-->
 
                     <TextView
                         style="@style/tv.small"
@@ -145,6 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height"
         android:gravity="top"
+        android:visibility="invisible"
         app:layout_anchor="@id/mypage.collapsing">
 
         <ImageView
