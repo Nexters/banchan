@@ -73,6 +73,7 @@ class QuestionCardFragment: Fragment(){
         }
 
         userId = PreferenceManager.getInstance(activity).userId
+        userId = if(userId.isNullOrEmpty()) { 0.toString() } else { userId }
 
 
         setup()
@@ -147,7 +148,7 @@ class QuestionCardFragment: Fragment(){
     private fun getCardList(lastOrder: Int) {
         IsOnline.onlineCheck(activity!!.applicationContext, IsOnline.onlineCallback {
             MyApplication.get().progressON(activity)
-            service.getCardList(if(userId.isNullOrEmpty()) { 0.toString() } else { userId }, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
+            service.getCardList(userId, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
                 override fun onResponse(call: Call<CardList>?, response: Response<CardList>?) {
                     if(response!!.isSuccessful) {
                         val result = response.body()
@@ -214,7 +215,7 @@ class QuestionCardFragment: Fragment(){
     private fun postVoteResult(answer: String) {
 
         val currentItem = mCardList.get(mPosition)
-        val voteDto = VoteCard(answer, currentItem.id, currentItem.tag.random, userId?.toInt() ?: 1004)
+        val voteDto = VoteCard(answer, currentItem.id, currentItem.tag.random, userId.toInt())
         service.voteCard(voteDto).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
                 try {

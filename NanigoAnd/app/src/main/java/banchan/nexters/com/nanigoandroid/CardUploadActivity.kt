@@ -56,7 +56,7 @@ class CardUploadActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                tv_q_text_count.text = changeTextCount(count)
+                tv_q_text_count.text = changeTextCount(s.length)
             }
 
             override fun afterTextChanged(s: Editable) {
