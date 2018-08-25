@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
                         .setPermissionListener(permissionlistener)
                         .setRationaleMessage("서비스 사용을 위해서는 다음 권한이 필요합니다")
                         .setDeniedMessage("권한 거부시 사용이 제한됩니다.\n [설정] > [권한] 에서 권한을 허용해주세요")
-                        .setPermissions(Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE)
+                        .setPermissions(Manifest.permission.READ_PHONE_STATE)
                         .check();
 
             }

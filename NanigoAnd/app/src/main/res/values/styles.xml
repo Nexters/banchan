@@ -61,13 +61,6 @@
 
     </style>
 
-    <style name="tv.title">
-        <item name="android:textSize">@dimen/medium</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginLeft">@dimen/small</item>
-        <item name="android:layout_marginBottom">@dimen/small</item>
-    </style>
-
     <style name="tv.join">
         <item name="android:textSize">@dimen/large</item>
         <item name="android:paddingLeft">@dimen/join_bg_side</item>

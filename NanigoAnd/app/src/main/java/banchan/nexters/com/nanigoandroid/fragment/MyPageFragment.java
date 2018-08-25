@@ -122,7 +122,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                  */
                 String userId = PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserId();
 
-                service.mQuestions(userId, page + "", "5").enqueue(new Callback<CardList>() {
+                service.mQuestions(userId, page + "", "10").enqueue(new Callback<CardList>() {
                     @Override
                     public void onResponse(Call<CardList> call, retrofit2.Response<CardList> response) {
 
@@ -219,7 +219,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                  * userId, lastOrder, count
                  */
                 String userId = PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserId();
-                service.mVotes(userId, page + "", "5").enqueue(new Callback<CardList>() {
+                service.mVotes(userId, page + "", "10").enqueue(new Callback<CardList>() {
                     @Override
                     public void onResponse(Call<CardList> call, retrofit2.Response<CardList> response) {
 

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
 
     <color name="transparent">#ffffffff</color>
 
@@ -27,7 +24,6 @@
 
     <!--카드 내에서 사용-->
     <color name="divide_bottom">#0c3b464b</color>
-    <color name="divide_center">#f2f2f2</color>
     <color name="divide_vertical">#8799a3</color>
 
     <color name="question_text">#2d4053</color>
@@ -41,7 +37,6 @@
     <color name="upload_type_text">#5f7f90</color>
     <color name="image_A_mark">#27d1ff</color>
     <color name="image_B_mark">#ff6d65</color>
-    <color name="AB_text_dark_grey_blue">#2d4053</color>
     <color name="black_50">#80000000</color>
 
 </resources>

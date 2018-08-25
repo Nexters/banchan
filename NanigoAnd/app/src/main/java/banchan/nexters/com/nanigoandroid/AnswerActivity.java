@@ -221,6 +221,10 @@ public class AnswerActivity extends AppCompatActivity {
                             tv_answer_count.setText("(총 " + questionData.getData().getVote().getTotal() + "명이 참여)");
 
 
+                            //TODO: d타입 더보기 삭제 - 이미지, 데이터 바인딩 안됨
+                            if(questionType.equals("D"))
+                                ll_answer_open.setVisibility(View.GONE);
+
                             float percentage_1 = Math.round(((float) questionData.getData().getVote().getA() / (float) questionData.getData().getVote().getTotal()) * 100) / 100f;
                             float percentage_2 = Math.round(((float) questionData.getData().getVote().getB() / (float) questionData.getData().getVote().getTotal()) * 100) / 100f;
 
@@ -505,6 +509,8 @@ public class AnswerActivity extends AppCompatActivity {
                     }
                     break;
                 case "D":
+                    ll_answer_open.setVisibility(View.GONE);
+
                     iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
                     iv_answer_a_img = (ImageView) findViewById(R.id.iv_answer_a_img);
                     iv_answer_b_img = (ImageView) findViewById(R.id.iv_answer_b_img);

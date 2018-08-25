@@ -237,19 +237,19 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                     PreferenceManager.getInstance(getApplicationContext()).setUserId(userId);
                                     PreferenceManager.getInstance(getApplicationContext()).setUserName(prefix+" "+postfix);
 
-                                    Toast.makeText(getApplicationContext(), "성공  " + userId, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getApplicationContext(), "성공했어요!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(JoinActivity.this,WelcomeActivity.class);
                                     intent.putExtra("NAME",prefix+" "+postfix);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "실패했어요", Toast.LENGTH_SHORT).show();
 
                                 }
                             } else {
 //end respone error
                                 JSONObject data = new JSONObject(response.errorBody().string());
-                                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "실패했어요ㅜㅜ", Toast.LENGTH_SHORT).show();
 
                                 Log.e("oooo", data.toString());
 
