@@ -62,9 +62,6 @@ class SpeakerPageFragment : Fragment() {
     private fun userInfo() {
         var userId = PreferenceManager.getInstance(context).userId
 
-        //TODO: 회원가입 전엔 userId가 없넹 ..^_^
-        userId="52"
-
 
         IsOnline.onlineCheck(activity) {
             MyApplication.get().progressON(activity)
@@ -99,6 +96,27 @@ MyApplication.get().progressOFF()                }
             })
         }
 
+    }
+
+    private var isVisible: Boolean? = false
+
+    override fun onStart() {
+        super.onStart()
+        if (isVisible!!) {
+            userInfo()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        isVisible = isVisibleToUser
+        if (isVisible!!) {
+            userInfo()
+        }
     }
 
 

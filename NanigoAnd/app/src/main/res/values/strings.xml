@@ -2,7 +2,6 @@
     <string name="app_name">Nanigo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nanigo">NANIGO</string>
     <string name="ok">확인</string>
 
@@ -12,6 +11,9 @@
     <string name="failed">실패했어요</string>
 
     <string name="onboard_around"><u>둘러보기</u></string>
+    <string name="onboard_desc_01">나니고는 일상에서 마주치는 어렵고도 가벼운\n고민들을 질문히고 답변하는 고민해결 서비스입니다.</string>
+    <string name="onboard_desc_02">이거할까 저거할까 혼자 고민하지 마시고\n함께하는 나니들의 도움을 받아보세요!</string>
+    <string name="onboard_desc_03">다른 나니들의 고민도 있다구요~\n당신의 생각을 솔직하고 빠르게 나니고!</string>
     <!--질문올리기-->
     <string name="question_upload_head">질문올리기</string>
     <string name="question_text_count">글자수 %1$d/53</string>

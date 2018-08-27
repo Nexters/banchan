@@ -161,6 +161,36 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                 AlertDialog.Builder alert = new AlertDialog.Builder(activityContext);
                 if (PreferenceManager.getInstance(applicationContext).getUserId().equals(reviewsList.getUesrId() + "")) {
                     // AlertDialog 셋팅
+
+                    alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            viewHolder.switcher.showNext(); //or switcher.showPrevious();
+                            viewHolder.item_reviews_comment_edit.setText(viewHolder.item_reviews_comment.getText().toString());
+
+
+                        }
+                    }).setNegativeButton("삭제", new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, int id) {
+                            deleteReviews(reviewsList.getId(), new mCallback() {
+                                @Override
+                                public void onSuccess() {
+                                    deleteItem(position);
+                                    Toast.makeText(applicationContext, "삭제가 완료되었습니다!  ", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onFailure() {
+                                    Toast.makeText(applicationContext, applicationContext.getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            });
+
+                        }
+                    });
+                } else {
+                    // AlertDialog 셋팅
                     alert.setPositiveButton("신고", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, int id) {
                             reportReviews(reviewsList.getId(), new mCallback() {
@@ -195,35 +225,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                             });
                         }
                     });
-                } else {
-                    // AlertDialog 셋팅
-                    alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
 
-                            viewHolder.switcher.showNext(); //or switcher.showPrevious();
-                            viewHolder.item_reviews_comment_edit.setText(viewHolder.item_reviews_comment.getText().toString());
-
-
-                        }
-                    }).setNegativeButton("삭제", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, int id) {
-                            deleteReviews(reviewsList.getId(), new mCallback() {
-                                @Override
-                                public void onSuccess() {
-                                    deleteItem(position);
-                                    Toast.makeText(applicationContext, "삭제가 완료되었습니다!  ", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-
-                                @Override
-                                public void onFailure() {
-                                    Toast.makeText(applicationContext, applicationContext.getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                            });
-
-                        }
-                    });
                 }
 
 

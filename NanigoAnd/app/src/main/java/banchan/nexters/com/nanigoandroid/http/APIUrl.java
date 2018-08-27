@@ -34,6 +34,8 @@ public class APIUrl {
     //질문 카드
     public static final String UPLOADCARD = "/api/questionCard";
     public static final String NOTVOTEDCARD = "/api/user/{userId}/notVotedQuestions/{lastOrder}/{count}";
+    public static final String MYQUESTIONCARD = "/api/user/{userId}/userMadeQuestions/{page}/{count}";
+    public static final String MYVOTECARD = "/api/user/{userId}/votedQuestions/{page}/{count}";
     public static final String VOTECARD = "/api/vote";
     public static final String CARDREPORT = "/api/question/report";
 

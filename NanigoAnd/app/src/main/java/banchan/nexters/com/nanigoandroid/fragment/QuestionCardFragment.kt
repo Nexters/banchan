@@ -25,6 +25,7 @@ import banchan.nexters.com.nanigoandroid.data.*
 import banchan.nexters.com.nanigoandroid.http.APIUtil
 import banchan.nexters.com.nanigoandroid.listener.FlipListener
 import banchan.nexters.com.nanigoandroid.utils.IsOnline
+import banchan.nexters.com.nanigoandroid.utils.PreferenceManager
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
@@ -43,7 +44,7 @@ class QuestionCardFragment: Fragment(){
     lateinit var mFlipListener: FlipListener
 
     lateinit var colors: IntArray
-    private val userId: String? = null//PreferenceManager.getInstance(activity).userId
+    lateinit var userId: String
     private val itemCount = 10
     private var mPosition = 0
 
@@ -70,6 +71,10 @@ class QuestionCardFragment: Fragment(){
             // 결과 api 연동
             postVoteResult("B")
         }
+
+        userId = PreferenceManager.getInstance(activity).userId
+        userId = if(userId.isNullOrEmpty()) { 0.toString() } else { userId }
+
 
         setup()
         //reload()
@@ -143,7 +148,7 @@ class QuestionCardFragment: Fragment(){
     private fun getCardList(lastOrder: Int) {
         IsOnline.onlineCheck(activity!!.applicationContext, IsOnline.onlineCallback {
             MyApplication.get().progressON(activity)
-            service.getCardList(if(userId.isNullOrEmpty()) { 0.toString() } else { userId }, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
+            service.getCardList(userId, lastOrder.toString(), itemCount.toString()).enqueue(object : Callback<CardList> {
                 override fun onResponse(call: Call<CardList>?, response: Response<CardList>?) {
                     if(response!!.isSuccessful) {
                         val result = response.body()
@@ -158,6 +163,7 @@ class QuestionCardFragment: Fragment(){
                                     mAdapter = null
                                     mCardList.clear()
                                     mCardList.addAll(newList)
+                                    mPosition = 0
                                 }
 
                                 if(mAdapter == null) {
@@ -174,16 +180,16 @@ class QuestionCardFragment: Fragment(){
                                 MyApplication.get().progressOFF()
                             } else {
                                 if(result.reason == "QuestionNotFound") {
+                                    mBtnO.isClickable = false
+                                    mBtnX.isClickable = false
                                     Handler().postDelayed({
                                         MyApplication.get().progressON(activity)
                                         Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_LONG).show()
                                         getCardList(0)
-                                        mBtnO.isClickable = false
-                                        mBtnX.isClickable = false
+                                        mBtnO.isClickable = true
+                                        mBtnX.isClickable = true
                                     }, 2000)
                                     MyApplication.get().progressOFF()
-                                    mBtnO.isClickable = true
-                                    mBtnX.isClickable = true
 
                                 } else {
                                     Toast.makeText(context, resources.getString(R.string.get_list_fail), Toast.LENGTH_SHORT).show()
@@ -209,7 +215,7 @@ class QuestionCardFragment: Fragment(){
     private fun postVoteResult(answer: String) {
 
         val currentItem = mCardList.get(mPosition)
-        val voteDto = VoteCard(answer, currentItem.id, currentItem.tag.random, userId?.toInt() ?: 1004)
+        val voteDto = VoteCard(answer, currentItem.id, currentItem.tag.random, userId.toInt())
         service.voteCard(voteDto).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
                 try {

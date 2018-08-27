@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import banchan.nexters.com.nanigoandroid.fragment.MyPageFragment
+import banchan.nexters.com.nanigoandroid.fragment.MyPageFragment2
 import banchan.nexters.com.nanigoandroid.fragment.QuestionCardFragment
 import banchan.nexters.com.nanigoandroid.fragment.SpeakerPageFragment
 
@@ -26,7 +27,7 @@ class MainPagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
         return when(position) {
             0 -> SpeakerPageFragment().newInstance()
             1 -> QuestionCardFragment()
-            2 -> MyPageFragment().newInstance()
+            2 -> MyPageFragment.newInstance()
             else -> null
         }
     }

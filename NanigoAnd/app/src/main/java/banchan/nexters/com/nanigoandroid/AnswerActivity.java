@@ -2,6 +2,7 @@ package banchan.nexters.com.nanigoandroid;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,6 +47,8 @@ public class AnswerActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipe_answer_reviews;
 
     int questionId = 0;
+
+    private NestedScrollView scroll_answer;
     RecyclerView rv_answer_reviews_list;
     private ReviewsAdapter adapter;
 
@@ -103,7 +106,13 @@ public class AnswerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
 
-
+        findViewById(R.id.ic_answer_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_out_top,0);
+            }
+        });
 //        swipe_answer_reviews = findViewById(R.id.swipe_answer_reviews);
 //        swipe_answer_reviews.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -146,6 +155,8 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        scroll_answer = (NestedScrollView) findViewById(R.id.scroll_answer);
+
         tv_answer_title = (TextView) findViewById(R.id.tv_answer_title);
         tv_answer_count = (TextView) findViewById(R.id.tv_answer_count);
         iv_answer_selected = (ImageView) findViewById(R.id.iv_answer_selected);
@@ -179,12 +190,11 @@ public class AnswerActivity extends AppCompatActivity {
         laout_answer_question_card_d = (LinearLayout) findViewById(R.id.laout_answer_question_card_d);
 
 
-
     }
 
     private void initialize() {
 
-        rv_answer_reviews_list.setHasFixedSize(true);
+//        rv_answer_reviews_list.setHasFixedSize(true);
         rv_answer_reviews_list.setNestedScrollingEnabled(false);
 
 
@@ -210,6 +220,10 @@ public class AnswerActivity extends AppCompatActivity {
                             //"(총 00명이 참여)"
                             tv_answer_count.setText("(총 " + questionData.getData().getVote().getTotal() + "명이 참여)");
 
+
+                            //TODO: d타입 더보기 삭제 - 이미지, 데이터 바인딩 안됨
+                            if(questionType.equals("D"))
+                                ll_answer_open.setVisibility(View.GONE);
 
                             float percentage_1 = Math.round(((float) questionData.getData().getVote().getA() / (float) questionData.getData().getVote().getTotal()) * 100) / 100f;
                             float percentage_2 = Math.round(((float) questionData.getData().getVote().getB() / (float) questionData.getData().getVote().getTotal()) * 100) / 100f;
@@ -299,7 +313,7 @@ public class AnswerActivity extends AppCompatActivity {
 //                if (page != 0) {
 //                    lastReviewId = page;
 //                }
-                service.reviewList(questionId + "", "0" + "").enqueue(new Callback<ReviewsData>() {
+                service.reviewList(questionId + "", page + "").enqueue(new Callback<ReviewsData>() {
                     @Override
                     public void onResponse(Call<ReviewsData> call, retrofit2.Response<ReviewsData> response) {
                         rv_answer_reviews_list.setVisibility(View.VISIBLE);
@@ -314,6 +328,8 @@ public class AnswerActivity extends AppCompatActivity {
                                 currentPage = 0;
 
                             } else {
+
+
                                 ll_answer_reviews_empty.setVisibility(View.GONE);
                                 rv_answer_reviews_list.setVisibility(View.VISIBLE);
                                 if (currentPage != 0) {
@@ -335,11 +351,10 @@ public class AnswerActivity extends AppCompatActivity {
                                 }
 
                                 //pagination
-                                rv_answer_reviews_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                                scroll_answer.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
                                     @Override
-                                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                                        super.onScrollStateChanged(recyclerView, newState);
-                                        if (!rv_answer_reviews_list.canScrollVertically(1)) {
+                                    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                                        if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
                                             // 최하단
                                             // if direction -1 is 최상단
                                             if (!isLoading) {
@@ -348,13 +363,29 @@ public class AnswerActivity extends AppCompatActivity {
                                                 isLoading = true;
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                                        super.onScrolled(recyclerView, dx, dy);
                                     }
                                 });
+//                                rv_answer_reviews_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                                    @Override
+//                                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                                        super.onScrollStateChanged(recyclerView, newState);
+//                                        if (!rv_answer_reviews_list.canScrollVertically(1)) {
+//                                            // 최하단
+//                                            // if direction -1 is 최상단
+//                                            if (!isLoading) {
+//                                                currentPage = reviewsLists.get(reviewsLists.size() - 1).getId();
+//                                                reviewsList(currentPage);
+//                                                isLoading = true;
+//                                            }
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                                        super.onScrolled(recyclerView, dx, dy);
+//                                    }
+//                                });
                             }//end else list is empty
 
                         } else {
@@ -448,7 +479,6 @@ public class AnswerActivity extends AppCompatActivity {
             ll_answer_fold.setVisibility(View.VISIBLE);
 
 
-
             switch (questionType) {
                 case "B":
                     iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
@@ -479,6 +509,8 @@ public class AnswerActivity extends AppCompatActivity {
                     }
                     break;
                 case "D":
+                    ll_answer_open.setVisibility(View.GONE);
+
                     iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
                     iv_answer_a_img = (ImageView) findViewById(R.id.iv_answer_a_img);
                     iv_answer_b_img = (ImageView) findViewById(R.id.iv_answer_b_img);
@@ -487,15 +519,11 @@ public class AnswerActivity extends AppCompatActivity {
 
                     laout_answer_question_card_d.setVisibility(View.VISIBLE);
                     if (questionData.getData().getDetail().getImgQ() != null && questionData.getData().getDetail().getImgQ() != "") {
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ())
-                                .fit().centerCrop()
-                                .into(iv_question_img);
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ()).fit().centerCrop().into(iv_question_img);
                     }
                     if (questionData.getData().getDetail().getImgA() != null && questionData.getData().getDetail().getImgA() != "") {
                         String path = ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA();
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA())
-                                .fit().centerCrop()
-                                .into(iv_answer_a_img);
+                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA()).fit().centerCrop().into(iv_answer_a_img);
                     }
                     if (questionData.getData().getDetail().getImgB() != null && questionData.getData().getDetail().getImgB() != "") {
                         Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgB()).fit().centerCrop().into(iv_answer_b_img);

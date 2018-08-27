@@ -1,10 +1,12 @@
 package banchan.nexters.com.nanigoandroid.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.VideoView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -15,6 +17,8 @@ public class OnBoard01Fragment extends Fragment {
     private Boolean isStarted = false;
     private Boolean isVisible = false;
     private Boolean isPlayed = false;
+
+//    VideoView vv_onboard_01;
 
 
 
@@ -29,6 +33,7 @@ public class OnBoard01Fragment extends Fragment {
         View v=(View)inflater.inflate(R.layout.layout_onboard_pager_01,container,false);
          lottie_onboard_01 = (LottieAnimationView)v.findViewById(R.id.lottie_onboard_01);
         lottie_onboard_01.setImageAssetsFolder("images/");
+//        vv_onboard_01 = (VideoView)v.findViewById(R.id.vv_onboard_01);
         return v;
     }
 
@@ -58,6 +63,11 @@ public class OnBoard01Fragment extends Fragment {
     private void setAnimation(){
         if(!isPlayed){
             lottie_onboard_01.playAnimation();
+//            String uriPath = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.nanigo_onboarding_01;
+//
+//            vv_onboard_01.setVideoURI(Uri.parse(uriPath));
+//            vv_onboard_01.requestFocus();
+//                    vv_onboard_01.start();
             isPlayed=true;
         }
     }

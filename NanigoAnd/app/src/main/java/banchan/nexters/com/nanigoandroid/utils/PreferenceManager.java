@@ -112,6 +112,19 @@ public class PreferenceManager {
 
 
 
+    private String USERNAME = "USERNAME";
+
+    public void setUserName(String key) {
+        mEditor.putString(USERNAME, key);
+        mEditor.apply();
+    }
+
+    public String getUserName() {
+        return mPrefs.getString(USERNAME, "");
+    }
+
+
+
 
     //clear
     public void clear(String key) {

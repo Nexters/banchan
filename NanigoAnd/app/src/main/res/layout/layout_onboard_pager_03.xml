@@ -35,8 +35,7 @@
         <TextView
             style="@style/tv_noto"
             android:gravity="center"
-            android:text="다른 나니들의 고민도 있다구요~
-당신의 생각을 솔직하고 빠르게 나니고!"
+            android:text="@string/onboard_desc_03"
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>

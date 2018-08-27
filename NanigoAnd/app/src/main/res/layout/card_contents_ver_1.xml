@@ -27,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="26sp"
+            android:breakStrategy="high_quality"
+            android:hyphenationFrequency="full"
             android:textColor="@color/question_text"
             android:text="전 남친한테 새벽에 연락왔는데 답장 해볼까?"
             android:layout_toRightOf="@id/tv_Q"
