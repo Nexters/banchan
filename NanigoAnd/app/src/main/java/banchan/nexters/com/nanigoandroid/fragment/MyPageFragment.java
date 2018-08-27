@@ -84,7 +84,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         tv_mypage_a_selected.setOnClickListener(this);
         tv_mypage_a_deselected.setOnClickListener(this);
 
-        tv_mypage_user.setText(PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserName()+"님");
+        tv_mypage_user.setText(PreferenceManager.getInstance(getActivity().getApplicationContext()).getUserName() + "님");
         if (tab.equals("A")) {
             mVotes(currentPage);
         } else {
@@ -138,7 +138,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                 adapter.notifyItemRangeInserted(adapter.getItemCount(), cardLists.size() - 1);
                             } else {
                                 cardLists = response.body().getData();
-                                adapter = new MypageAdapter(cardLists, tab, getActivity().getApplicationContext(),getActivity());
+                                adapter = new MypageAdapter(cardLists, tab, getActivity().getApplicationContext(), getActivity());
                                 rv_mypage_list.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
                                 ItemClickSupport.addTo(rv_mypage_list).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                                     @Override
@@ -235,8 +235,18 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                                 adapter.notifyItemRangeInserted(adapter.getItemCount(), cardLists.size() - 1);
                             } else {
                                 cardLists = response.body().getData();
-                                adapter = new MypageAdapter(cardLists, tab, getActivity().getApplicationContext(),getActivity());
+                                adapter = new MypageAdapter(cardLists, tab, getActivity().getApplicationContext(), getActivity());
                                 rv_mypage_list.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+                                ItemClickSupport.addTo(rv_mypage_list).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                                        Intent intent = new Intent(getActivity(), AnswerActivity.class);
+                                        intent.putExtra("QUESTIONID", cardLists.get(position).getId());
+                                        startActivity(intent);
+                                        getActivity().overridePendingTransition(0, R.anim.fade_in_reavel);
+
+                                    }
+                                });
                                 rv_mypage_list.setAdapter(adapter);
                             }
                             rv_mypage_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -330,10 +340,11 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        if (isVisible ){
+        if (isVisible) {
             init();
         }
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -343,17 +354,17 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         isVisible = isVisibleToUser;
-        if ( isVisible) {
+        if (isVisible) {
             init();
         }
     }
 
-    private void init(){
-        if(tab.equals("A")){
+    private void init() {
+        if (tab.equals("A")) {
             currentPage = 0;
             mVotes(currentPage);
             cardLists.clear();
-        }else if(tab.equals("B")){
+        } else if (tab.equals("B")) {
             currentPage = 0;
             mQuestions(currentPage);
             cardLists.clear();
