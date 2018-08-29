@@ -47,6 +47,7 @@ class QuestionCardFragment: Fragment(){
     lateinit var userId: String
     private val itemCount = 10
     private var mPosition = 0
+    private var requestCount = 0
 
     private val service = APIUtil.getService()
     private var mCardList: MutableList<QuestionCard> = mutableListOf()
@@ -72,10 +73,9 @@ class QuestionCardFragment: Fragment(){
             postVoteResult("B")
         }
 
-        userId = PreferenceManager.getInstance(activity).userId
-        userId = if(userId.isNullOrEmpty()) { 0.toString() } else { userId }
 
 
+        init()
         setup()
         //reload()
 
@@ -87,6 +87,14 @@ class QuestionCardFragment: Fragment(){
         val frag = QuestionCardFragment()
         frag.arguments = args
         return frag
+    }
+
+    private fun init() {
+
+        userId = PreferenceManager.getInstance(activity).userId
+        userId = if(userId.isNullOrEmpty()) { 0.toString() } else { userId }
+
+        mCardList.add(addLastCard(R.string.last_card))
     }
 
     private fun setup() {
@@ -138,8 +146,8 @@ class QuestionCardFragment: Fragment(){
 
     }
 
-    fun addLastCard(): QuestionCard {
-        val detail = CardDetailData(resources.getString(R.string.last_card))
+    fun addLastCard(stringId: Int): QuestionCard {
+        val detail = CardDetailData(resources.getString(stringId))
         val lastCard = QuestionCard(-1, 0, " ", "A", "UNDECIDED", -1, detail, Vote(0, 0, 0), 0, Tag(false, false, false))
         //mItemList.add(mItemList.size, lastCard)
         return lastCard
@@ -154,19 +162,29 @@ class QuestionCardFragment: Fragment(){
                         val result = response.body()
                         if(result != null) {
                             if (result.type == "SUCCESS") {
-                                val newList: MutableList<QuestionCard> = result.data
-                                newList.add(newList.size, addLastCard())
-                                if(mCardList.size > 0 && lastOrder != 0) {
-                                    mCardList.removeAt(mCardList.size-1)
-                                    mCardList.addAll(newList)
+
+                                if(result.data.size > 0) {
+                                    //질문 카드가 존재하는 경우
+                                    val newList: MutableList<QuestionCard> = result.data
+                                    newList.add(newList.size, addLastCard(R.string.last_card))
+                                    if (mCardList.size > 0 && lastOrder != 0) {
+                                        mCardList.removeAt(mCardList.size - 1)
+                                        mCardList.addAll(newList)
+                                    } else {
+                                        mAdapter = null
+                                        mCardList.clear()
+                                        mCardList.addAll(newList)
+                                        mPosition = 0
+                                    }
                                 } else {
+                                    //모든 카드를 답변한 경우, 표시할 질문 카드가 없는 경우
                                     mAdapter = null
                                     mCardList.clear()
-                                    mCardList.addAll(newList)
+                                    mCardList.add(addLastCard(R.string.last_card))
                                     mPosition = 0
                                 }
 
-                                if(mAdapter == null) {
+                                if (mAdapter == null) {
                                     mAdapter = SnappyAdapter(mCardList)
                                     mSnappyView.adapter = mAdapter
                                     mFlipListener = mAdapter!!.getListener()
@@ -175,20 +193,26 @@ class QuestionCardFragment: Fragment(){
                                     mAdapter!!.notifyItemRangeChanged(mPosition, mCardList.size)
                                 }
                                 //Toast.makeText(context, resources.getString(R.string.get_list_success), Toast.LENGTH_LONG).show()
-                                Log.i(TAG, "getCardList :"+ resources.getString(R.string.get_list_success))
+                                Log.i(TAG, "getCardList :" + resources.getString(R.string.get_list_success))
+
 
                                 MyApplication.get().progressOFF()
                             } else {
                                 if(result.reason == "QuestionNotFound") {
-                                    mBtnO.isClickable = false
-                                    mBtnX.isClickable = false
-                                    Handler().postDelayed({
-                                        MyApplication.get().progressON(activity)
-                                        Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_LONG).show()
-                                        getCardList(0)
-                                        mBtnO.isClickable = true
-                                        mBtnX.isClickable = true
-                                    }, 2000)
+                                    if(requestCount < 3) {
+                                        mBtnO.isClickable = false
+                                        mBtnX.isClickable = false
+                                        Handler().postDelayed({
+                                            MyApplication.get().progressON(activity)
+                                            Toast.makeText(context, resources.getString(R.string.data_empty), Toast.LENGTH_SHORT).show()
+                                            getCardList(0)
+                                            mBtnO.isClickable = true
+                                            mBtnX.isClickable = true
+                                        }, 2000)
+                                        requestCount++
+                                    } else {
+                                        Toast.makeText(context, resources.getString(R.string.last_card), Toast.LENGTH_SHORT).show()
+                                    }
                                     MyApplication.get().progressOFF()
 
                                 } else {
