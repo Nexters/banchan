@@ -1,10 +1,16 @@
 package banchan.nexters.com.nanigoandroid.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.GradientDrawable
 import android.util.Base64
 import android.util.Log
+import android.widget.ImageView
+import banchan.nexters.com.nanigoandroid.R
+import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
+
 
 class ImageUtil {
 
@@ -35,5 +41,23 @@ class ImageUtil {
         val decodedBytes = Base64.decode(encodedString, Base64.DEFAULT)
         val decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
         return decodedBitmap
+    }
+
+    fun setImage(context: Context, url: String, view: ImageView) {
+        Picasso.get().load(url).fit().centerCrop().into(view)
+        val drawable = context.getDrawable(R.drawable.bg_rounding) as GradientDrawable
+        view.run {
+            background = drawable
+            clipToOutline = true
+        }
+    }
+
+    fun setImage(context: Context, id: Int, view: ImageView) {
+        Picasso.get().load(id).fit().centerCrop().into(view)
+        val drawable = context.getDrawable(R.drawable.bg_rounding) as GradientDrawable
+        view.run {
+            background = drawable
+            clipToOutline = true
+        }
     }
 }

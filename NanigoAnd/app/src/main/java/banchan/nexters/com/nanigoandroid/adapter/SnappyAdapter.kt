@@ -24,7 +24,6 @@ import banchan.nexters.com.nanigoandroid.utils.ImageUtil
 import banchan.nexters.com.nanigoandroid.utils.IsOnline
 import banchan.nexters.com.nanigoandroid.utils.PreferenceManager
 import com.google.gson.JsonObject
-import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -130,10 +129,12 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             (holder as BHolder).mQuestion.text = txt_q
             if(itemDetail.IMG_Q.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_Q
-                Picasso.get().load(url).fit().centerCrop().into((holder as BHolder).mImageQ)
+                ImageUtil().setImage(mContext!!, url, (holder as BHolder).mImageQ)
+                //Picasso.get().load(url).fit().centerCrop().into((holder as BHolder).mImageQ)
                 imageList.add(url)
             } else {
-                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as BHolder).mImageQ)
+                ImageUtil().setImage(mContext!!, R.drawable.default_pattern, (holder as BHolder).mImageQ)
+                //Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as BHolder).mImageQ)
             }
         } else if (holder is CHolder){
             (holder as CHolder).mQuestion.text = txt_q
@@ -141,42 +142,52 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             (holder as CHolder).mTextB.text = itemDetail.TXT_B
             if(itemDetail.IMG_A.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_A
-                Picasso.get().load(url).fit().centerCrop().into((holder as CHolder).mImageA)
+                ImageUtil().setImage(mContext!!, url, (holder as CHolder).mImageA)
+                //Picasso.get().load(url).fit().centerCrop().into((holder as CHolder).mImageA)
                 imageList.add(url)
             } else {
-                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageA)
+                ImageUtil().setImage(mContext!!, R.drawable.default_pattern, (holder as CHolder).mImageA)
+                //Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageA)
             }
             if(itemDetail.IMG_B.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_B
-                Picasso.get().load(url).fit().centerCrop().into((holder as CHolder).mImageB)
+                ImageUtil().setImage(mContext!!, url, (holder as CHolder).mImageB)
+                //Picasso.get().load(url).fit().centerCrop().into((holder as CHolder).mImageB)
                 imageList.add(url)
             } else {
-                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageB)
+                ImageUtil().setImage(mContext!!, R.drawable.default_pattern, (holder as CHolder).mImageB)
+                //Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as CHolder).mImageB)
             }
         } else {
             (holder as DHolder).mQuestion.text = txt_q
             if(itemDetail.IMG_Q.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_Q
-                Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageQ)
+                ImageUtil().setImage(mContext!!, url, (holder as DHolder).mImageQ)
+                //Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageQ)
                 imageList.add(url)
             } else {
-                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageQ)
+                ImageUtil().setImage(mContext!!, R.drawable.default_pattern, (holder as DHolder).mImageQ)
+                //Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageQ)
             }
             (holder as DHolder).mTextA.text = itemDetail.TXT_A
             (holder as DHolder).mTextB.text = itemDetail.TXT_B
             if(itemDetail.IMG_A.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_A
-                Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageA)
+                ImageUtil().setImage(mContext!!, url, (holder as DHolder).mImageA)
+                //Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageA)
                 imageList.add(url)
             } else {
-                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageA)
+                ImageUtil().setImage(mContext!!, R.drawable.default_pattern, (holder as DHolder).mImageA)
+                //Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageA)
             }
             if(itemDetail.IMG_B.isNotBlank()) {
                 val url = ImageUtil.baseURL + itemDetail.IMG_B
-                Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageB)
+                ImageUtil().setImage(mContext!!, url, (holder as DHolder).mImageB)
+                //Picasso.get().load(url).fit().centerCrop().into((holder as DHolder).mImageB)
                 imageList.add(url)
             } else {
-                Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageB)
+                ImageUtil().setImage(mContext!!, R.drawable.default_pattern, (holder as DHolder).mImageB)
+                //Picasso.get().load(R.drawable.default_pattern).fit().centerCrop().into((holder as DHolder).mImageB)
             }
         }
 
