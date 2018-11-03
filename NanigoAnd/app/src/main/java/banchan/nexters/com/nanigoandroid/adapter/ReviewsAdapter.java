@@ -159,7 +159,9 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(activityContext);
-                if (PreferenceManager.getInstance(applicationContext).getUserId().equals(reviewsList.getUesrId() + "")) {
+                String a = reviewsList.getUserId()+"";
+                String b = PreferenceManager.getInstance(applicationContext).getUserId();
+                if (PreferenceManager.getInstance(applicationContext).getUserId().equals(reviewsList.getUserId() + "")) {
                     // AlertDialog 셋팅
 
                     alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
@@ -207,24 +209,25 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                                 }
                             });
                         }
-                    }).setNegativeButton("삭제", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, int id) {
-                            deleteReviews(reviewsList.getId(), new mCallback() {
-                                @Override
-                                public void onSuccess() {
-                                    Toast.makeText(applicationContext, "삭제가 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                                    deleteItem(position);
-                                    dialog.dismiss();
-                                }
-
-                                @Override
-                                public void onFailure() {
-                                    Toast.makeText(applicationContext, applicationContext.getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                            });
-                        }
                     });
+//                            .setNegativeButton("삭제", new DialogInterface.OnClickListener() {
+//                        public void onClick(final DialogInterface dialog, int id) {
+//                            deleteReviews(reviewsList.getId(), new mCallback() {
+//                                @Override
+//                                public void onSuccess() {
+//                                    Toast.makeText(applicationContext, "삭제가 완료되었습니다!", Toast.LENGTH_SHORT).show();
+//                                    deleteItem(position);
+//                                    dialog.dismiss();
+//                                }
+//
+//                                @Override
+//                                public void onFailure() {
+//                                    Toast.makeText(applicationContext, applicationContext.getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                        }
+//                    });
 
                 }
 

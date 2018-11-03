@@ -248,6 +248,8 @@ private Activity activity;
                 break;
             case "C":
                 h.tv_question.setText(card.getDetail().getTXT_Q());
+                Picasso.get().load(ImageUtil.Companion.getBaseURL() + card.getDetail().getIMG_A()).fit().centerCrop().into(h.iv_answer_a_img);
+                Picasso.get().load(ImageUtil.Companion.getBaseURL() + card.getDetail().getIMG_B()).fit().centerCrop().into(h.iv_answer_b_img);
                 h.tv_txt_a.setText(card.getDetail().getTXT_A());
                 h.tv_txt_b.setText(card.getDetail().getTXT_B());
                 break;

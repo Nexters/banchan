@@ -13,9 +13,6 @@ public class ReviewsList {
     @SerializedName("questionId")
     @Expose
     private Integer questionId;
-    @SerializedName("uesrId")
-    @Expose
-    private Integer uesrId;
     @SerializedName("content")
     @Expose
     private String content;
@@ -53,13 +50,6 @@ public class ReviewsList {
         this.questionId = questionId;
     }
 
-    public Integer getUesrId() {
-        return uesrId;
-    }
-
-    public void setUesrId(Integer uesrId) {
-        this.uesrId = uesrId;
-    }
 
     public String getContent() {
         return content;

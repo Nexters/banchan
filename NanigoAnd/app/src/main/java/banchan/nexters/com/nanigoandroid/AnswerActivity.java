@@ -222,8 +222,8 @@ public class AnswerActivity extends AppCompatActivity {
 
 
                             //TODO: d타입 더보기 삭제 - 이미지, 데이터 바인딩 안됨
-                            if(questionType.equals("D"))
-                                ll_answer_open.setVisibility(View.GONE);
+//                            if(questionType.equals("D"))
+//                                ll_answer_open.setVisibility(View.GONE);
 
                             float percentage_1 = Math.round(((float) questionData.getData().getVote().getA() / (float) questionData.getData().getVote().getTotal()) * 100) / 100f;
                             float percentage_2 = Math.round(((float) questionData.getData().getVote().getB() / (float) questionData.getData().getVote().getTotal()) * 100) / 100f;
@@ -475,31 +475,34 @@ public class AnswerActivity extends AppCompatActivity {
 
     private void visibleDetail(boolean isVisible) {
         if (isVisible) {
+
+            iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
+            iv_answer_a_img = (ImageView) findViewById(R.id.iv_answer_a_img);
+            iv_answer_b_img = (ImageView) findViewById(R.id.iv_answer_b_img);
+            tv_txt_a = (TextView) findViewById(R.id.tv_txt_a);
+            tv_txt_b = (TextView) findViewById(R.id.tv_txt_b);
+
+
             ll_answer_open.setVisibility(View.GONE);
             ll_answer_fold.setVisibility(View.VISIBLE);
 
 
             switch (questionType) {
                 case "B":
-                    iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
-
                     laout_answer_question_card_b.setVisibility(View.VISIBLE);
                     if (questionData.getData().getDetail().getImgQ() != null && questionData.getData().getDetail().getImgQ() != "") {
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ()).fit().centerCrop().into(iv_question_img);
+                        new ImageUtil().setImage(getApplicationContext(),ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ(),iv_question_img );
                     }
                     break;
                 case "C":
-                    iv_answer_a_img = (ImageView) findViewById(R.id.iv_answer_a_img);
-                    iv_answer_b_img = (ImageView) findViewById(R.id.iv_answer_b_img);
-                    tv_txt_a = (TextView) findViewById(R.id.tv_txt_a);
-                    tv_txt_b = (TextView) findViewById(R.id.tv_txt_b);
 
                     laout_answer_question_card_c.setVisibility(View.VISIBLE);
                     if (questionData.getData().getDetail().getImgA() != null && questionData.getData().getDetail().getImgA() != "") {
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA()).fit().centerCrop().into(iv_answer_a_img);
+                        new ImageUtil().setImage(getApplicationContext(),ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA(),iv_answer_a_img );
                     }
                     if (questionData.getData().getDetail().getImgB() != null && questionData.getData().getDetail().getImgB() != "") {
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgB()).fit().centerCrop().into(iv_answer_b_img);
+                        new ImageUtil().setImage(getApplicationContext(),ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgB(),iv_answer_b_img );
+
                     }
                     if (questionData.getData().getDetail().getTxtA() != null && questionData.getData().getDetail().getTxtA() != "") {
                         tv_txt_a.setText(questionData.getData().getDetail().getTxtA());
@@ -509,24 +512,21 @@ public class AnswerActivity extends AppCompatActivity {
                     }
                     break;
                 case "D":
-                    ll_answer_open.setVisibility(View.GONE);
-
-                    iv_question_img = (ImageView) findViewById(R.id.iv_question_img);
-                    iv_answer_a_img = (ImageView) findViewById(R.id.iv_answer_a_img);
-                    iv_answer_b_img = (ImageView) findViewById(R.id.iv_answer_b_img);
-                    tv_txt_a = (TextView) findViewById(R.id.tv_txt_a);
-                    tv_txt_b = (TextView) findViewById(R.id.tv_txt_b);
+//                    ll_answer_open.setVisibility(View.GONE);
 
                     laout_answer_question_card_d.setVisibility(View.VISIBLE);
                     if (questionData.getData().getDetail().getImgQ() != null && questionData.getData().getDetail().getImgQ() != "") {
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ()).fit().centerCrop().into(iv_question_img);
+                        new ImageUtil().setImage(getApplicationContext(),ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgQ(),iv_question_img );
+
                     }
                     if (questionData.getData().getDetail().getImgA() != null && questionData.getData().getDetail().getImgA() != "") {
                         String path = ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA();
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA()).fit().centerCrop().into(iv_answer_a_img);
+                        new ImageUtil().setImage(getApplicationContext(),ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgA(),iv_answer_a_img );
+
                     }
                     if (questionData.getData().getDetail().getImgB() != null && questionData.getData().getDetail().getImgB() != "") {
-                        Picasso.get().load(ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgB()).fit().centerCrop().into(iv_answer_b_img);
+                        new ImageUtil().setImage(getApplicationContext(),ImageUtil.Companion.getBaseURL() + questionData.getData().getDetail().getImgB(),iv_answer_b_img );
+
                     }
                     if (questionData.getData().getDetail().getTxtA() != null && questionData.getData().getDetail().getTxtA() != "") {
                         tv_txt_a.setText(questionData.getData().getDetail().getTxtA());
