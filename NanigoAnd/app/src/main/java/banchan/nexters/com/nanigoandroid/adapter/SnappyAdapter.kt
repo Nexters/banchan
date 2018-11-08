@@ -87,12 +87,12 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
         (holder as CardHolder).mBadgeRandom.visibility = if(item.tag.random) { View.VISIBLE } else { View.GONE }
         (holder as CardHolder).mQmark.setTextColor(colors[position%5])
 
-        if(item.id == -1 && item.order == 0) {
+        /*if(item.id == -1 && item.order == 0) {
             (holder as CardHolder).mBottom.visibility = View.INVISIBLE
 
         } else {
             (holder as CardHolder).mBottom.visibility = View.VISIBLE
-        }
+        }*/
 
         (holder as CardHolder).mReport.setOnClickListener(View.OnClickListener {
             val alert = AlertDialog.Builder(mContext)
@@ -326,7 +326,7 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
         var mBadgeRandom: ImageView
         var mQmark: TextView
         var mReport: ImageView
-        var mBottom: ConstraintLayout
+        //var mBottom: ConstraintLayout
 
         init {
             mCard = view.findViewById(R.id.cl_card)
@@ -341,7 +341,7 @@ class SnappyAdapter(var mItemList: MutableList<QuestionCard>) : RecyclerView.Ada
             mBadgeRandom = view.findViewById(R.id.iv_badge3)
             mQmark = view.findViewById(R.id.tv_Q)
             mReport = view.findViewById(R.id.iv_question_report)
-            mBottom = view.findViewById(R.id.rl_sub_info)
+            //mBottom = view.findViewById(R.id.rl_sub_info)
         }
     }
 
